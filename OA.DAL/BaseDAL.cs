@@ -1,5 +1,7 @@
-﻿using System;
+﻿using OA.Model;
+using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,25 +11,27 @@ namespace OA.DAL
     public class BaseDAL<T>where T:class,new()
     {
 
-        OAEntities Db = new OAEntities();
+        DbContext Db = DBContextFactory.CreateDbContext();
 
         public bool AddEntity(T entity)
         {
             Db.Set<T>().Add(entity);
-            return Db.SaveChanges() > 0;
+            return true;
 
         }
 
         public bool DeleteEntity(T entity)
         {
             Db.Entry<T>(entity).State = System.Data.Entity.EntityState.Deleted;
-            return Db.SaveChanges() > 0;
+            return true;
+
         }
 
         public bool EditEntity(T entity)
         {
             Db.Entry<T>(entity).State = System.Data.Entity.EntityState.Modified;
-            return Db.SaveChanges() > 0;
+            return true;
+
 
         }
 
