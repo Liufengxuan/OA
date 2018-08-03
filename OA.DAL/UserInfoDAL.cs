@@ -10,5 +10,9 @@ namespace OA.DAL
 {
     public class UserInfoDAL :BaseDAL<UserInfo>,IUserInfoDAL
     {
+        public void add()  //test
+        {
+            int a = 1;
+        }
     }
 }

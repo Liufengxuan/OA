@@ -19,7 +19,7 @@ namespace OA.DALFactory
 
         public static IUserInfoDAL CreateUserInfoDal()
         {
-            string fullClassName = NameSpace + ".UserInfoDal";
+            string fullClassName = NameSpace + ".UserInfoDAL";
             return CreateInstance(fullClassName) as IUserInfoDAL;
         }
         public static object CreateInstance(string className)

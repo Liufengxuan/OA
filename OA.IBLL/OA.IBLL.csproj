@@ -40,7 +40,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IBaseService.cs" />
+    <Compile Include="IUserInfoService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\OA.IDAL\OA.IDAL.csproj">
+      <Project>{038b257d-a949-434f-83dd-021ae2466785}</Project>
+      <Name>OA.IDAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\OA.Model\OA.Model.csproj">
+      <Project>{24290df4-44c6-43e3-9a28-422b8b0f01f3}</Project>
+      <Name>OA.Model</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

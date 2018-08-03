@@ -15,7 +15,7 @@ namespace OA.DALFactory
     /// 工厂类，负责完成所有数据操作类实例的创建。然后业务层通过数据会话层来获取要数据操作类的实例。
     ///提供 OAEntities（DbContext）的SaveChange统一调用。
     /// </summary>
-    public class DBSession
+    public class DBSession:IDBSession
     {
 
         /// <summary>
