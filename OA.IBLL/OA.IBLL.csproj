@@ -40,7 +40,33 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IBaseService.cs" />
+    <Compile Include="IBLL_Template.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>IBLL_Template.tt</DependentUpon>
+    </Compile>
+    <Compile Include="IUserInfoService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\OA.IDAL\OA.IDAL.csproj">
+      <Project>{038b257d-a949-434f-83dd-021ae2466785}</Project>
+      <Name>OA.IDAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\OA.Model\OA.Model.csproj">
+      <Project>{24290df4-44c6-43e3-9a28-422b8b0f01f3}</Project>
+      <Name>OA.Model</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="IBLL_Template.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>IBLL_Template.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

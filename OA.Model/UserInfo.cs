@@ -14,6 +14,14 @@ namespace OA.Model
     
     public partial class UserInfo
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public UserInfo()
+        {
+            this.R_UserInfo_ActionInfo = new HashSet<R_UserInfo_ActionInfo>();
+            this.Department = new HashSet<Department>();
+            this.RoleInfo = new HashSet<RoleInfo>();
+        }
+    
         public int ID { get; set; }
         public string UName { get; set; }
         public string UPwd { get; set; }
@@ -22,5 +30,12 @@ namespace OA.Model
         public System.DateTime ModifiedOn { get; set; }
         public string Remark { get; set; }
         public string Sort { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<R_UserInfo_ActionInfo> R_UserInfo_ActionInfo { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Department> Department { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<RoleInfo> RoleInfo { get; set; }
     }
 }

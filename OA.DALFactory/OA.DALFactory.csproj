@@ -45,7 +45,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AbstractFactory.cs" />
+    <Compile Include="AbstractFactory_Template.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AbstractFactory_Template.tt</DependentUpon>
+    </Compile>
     <Compile Include="DBSession.cs" />
+    <Compile Include="DBSessionFactory.cs" />
+    <Compile Include="DBSession_Template.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DBSession_Template.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -61,6 +72,19 @@
       <Project>{24290df4-44c6-43e3-9a28-422b8b0f01f3}</Project>
       <Name>OA.Model</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="AbstractFactory_Template.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>AbstractFactory_Template.cs</LastGenOutput>
+    </Content>
+    <Content Include="DBSession_Template.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>DBSession_Template.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
