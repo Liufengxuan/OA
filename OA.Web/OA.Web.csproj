@@ -224,6 +224,13 @@
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
+<<<<<<< HEAD
+=======
+    <ProjectReference Include="..\OA.BLL\OA.BLL.csproj">
+      <Project>{13a5e1ae-1b84-46ce-b540-2a345dfba6e5}</Project>
+      <Name>OA.BLL</Name>
+    </ProjectReference>
+>>>>>>> 8d3cf80f65d2dc88b1ae460a00f3210b12c90b89
     <ProjectReference Include="..\OA.IBLL\OA.IBLL.csproj">
       <Project>{5f7cf57e-db23-469d-8f25-ac39061c04b9}</Project>
       <Name>OA.IBLL</Name>
@@ -232,10 +239,13 @@
       <Project>{24290df4-44c6-43e3-9a28-422b8b0f01f3}</Project>
       <Name>OA.Model</Name>
     </ProjectReference>
+<<<<<<< HEAD
     <ProjectReference Include="..\ServiceFactory\ServiceFactory.csproj">
       <Project>{ae92119d-9fb1-44f2-b134-875af4e49d67}</Project>
       <Name>ServiceFactory</Name>
     </ProjectReference>
+=======
+>>>>>>> 8d3cf80f65d2dc88b1ae460a00f3210b12c90b89
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

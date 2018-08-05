@@ -41,11 +41,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IBaseService.cs" />
+<<<<<<< HEAD
     <Compile Include="IBLL_Template.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>IBLL_Template.tt</DependentUpon>
     </Compile>
+=======
+>>>>>>> 8d3cf80f65d2dc88b1ae460a00f3210b12c90b89
     <Compile Include="IUserInfoService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -59,6 +62,7 @@
       <Name>OA.Model</Name>
     </ProjectReference>
   </ItemGroup>
+<<<<<<< HEAD
   <ItemGroup>
     <Content Include="IBLL_Template.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -68,5 +72,7 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
+=======
+>>>>>>> 8d3cf80f65d2dc88b1ae460a00f3210b12c90b89
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
