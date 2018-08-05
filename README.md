@@ -6,7 +6,7 @@
 
 
 0803：解决BLL中的BaseService<T> 不能写死里面负责增删该查的某一个DAL类：
-		1.-->将这个类设置为抽象类
+		//1.-->将这个类设置为抽象类
 	public abstract class BaseService<T> where T:class,new()
     {
         public IDBSession CurrentDBSession
@@ -17,14 +17,18 @@
             }
         }
 
-        2.-->用来存储一个具体的数据操作类。
+        //2.-->用来存储一个具体的数据操作类。
         public IBaseDAL<T> CurrentDal { get; set; }
 
 
-        3.-->子类必须重写这个方法来给此类中的 CurrentDal字段赋值一个具体的数据操作类！
+       // 3.-->子类必须重写这个方法来给此类中的 CurrentDal字段赋值一个具体的数据操作类！
         public abstract void SetCurrentDal();
 
         public BaseService()
         {
             SetCurrentDal();
         }
+		
+		
+0804：数据操作相关类 全部使用tt模板、编译时自动生成。
+	  登陆页面+登陆前表单检查。

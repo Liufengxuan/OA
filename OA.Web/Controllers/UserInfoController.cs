@@ -8,10 +8,10 @@ using ServiceFactory;
 
 namespace OA.Web.Controllers
 {
-    public class UserInfoController : Controller
+    public class UserInfoController : BaseController
     {
          IBLL.IUserInfoService userInfoService = SevSession.GetUserInfoService();
-        IBLL.IRoleInfoService roleInfoService = SevSession.GetRoleInfoService();
+         IBLL.IRoleInfoService roleInfoService = SevSession.GetRoleInfoService();
        
         // GET: UserInfo
         public ActionResult Index()

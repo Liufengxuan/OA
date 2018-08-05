@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 
-namespace CZBK.ItcastOA.Common
+namespace OA.Common
 {
    public class ValidateCode
     {
