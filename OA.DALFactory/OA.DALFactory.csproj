@@ -52,20 +52,11 @@
     </Compile>
     <Compile Include="DBSession.cs" />
     <Compile Include="DBSessionFactory.cs" />
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
->>>>>>> d6dbcb7fee3131fe06fc014bb208dea987800b64
     <Compile Include="DBSession_Template.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>DBSession_Template.tt</DependentUpon>
     </Compile>
-<<<<<<< HEAD
-=======
-=======
->>>>>>> 8d3cf80f65d2dc88b1ae460a00f3210b12c90b89
->>>>>>> d6dbcb7fee3131fe06fc014bb208dea987800b64
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
