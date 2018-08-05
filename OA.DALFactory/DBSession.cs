@@ -15,7 +15,7 @@ namespace OA.DALFactory
     /// 工厂类，负责完成所有数据操作类实例的创建。然后业务层通过数据会话层来获取要数据操作类的实例。
     ///提供 OAEntities（DbContext）的SaveChange统一调用。
     /// </summary>
-    public class DBSession
+    internal partial class DBSession:IDBSession
     {
 
         /// <summary>
@@ -31,23 +31,23 @@ namespace OA.DALFactory
 
 
 
-        private IUserInfoDAL _userInfoDal;
-        //通过调用抽象工厂创建类的实例。
-        public IUserInfoDAL UserInfoDal
-        {
-            get
-            {
-                if (_userInfoDal == null)
-                {
-                    _userInfoDal = AbstractFactory.CreateUserInfoDal();
-                }
-                return _userInfoDal;
-            }
-            set
-            {
-                _userInfoDal = value;
-            }
-        }
+        //private IUserInfoDAL _userInfoDal;
+        ////通过调用抽象工厂创建类的实例。
+        //public IUserInfoDAL UserInfoDal
+        //{
+        //    get
+        //    {
+        //        if (_userInfoDal == null)
+        //        {
+        //            _userInfoDal = AbstractFactory.CreateUserInfoDal();
+        //        }
+        //        return _userInfoDal;
+        //    }
+        //    set
+        //    {
+        //        _userInfoDal = value;
+        //    }
+        //}
 
 
 

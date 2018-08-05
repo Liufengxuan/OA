@@ -26,5 +26,12 @@ namespace OA.Model
         }
     
         public virtual DbSet<UserInfo> UserInfo { get; set; }
+        public virtual DbSet<ActionInfo> ActionInfo { get; set; }
+        public virtual DbSet<Books> Books { get; set; }
+        public virtual DbSet<Department> Department { get; set; }
+        public virtual DbSet<KeyWordsRank> KeyWordsRank { get; set; }
+        public virtual DbSet<R_UserInfo_ActionInfo> R_UserInfo_ActionInfo { get; set; }
+        public virtual DbSet<RoleInfo> RoleInfo { get; set; }
+        public virtual DbSet<SearchDetails> SearchDetails { get; set; }
     }
 }
