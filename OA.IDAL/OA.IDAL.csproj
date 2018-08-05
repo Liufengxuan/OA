@@ -43,8 +43,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IDAL_Template.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>IDAL_Template.tt</DependentUpon>
+    </Compile>
     <Compile Include="IDBSession.cs" />
     <Compile Include="IBaseDAL.cs" />
+    <Compile Include="IDBSession_Template.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>IDBSession_Template.tt</DependentUpon>
+    </Compile>
     <Compile Include="IUserInfoDAL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -53,6 +63,19 @@
       <Project>{24290df4-44c6-43e3-9a28-422b8b0f01f3}</Project>
       <Name>OA.Model</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="IDAL_Template.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>IDAL_Template.cs</LastGenOutput>
+    </Content>
+    <Content Include="IDBSession_Template.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>IDBSession_Template.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

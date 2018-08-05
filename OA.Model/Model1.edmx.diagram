@@ -6,6 +6,19 @@
     <edmx:Diagrams>
       <Diagram DiagramId="cb4b3ad35828464da01fcf03ad0c7b89" Name="Diagram1">
         <EntityTypeShape EntityType="OAModel.UserInfo" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="OAModel.ActionInfo" Width="1.5" PointX="0.75" PointY="7.75" />
+        <EntityTypeShape EntityType="OAModel.Books" Width="1.5" PointX="5.625" PointY="0.75" />
+        <EntityTypeShape EntityType="OAModel.Department" Width="1.5" PointX="3" PointY="10.375" />
+        <EntityTypeShape EntityType="OAModel.KeyWordsRank" Width="1.5" PointX="7.625" PointY="0.75" />
+        <EntityTypeShape EntityType="OAModel.R_UserInfo_ActionInfo" Width="1.5" PointX="5.25" PointY="5.375" />
+        <EntityTypeShape EntityType="OAModel.RoleInfo" Width="1.5" PointX="3" PointY="7" />
+        <EntityTypeShape EntityType="OAModel.SearchDetails" Width="1.5" PointX="7.625" PointY="3.75" />
+        <AssociationConnector Association="OAModel.FK_ActionInfoR_UserInfo_ActionInfo" />
+        <AssociationConnector Association="OAModel.FK_UserInfoR_UserInfo_ActionInfo" />
+        <AssociationConnector Association="OAModel.DepartmentActionInfo" />
+        <AssociationConnector Association="OAModel.RoleInfoActionInfo" />
+        <AssociationConnector Association="OAModel.UserInfoDepartment" />
+        <AssociationConnector Association="OAModel.UserInfoRoleInfo" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

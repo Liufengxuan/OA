@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace OA.IDAL
 {
     //数据会话层的接口。
-    public interface IDBSession
+    public partial interface IDBSession
     {
         DbContext Db { get; }
         bool SaveChanges();
@@ -20,7 +20,7 @@ namespace OA.IDAL
 
 
 
-         IUserInfoDAL UserInfoDal { get; set; }
+
         
 
     }

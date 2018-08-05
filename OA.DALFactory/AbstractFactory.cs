@@ -12,16 +12,16 @@ namespace OA.DALFactory
     /// <summary>
     /// 通过反射的形式创建类的实例。
     /// </summary>
-      public class AbstractFactory
+      public partial class AbstractFactory
     {
         private static readonly string AssemblyPath = ConfigurationManager.AppSettings["AssemblyPath"];
         private static readonly string NameSpace = ConfigurationManager.AppSettings["NameSpace"];
 
-        public static IUserInfoDAL CreateUserInfoDal()
-        {
-            string fullClassName = NameSpace + ".UserInfoDal";
-            return CreateInstance(fullClassName) as IUserInfoDAL;
-        }
+        //public static IUserInfoDAL CreateUserInfoDal()
+        //{
+        //    string fullClassName = NameSpace + ".UserInfoDAL";
+        //    return CreateInstance(fullClassName) as IUserInfoDAL;
+        //}
         public static object CreateInstance(string className)
         {
             var assembly= Assembly.Load(AssemblyPath);

@@ -8,7 +8,7 @@ using System.Linq.Expressions;
 
 namespace OA.IDAL
 {
-  public  interface IUserInfoDAL:IBaseDAL<UserInfo>
+  public partial  interface IUserInfoDAL:IBaseDAL<UserInfo>
     {
        
         
