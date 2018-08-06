@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CZBK.ItcastOA.Common
+namespace OA.Common
 {
    public class SerializeHelper
     {
