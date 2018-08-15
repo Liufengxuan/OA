@@ -40,15 +40,16 @@ namespace OA.Web.Controllers
             {
                 return Content("no:密码错误");
             }
-            if (from.checkpwd !=null)
+            if (from.checkpwd != null)
             {
-                Response.Cookies["userinfo"].Value =SerializeHelper.SerializeToString( userInfo);//登陆成功将userinfo写入cookies
+                Response.Cookies["userinfo"].Value = SerializeHelper.SerializeToString(userInfo);//登陆成功将userinfo写入cookies
             }
+            else {
+                Response.Cookies[""].Value ="";
+            }
+            string userInfoSID= MemcacheHelper.Set(SerializeHelper.SerializeToString(userInfo), DateTime.Now.AddMinutes(20));
+            Response.Cookies["userInfoSID"].Value = userInfoSID;
             return Content("ok:登陆成功");
-            
-
-
-
         }
 
         [HttpGet]
@@ -58,7 +59,7 @@ namespace OA.Web.Controllers
             string code = vliateCode.CreateValidateCode(4);//产生验证码
             string sId= MemcacheHelper.Set(code, DateTime.Now.AddMinutes(20));
             Response.Cookies["sessionId"].Value = sId;
-            byte[] buffer = vliateCode.CreateValidateGraphic(code);//将验证码画到画布上.
+            byte[] buffer = vliateCode.CreateValidateGraphic(code);
             return File(buffer, "image/jpeg");
         }
 

@@ -28,5 +28,36 @@ namespace OA.Common
        {
           return JsonConvert.DeserializeObject<T>(str);
        }
+        public static string JsonRegex(string jsonInput)
+        {
+            string result = string.Empty;
+            try
+            {
+                string pattern = "\"(\\w+)\"(\\s*:\\s*)";
+                string replacement = "$1$2";
+                System.Text.RegularExpressions.Regex rgx = new System.Text.RegularExpressions.Regex(pattern);
+                result = rgx.Replace(jsonInput, replacement);
+            }
+            catch (Exception ex)
+            {
+                result = jsonInput;
+            }
+            return result;
+        }
+
+
+
+        //public static string JsonToJsObj(string json)
+        //{
+        //    string[] a = json.Split(',');
+        //    string[] temp = new string[] { };
+        //    for (int i = 0; i < a.Length; i++)
+        //    {
+        //        temp = a[i].Split(':');
+        //        temp[0].Replace("", "");
+        //        a[i] = string.Join(":", temp);
+        //    }
+        //    return string.Join(",", a);
+        //}
     }
 }

@@ -155,11 +155,13 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\UserInfoController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\ActiveUserInfo.cs" />
     <Compile Include="Models\LoginFrom.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -168,6 +170,8 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Iview\fonts\ionicons.svg" />
+    <Content Include="Content\Iview\iview.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -177,6 +181,62 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Scripts\IView\iview.js" />
+    <Content Include="Scripts\IView\iview.min.js" />
+    <Content Include="Scripts\IView\locale\cs-CZ.js" />
+    <Content Include="Scripts\IView\locale\de-DE.js" />
+    <Content Include="Scripts\IView\locale\el-GR.js" />
+    <Content Include="Scripts\IView\locale\en-US.js" />
+    <Content Include="Scripts\IView\locale\es-ES.js" />
+    <Content Include="Scripts\IView\locale\fa-IR.js" />
+    <Content Include="Scripts\IView\locale\fr-FR.js" />
+    <Content Include="Scripts\IView\locale\hi-IN.js" />
+    <Content Include="Scripts\IView\locale\id-ID.js" />
+    <Content Include="Scripts\IView\locale\it-IT.js" />
+    <Content Include="Scripts\IView\locale\ja-JP.js" />
+    <Content Include="Scripts\IView\locale\ko-KR.js" />
+    <Content Include="Scripts\IView\locale\nl-NL.js" />
+    <Content Include="Scripts\IView\locale\pt-BR.js" />
+    <Content Include="Scripts\IView\locale\pt-PT.js" />
+    <Content Include="Scripts\IView\locale\ro-RO.js" />
+    <Content Include="Scripts\IView\locale\ru-RU.js" />
+    <Content Include="Scripts\IView\locale\sv-SE.js" />
+    <Content Include="Scripts\IView\locale\th-TH.js" />
+    <Content Include="Scripts\IView\locale\tr-TR.js" />
+    <Content Include="Scripts\IView\locale\uk-UA.js" />
+    <Content Include="Scripts\IView\locale\vi-VN.js" />
+    <Content Include="Scripts\IView\locale\zh-CN.js" />
+    <Content Include="Scripts\IView\locale\zh-TW.js" />
+    <Content Include="Scripts\IView\locale\zh-TW.js.map" />
+    <Content Include="Scripts\IView\locale\zh-CN.js.map" />
+    <Content Include="Scripts\IView\locale\vi-VN.js.map" />
+    <Content Include="Scripts\IView\locale\uk-UA.js.map" />
+    <Content Include="Scripts\IView\locale\tr-TR.js.map" />
+    <Content Include="Scripts\IView\locale\th-TH.js.map" />
+    <Content Include="Scripts\IView\locale\sv-SE.js.map" />
+    <Content Include="Scripts\IView\locale\ru-RU.js.map" />
+    <Content Include="Scripts\IView\locale\ro-RO.js.map" />
+    <Content Include="Scripts\IView\locale\pt-PT.js.map" />
+    <Content Include="Scripts\IView\locale\pt-BR.js.map" />
+    <Content Include="Scripts\IView\locale\nl-NL.js.map" />
+    <Content Include="Scripts\IView\locale\ko-KR.js.map" />
+    <Content Include="Scripts\IView\locale\ja-JP.js.map" />
+    <Content Include="Scripts\IView\locale\it-IT.js.map" />
+    <Content Include="Scripts\IView\locale\id-ID.js.map" />
+    <Content Include="Scripts\IView\locale\hi-IN.js.map" />
+    <Content Include="Scripts\IView\locale\fr-FR.js.map" />
+    <Content Include="Scripts\IView\locale\fa-IR.js.map" />
+    <Content Include="Scripts\IView\locale\es-ES.js.map" />
+    <Content Include="Scripts\IView\locale\en-US.js.map" />
+    <Content Include="Scripts\IView\locale\el-GR.js.map" />
+    <Content Include="Scripts\IView\locale\de-DE.js.map" />
+    <Content Include="Scripts\IView\locale\cs-CZ.js.map" />
+    <Content Include="Scripts\IView\iview.min.js.map" />
+    <Content Include="Scripts\IView\iview.min.js.gz" />
+    <Content Include="Scripts\IView\iview.js.map" />
+    <Content Include="Content\Iview\fonts\ionicons.woff" />
+    <Content Include="Content\Iview\fonts\ionicons.ttf" />
+    <Content Include="Content\Iview\fonts\ionicons.eot" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -190,6 +250,12 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\vue-resource.common.js" />
+    <Content Include="Scripts\vue-resource.es2015.js" />
+    <Content Include="Scripts\vue-resource.js" />
+    <Content Include="Scripts\vue-resource.min.js" />
+    <Content Include="Scripts\vue.js" />
+    <Content Include="Scripts\vue.min.js" />
     <Content Include="Scripts\vue2.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -203,6 +269,7 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

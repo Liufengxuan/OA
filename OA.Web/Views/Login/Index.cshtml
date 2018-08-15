@@ -68,8 +68,8 @@
                 var p = $.trim(this.pwd);
                 var c = $.trim(this.code);
                 var title = "";
-                if (u == "" || u.length <= 5) {
-                    title = "用户名不长度不能小于6";
+                if (u == "" || u.length <= 1) {
+                    title = "请输入正确的用户名";
                 } else if (p == "" || p.length <= 5) {
                     title = "密码不长度不能小于6";
                 } else if (c == "" || c.length > 5) {
@@ -95,8 +95,7 @@
                     //v.sbmt();
                 };
                 if (msg[0] == "ok") {
-                    alert(msg[1]);
-                   
+                    window.location.href = "/Home/Index"                
                 }
             }
 
