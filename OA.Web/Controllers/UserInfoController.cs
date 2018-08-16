@@ -20,6 +20,7 @@ namespace OA.Web.Controllers
             var a=userInfoService.LoadEntities(u => u.ID == 39);
             UserInfo user = new UserInfo();
             user = a.FirstOrDefault<UserInfo>();
+           
             int ca = 1;
             return View();
         }

@@ -1,0 +1,132 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <link href="~/Content/Iview/iview.css" rel="stylesheet" />
+    <script src="~/Scripts/vue.js"></script>
+    <script src="~/Scripts/vue-resource.js"></script>
+    <script src="~/Scripts/IView/iview.js"></script>
+</head>
+<body>
+  
+    <div id="UserTable">
+        <div style="margin-top:6px;margin-bottom:6px;border-bottom-style:outset;border-bottom-color:cornflowerblue;padding:7px" align="center">
+            <i-input v-model="page.searchByName" placeholder="请输入姓名" clearable style="width:200px"></i-input>
+            <i-button type="primary" shape="circle" icon="ios-search"></i-button>
+        </div>
+        <i-Table border :columns="columns7" :data="data6"></i-Table>
+        <div style="margin-top:7px;border-top-style:outset;border-color:cornflowerblue;padding:7px">        
+            <Page v-on:on-change="pageChange" :current="page.current" :page="page.size" :total="page.total" align="center" show-elevator />
+        </div>
+
+    </div>
+</body>
+<script>
+    var vtable = new Vue({
+        el: '#UserTable',
+        data: {
+            columns7: [
+                {
+                    title: '姓名',
+                    key: 'UName',
+                    render: (h, params) => {
+                        return h('div', [
+                            h('Icon', {
+                                props: {
+                                    type: 'person'
+                                }
+                            }),
+                            h('strong', params.row.UName)
+                        ]);
+                    }
+                },
+                {
+                    title: '部门',
+                    key: 'DepName'
+                },
+                {
+                    title: '角色',
+                    key: 'RName'
+                },
+                {
+                    title: '加入时间',
+                    key: 'SubTime'
+                },
+                {
+                    title: 'Action',
+                    key: 'action',
+                    width: 150,
+                    align: 'center',
+                    render: (h, params) => {
+                        return h('div', [
+                            h('Button', {
+                                props: {
+                                    type: 'primary',
+                                    size: 'small'
+                                },
+                                style: {
+                                    marginRight: '5px'
+                                },
+                                on: {
+                                    click: () => {
+                                        vtable.show(params.index)
+                                    }
+                                }
+                            }, '管理')
+                            //,h('Button', {
+                            //    props: {
+                            //        type: 'error',
+                            //        size: 'small'
+                            //    },
+                            //    on: {
+                            //        click: () => {
+                            //            vtable.remove(params.index)
+                            //        }
+                            //    }
+                            //}, 'Delete')
+                        ]);
+                    }
+                }
+            ],
+            data6: [],
+            ui: [],
+            page: { total: 0 ,size:0,current:0,searchByName:""},
+
+        },
+        methods: {
+            show: function (index) {
+                this.$Modal.confirm({
+                    title: 'User Info',
+                    content: `Name：${this.data6[index].name}<br>Age：${this.data6[index].age}<br>Address：${this.data6[index].address}`
+                })
+            },
+            //remove: function (index) {
+            //    this.data6.splice(index, 1);
+            //},
+            getActiveUInfo: function () {
+                this.$http.post("/UserMgr/GetUserInfo",this.page).then(response => {
+                    this.data6 = response.body.list;
+                }, function () {
+                    alert("请求失败");
+                })
+            },
+            pageChange: function (pageTag) {
+                this.page.current = pageTag;            
+            }
+
+     },
+     created: function () {
+         //拿到父窗口的 当前用户信息
+         //this.ui = window.parent.v.ui;
+         this.getActiveUInfo();
+     }
+    })
+</script>
+</html>
