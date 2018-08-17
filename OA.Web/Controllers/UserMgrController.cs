@@ -18,14 +18,30 @@ namespace OA.Web.Controllers
             return View();
         }
 
-        public ActionResult GetUserInfo()
+        public ActionResult GetUserInfo(Models.PageFrom pageFrom)
         {
             //string userInfoSID = Request.Cookies["userInfoSID"].Value;
             //Model.UserInfo userInfo = Common.SerializeHelper.DeserializeToObject<Model.UserInfo>(MemcacheHelper.Get(userInfoSID).ToString());
             //var rst = userInfoService.LoadEntities(U => Convert.ToInt32(U.Sort) < Convert.ToInt32(userInfo.Sort));
-            var userInfos = userInfoService.LoadEntities(u=>1==1);
-            List<Model.UserInfo> userInfoList = userInfos.ToList<UserInfo>();
+            List<Model.UserInfo> userInfoList = null;
+            int totalCount = 0;
+            if (pageFrom.SearchByName != ""&&pageFrom.SearchByName!=null)
+            {
+                pageFrom.Current = 1;
+               var u1 = userInfoService.LoadPageEntities<int>(pageFrom.Current, pageFrom.Size, out totalCount, u => u.UName.Contains(pageFrom.SearchByName)&&u.DelFlag!=1, u => u.ID, true);
+                userInfoList = u1.ToList<UserInfo>();
+            }
+            else
+            {
+                var u2 = userInfoService.LoadPageEntities<int>(pageFrom.Current, pageFrom.Size, out totalCount, u => u.DelFlag != 1, u =>u.ID, true);
+                userInfoList = u2.ToList<UserInfo>();
 
+            }
+            pageFrom.Total = totalCount;
+
+        
+            //整理数据
+            #region  
 
             Department d = null;
             RoleInfo r = null;
@@ -56,9 +72,10 @@ namespace OA.Web.Controllers
 
                 rst.Add(c);
             }
+            #endregion 
 
 
-            return Content(SerializeHelper.SerializeToString(new {list= rst }));
+            return Content(SerializeHelper.SerializeToString(new { list = rst, total = pageFrom.Total, size = pageFrom.Size, current = pageFrom.Current }));
         }
     }
 }

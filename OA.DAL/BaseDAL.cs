@@ -42,6 +42,10 @@ namespace OA.DAL
 
         public IQueryable<T> LoadPageEntities<s>(int PageIndex, int pageSize, out int totalCount, System.Linq.Expressions.Expression<Func<T, bool>> whereLambda, System.Linq.Expressions.Expression<Func<T, s>> orderByLambda, bool isAsc)
         {
+            if (PageIndex <= 0)
+            {
+                PageIndex = 1;
+            }
             var temp = Db.Set<T>().Where<T>(whereLambda);
             totalCount = temp.Count();
             if (isAsc)

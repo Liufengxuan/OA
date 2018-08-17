@@ -164,6 +164,7 @@
     </Compile>
     <Compile Include="Models\ActiveUserInfo.cs" />
     <Compile Include="Models\LoginFrom.cs" />
+    <Compile Include="Models\PageFrom.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

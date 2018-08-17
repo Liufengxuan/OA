@@ -19,13 +19,11 @@
     <div id="UserTable">
         <div style="margin-top:6px;margin-bottom:6px;border-bottom-style:outset;border-bottom-color:cornflowerblue;padding:7px" align="center">
             <i-input v-model="page.searchByName" placeholder="请输入姓名" clearable style="width:200px"></i-input>
-            <i-button type="primary" shape="circle" icon="ios-search"></i-button>
+            <i-button type="primary" shape="circle" v-on:click="searchUInfo" icon="ios-search"></i-button>
         </div>
         <i-Table border :columns="columns7" :data="data6"></i-Table>
-        <div style="margin-top:7px;border-top-style:outset;border-color:cornflowerblue;padding:7px">        
-            <Page v-on:on-change="pageChange" :current="page.current" :page="page.size" :total="page.total" align="center" show-elevator />
-        </div>
-
+        
+            <Page v-on:on-change="pageChange" :current="page.current" :page-size="page.size" :total="page.total" align="center" show-elevator style="margin-top:7px;border-top-style:outset;border-color:cornflowerblue;padding:7px"/>
     </div>
 </body>
 <script>
@@ -97,35 +95,42 @@
             ],
             data6: [],
             ui: [],
-            page: { total: 0 ,size:0,current:0,searchByName:""},
+            page: { total: 20, size: 3, current: 1, searchByName: "" },
 
         },
         methods: {
             show: function (index) {
                 this.$Modal.confirm({
-                    title: 'User Info',
+                    title: '管理用户',
                     content: `Name：${this.data6[index].name}<br>Age：${this.data6[index].age}<br>Address：${this.data6[index].address}`
                 })
             },
             //remove: function (index) {
             //    this.data6.splice(index, 1);
             //},
-            getActiveUInfo: function () {
-                this.$http.post("/UserMgr/GetUserInfo",this.page).then(response => {
-                    this.data6 = response.body.list;
+            getUInfo: function () {
+                this.$http.post("/UserMgr/GetUserInfo", this.page).then(response => {               
+                    vtable.page.total = response.body.total;
+                    vtable.page.current = response.body.current;
+                    vtable.data6 = response.body.list;
                 }, function () {
                     alert("请求失败");
                 })
             },
             pageChange: function (pageTag) {
-                this.page.current = pageTag;            
-            }
+                this.page.current = pageTag;
+                this.getUInfo();
+               
+            },
+            searchUInfo: function () {
+                this.getUInfo();
+            },
 
      },
-     created: function () {
+        created: function () {
          //拿到父窗口的 当前用户信息
          //this.ui = window.parent.v.ui;
-         this.getActiveUInfo();
+         this.getUInfo();
      }
     })
 </script>
