@@ -60,6 +60,7 @@
   <ItemGroup>
     <Compile Include="MemcacheHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReCode.cs" />
     <Compile Include="SerializeHelper.cs" />
     <Compile Include="ValidateCode.cs" />
   </ItemGroup>
