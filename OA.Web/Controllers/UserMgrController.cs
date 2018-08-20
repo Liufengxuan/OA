@@ -12,13 +12,14 @@ namespace OA.Web.Controllers
     {
         IBLL.IUserInfoService userInfoService = ServiceFactory.SevSession.GetUserInfoService();
         IBLL.IRoleInfoService roleInfoService = ServiceFactory.SevSession.GetRoleInfoService();
+        IBLL.IDepartmentService departmentService = ServiceFactory.SevSession.GetDepartmentService();
         // GET: UserMgr
         public ActionResult Index()
         {
             return View();
         }
 
-        public ActionResult GetUserInfo(Models.PageFrom pageFrom)
+        public ActionResult GetUserInfo(Models.PageForm pageFrom)
         {
             //string userInfoSID = Request.Cookies["userInfoSID"].Value;
             //Model.UserInfo userInfo = Common.SerializeHelper.DeserializeToObject<Model.UserInfo>(MemcacheHelper.Get(userInfoSID).ToString());
@@ -33,7 +34,7 @@ namespace OA.Web.Controllers
             }
             else
             {
-                var u2 = userInfoService.LoadPageEntities<int>(pageFrom.Current, pageFrom.Size, out totalCount, u => u.DelFlag != 1, u =>u.ID, true);
+                var u2 = userInfoService.LoadPageEntities<int>(pageFrom.Current, pageFrom.Size, out totalCount, u => u.DelFlag <2, u =>u.ID, true);
                 userInfoList = u2.ToList<UserInfo>();
 
             }
@@ -61,7 +62,7 @@ namespace OA.Web.Controllers
                     r = item.RoleInfo.FirstOrDefault();
                     c.RId = r.ID;
                     c.RName = r.RoleName;
-                    c.Remark = r.Remark;
+                    c.Remark = r.Remark;                  
                     c.RSort = r.Sort;
                 }
                 c.Id = item.ID;
@@ -69,6 +70,7 @@ namespace OA.Web.Controllers
                 c.SubTime = item.SubTime.ToShortDateString();
                 c.Remark = item.Remark;
                 c.Sort = item.Sort;
+                c.DelFlag = item.DelFlag;
 
                 rst.Add(c);
             }
@@ -76,6 +78,50 @@ namespace OA.Web.Controllers
 
 
             return Content(SerializeHelper.SerializeToString(new { list = rst, total = pageFrom.Total, size = pageFrom.Size, current = pageFrom.Current }));
+        }
+
+        public ActionResult GetDepInfo()
+        {
+            var depList= departmentService.LoadEntities(d => 1 == 1);
+            return Content(SerializeHelper.SerializeToString(depList));
+        }
+
+        public ActionResult GetRoleInfo(string depId)
+        {
+            if (depId == null)
+            {
+                return Content("");
+            }
+            string pms = depId.ToString() + ".";
+            var roleList = roleInfoService.LoadEntities(r => r.Sort.StartsWith(pms));
+            return Content(SerializeHelper.SerializeToString(roleList));
+        }
+
+
+        public ActionResult AddUser(Models.AddUserForm form)
+        {
+            UserInfo userInfo = new UserInfo();
+            if (form.ID == 0)
+            {
+                userInfo.UName = form.UName;
+                userInfo.RoleInfo.Add(roleInfoService.LoadEntities(r => r.ID == form.RoleId).FirstOrDefault<RoleInfo>());
+                userInfo.Department.Add(departmentService.LoadEntities(d => d.ID == form.DepId).FirstOrDefault<Department>());
+                userInfo.UPwd = new Random().Next(100000, 999999).ToString();
+                userInfo.SubTime = DateTime.Now;
+                userInfo.ModifiedOn = userInfo.SubTime;
+                userInfo.Sort = userInfo.RoleInfo.FirstOrDefault().Sort;
+                userInfo.DelFlag = (short)form.DelFlag;
+                if (userInfoService.AddEntity(userInfo))
+                {
+                    userInfo = userInfoService.LoadEntities(u => form.UName == u.UName && u.UPwd == userInfo.UPwd).FirstOrDefault();
+                    if (userInfo.DelFlag == 1)
+                    {
+                        return Content(SerializeHelper.SerializeToString(new { state = 0, msg = "添加成功,但该账号处于禁用状态", userinfo = userInfo }));
+                    }
+                    return Content(SerializeHelper.SerializeToString(new { state = 0, msg = "添加成功", userinfo=userInfo }));
+                }
+            }
+            return Content(SerializeHelper.SerializeToString(new { state=1,msg="添加失败"}));          
         }
     }
 }

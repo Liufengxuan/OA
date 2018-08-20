@@ -19,7 +19,7 @@ namespace OA.Web.Controllers
 
 
         [HttpPost]
-        public ActionResult UserLogin(Models.LoginFrom from)
+        public ActionResult UserLogin(Models.LoginForm from)
         {
             string vcodeSID =Request.Cookies["sessionId"].Value.ToString();
             //获取正确验证码

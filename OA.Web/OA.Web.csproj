@@ -163,8 +163,9 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\ActiveUserInfo.cs" />
-    <Compile Include="Models\LoginFrom.cs" />
-    <Compile Include="Models\PageFrom.cs" />
+    <Compile Include="Models\AddUserForm.cs" />
+    <Compile Include="Models\LoginForm.cs" />
+    <Compile Include="Models\PageForm.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
