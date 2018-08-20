@@ -5,7 +5,7 @@ using System.Web;
 
 namespace OA.Web.Models
 {
-    public class PageFrom
+    public class PageForm
     {
         /// <summary>
         /// 数据总数

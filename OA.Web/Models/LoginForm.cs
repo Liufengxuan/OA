@@ -5,7 +5,7 @@ using System.Web;
 
 namespace OA.Web.Models
 {
-    public class LoginFrom
+    public class LoginForm
     {
         public string user { get; set; }
 
