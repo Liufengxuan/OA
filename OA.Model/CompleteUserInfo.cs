@@ -11,6 +11,7 @@ namespace OA.Model
         public int Id { get; set; }
         public string UName { get; set; }
         public string SubTime { get; set; }
+        public short DelFlag { get; set; }
         public string Remark { get; set; }
         public string Sort { get; set; }
 
