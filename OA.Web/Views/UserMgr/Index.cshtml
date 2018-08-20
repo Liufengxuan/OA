@@ -13,17 +13,75 @@
     <script src="~/Scripts/vue.js"></script>
     <script src="~/Scripts/vue-resource.js"></script>
     <script src="~/Scripts/IView/iview.js"></script>
+    <style>
+        #PageModule {
+            margin-top: 7px;
+            border-top-style: outset;
+            border-color: cornflowerblue;
+            padding: 7px
+        }
+        #seachModule {
+            margin-top: 6px;
+            margin-bottom: 6px;
+            /*border-top-style:outset;
+            border-top-color: cornflowerblue;*/
+            border-bottom-style: outset;
+            border-bottom-color: cornflowerblue;
+            padding: 7px
+        }
+        #MgrUser {
+            margin-top: 6px;
+            margin-bottom: 6px;
+            border-bottom-style: outset;
+            border-bottom-color: red;
+            border-top-style: outset;
+            border-top-color: red;
+            padding: 7px
+        }
+    </style>
 </head>
-<body>
-  
+<body>   
+
     <div id="UserTable">
-        <div style="margin-top:6px;margin-bottom:6px;border-bottom-style:outset;border-bottom-color:cornflowerblue;padding:7px" align="center">
+        <div id="MgrUser">
+            <div>
+                <span style="text-align:center;margin-left:4%;font-size:16px;font-style:unset;color:crimson">ID：{{formItem.Id}}</span>
+
+
+                <span style="margin-left:2%">用户名：</span>
+                <i-input style="width:150px " v-model="formItem.UserName" placeholder="员工姓名"></i-input>
+
+                <span style="margin-left:2%">部门：</span>
+                <i-select style="width:150px" id="select" v-model="formItem.selectDep">
+                    <i-option v-for="item in depAndRole.depData" :value="item.ID">{{item.DepName}}</i-option>
+                </i-select>
+
+
+                <span style="margin-left:2%">岗位：</span>
+                <i-select style="width:150px" id="select" v-model="formItem.selectRole">
+                    <i-option v-for="item in depAndRole.roleData" :value="item.ID">{{item.RoleName}}</i-option>
+                </i-select>
+
+
+                <span style="margin-left:2%">账号状态：</span>
+                <i-switch v-model="formItem.switch" size="large">
+                    <span slot="open">启用</span>
+                    <span slot="close">禁用</span>
+                </i-switch>
+
+                <i-Button style="margin-left:2%" v-on:click="addOrEditUser" :type="formItem.submitBtn.type">{{formItem.submitBtn.value}}</i-Button>
+                <i-Button style="margin-left:2%" v-on:click="cleanformItem" type="success">取消</i-Button>
+
+            </div>
+        </div>
+        <div id="seachModule" align="center">
             <i-input v-model="page.searchByName" placeholder="请输入姓名" clearable style="width:200px"></i-input>
             <i-button type="primary" shape="circle" v-on:click="searchUInfo" icon="ios-search"></i-button>
         </div>
         <i-Table border :columns="columns7" :data="data6"></i-Table>
-        
-            <Page v-on:on-change="pageChange" :current="page.current" :page-size="page.size" :total="page.total" align="center" show-elevator style="margin-top:7px;border-top-style:outset;border-color:cornflowerblue;padding:7px"/>
+        <div id="PageModule">
+            <Page v-on:on-change="pageChange" :current="page.current" :page-size="page.size" :total="page.total" align="center" show-elevator />
+        </div>
     </div>
 </body>
 <script>
@@ -54,6 +112,32 @@
                     key: 'RName'
                 },
                 {
+                    title: '账号状态',
+                    key: 'DelFlag',
+                    render: (h, params) => {
+                        let _this = this;
+                        let _val = "";
+                        var color = "";
+                        if (params.row.DelFlag == 1) {
+                            _val = "已禁用";
+                            color = "crimson"
+                        } else if (params.row.DelFlag == 0) {
+                            _val = "正常";
+                            color = "Black"
+                        }
+                        return h('div', {
+                            props:{
+
+                            },
+                            attrs: {
+
+                                style: `margin-left:10px;color:${color}`,
+
+                            },
+                        }, _val);
+                    }
+                },
+                {
                     title: '加入时间',
                     key: 'SubTime'
                 },
@@ -77,61 +161,183 @@
                                         vtable.show(params.index)
                                     }
                                 }
-                            }, '管理')
-                            //,h('Button', {
-                            //    props: {
-                            //        type: 'error',
-                            //        size: 'small'
-                            //    },
-                            //    on: {
-                            //        click: () => {
-                            //            vtable.remove(params.index)
-                            //        }
-                            //    }
-                            //}, 'Delete')
+                            }, '详细信息')
+                            ,h('Button', {
+                                props: {
+                                    type: 'warning',
+                                    size: 'small'
+                                },
+                                on: {
+                                    click: () => {
+                                        let index = params.index;
+                                        vtable.formItem.Id = params.row.Id;
+                                        vtable.formItem.UserName = params.row.UName;
+                                        vtable.formItem.selectDep = params.row.DId;
+                                        vtable.formItem.switch = (params.row.DelFlag == 0 ? true : false);
+                                        vtable.getRoleData(params.row.DId, params.row.RId);
+                                    }
+                                }
+                            }, '修改')
                         ]);
                     }
                 }
             ],
+            //表格的数据
             data6: [],
+            //当前登陆账户的信息
             ui: [],
+
+            //表格分页相关数据
             page: { total: 20, size: 3, current: 1, searchByName: "" },
 
+            //部门和角色下拉框数据
+            depAndRole: {
+                depData: [],
+                roleData:[]
+            },
+
+            //第一行表单  的双向绑定数据
+            formItem: {
+                Id: 0, switch: false, UserName: "", selectDep: 0, selectRole: 0, submitBtn: {type:"info",value:"添加账户"}}
+
+        },
+        watch: {
+            'formItem.Id': function () {
+                if (this.formItem.Id > 0) {
+                    this.formItem.submitBtn.type = "warning";
+                    this.formItem.submitBtn.value = "保存修改";
+                } else {
+                    this.cleanformItem();   
+                }
+                
+            },
+            'formItem.selectDep': function () {      
+                this.formItem.selectRole = "";
+                this.depAndRole.roleData = [];
+                this.getRoleData(this.formItem.selectDep);               
+            },
         },
         methods: {
-            show: function (index) {
-                this.$Modal.confirm({
-                    title: '管理用户',
-                    content: `Name：${this.data6[index].name}<br>Age：${this.data6[index].age}<br>Address：${this.data6[index].address}`
-                })
+           
+            addOrEditUser: function () {
+                var para = {
+                    "ID": this.formItem.Id,
+                    "UName": this.formItem.UserName,
+                    "DelFlag": (this.formItem.switch ? 0 : 1),
+                    "DepId": this.formItem.selectDep,
+                    "RoleId": this.formItem.selectRole
+                };
+                var msg="";
+                if (para.UName == "") {
+                    this.$Message.warning("请填写用户姓名");
+                    return
+                };
+                if (para.RoleId == 0) {
+                    this.$Message.warning("请为该用户选择角色");
+                    return
+                };
+                if (para.DepId == 0) {
+                    this.$Message.warning("请为该用户选择部门");
+                    return 
+                };
+                //添加操作
+                if (para.ID == 0) {
+                    this.$http.post("/UserMgr/AddUser", para).then(response => {
+                        var rst = response.body;
+                        var id = rst.userinfo.ID
+                        if (rst.state == 0) {
+                            this.$Modal.info({
+                                title: rst.msg,
+                                content: `<h1>新增用户 ${rst.userinfo.UName} 的ID为：${rst.userinfo.ID}</h1>
+                                          <h1>初始密码为:${rst.userinfo.UPwd}</h1><br>
+                                          <span style="color:brown">*请尽快通知该用户修改密码完善个人信息</span> `,
+                            });
+                            this.cleanformItem(); 
+                        } else {
+                            this.$Message.warning(rst.msg);
+                        }
+
+                    }, function () {
+                        this.$Message.warning("添加失败：请求未被响应");
+                    });
+                };
+
+                //修改操作
+
+
+               
             },
             //remove: function (index) {
             //    this.data6.splice(index, 1);
             //},
             getUInfo: function () {
-                this.$http.post("/UserMgr/GetUserInfo", this.page).then(response => {               
+                this.$http.post("/UserMgr/GetUserInfo", this.page).then(response => {
                     vtable.page.total = response.body.total;
                     vtable.page.current = response.body.current;
                     vtable.data6 = response.body.list;
+                   
+                }, function () {
+                    this.$Message.warning("获取失败");
+                })
+            },
+            getDepData: function () {
+                this.$http.post("/UserMgr/GetDepInfo").then(response => {
+                    vtable.depAndRole.depData = response.body;
                 }, function () {
                     alert("请求失败");
+                })
+            },
+            getRoleData: function (DepId,RoleId) {
+                var para = { depID: DepId };
+                this.$http.post("/UserMgr/GetRoleInfo", para).then(response => {                   
+                    vtable.depAndRole.roleData = response.body;
+                    if (RoleId != undefined) {
+                        vtable.formItem.selectRole = RoleId;
+                    }
+                }, function () {
+                    alert("请求失败");
+                })
+            },
+
+
+
+
+            show: function (index) {
+                this.$Modal.info({
+                    title: '员工信息',
+                    content: `<h1>员工ID:${this.data6[index].Id}</h1>
+                    姓名：${this.data6[index].UName}<br>
+                    部门：${this.data6[index].DepName}<br>
+                    职位：${this.data6[index].RName}<br>
+                    LvID:${this.data6[index].Sort}`
                 })
             },
             pageChange: function (pageTag) {
                 this.page.current = pageTag;
                 this.getUInfo();
-               
             },
             searchUInfo: function () {
-                this.getUInfo();
+                this.getUInfo();          
             },
-
-     },
+            cleanformItem: function () {
+                this.formItem = {
+                    Id: 0,
+                    switch: false,
+                    UserName: "",
+                    selectDep: 0,
+                    selectRole: 0,
+                    submitBtn: { type: "info", value: "添加账户" }
+                };
+            }    
+        },
         created: function () {
-         //拿到父窗口的 当前用户信息
-         //this.ui = window.parent.v.ui;
-         this.getUInfo();
-     }
-    })
+            //拿到父窗口的 当前用户信息
+            //this.ui = window.parent.v.ui;
+            this.getUInfo();
+            this.getDepData();
+        }
+    });
+  
+   
 </script>
 </html>
