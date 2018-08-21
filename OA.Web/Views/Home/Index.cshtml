@@ -9,10 +9,10 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>企云</title>
-    <link href="~/Content/Iview/iview.css" rel="stylesheet" />
-    <script src="~/Scripts/vue.js"></script>
-    <script src="~/Scripts/IView/iview.js"></script>
-    <script src="~/Scripts/vue-resource.js"></script>
+    @Styles.Render("~/Content/Iview/iview.css")
+    @Scripts.Render("~/Scripts/vue.js")
+    @Scripts.Render("~/Scripts/IView/iview.js")
+    @Scripts.Render("~/Scripts/vue-resource.js")
 </head>
 <body>
     <style scoped>
@@ -32,28 +32,30 @@
     <div id="app">
         <div class="layout">
             <Sider :style="{position: 'fixed', height: '100vh', left: 0, overflow: 'auto'}">
-                <i-Menu v-on:on-select="test" :active-name="activeFromName" theme="dark" width="auto" >
+                <i-Menu v-on:on-select="test" :active-name="activeFromName" theme="dark" width="auto">
                     <Submenu style="background-color:coral" name="4">
                         <template slot="title">
                             <Avatar style="color: #f56a00;background-color: #fde3cf">{{lastName}}</Avatar>
-                            <span style="color:black;font-size:18px;font-style:initial">&nbsp&nbsp{{ui.UName}}</span>
+                            <span style="color:black;font-size:15px;font-style:initial">&nbsp&nbsp{{ui.UName}}</span>
                         </template>
                         <Menu-Item name="4-1" style="font-size:12px;background-color:chocolate">个人信息</Menu-Item>
                         <Menu-Item name="4-2" style="font-size:12px;background-color:chocolate">退出登陆</Menu-Item>
                     </Submenu>
-                    <Menu-Item name="个人主页">个人主页</Menu-Item>
-                    <Menu-Item name="1-1">企业周报</Menu-Item>
-                    <Menu-Item name="1-2">企业信息</Menu-Item>
-                    <Menu-Item name="1-3">企业论坛</Menu-Item>
-                    <Submenu name="3">
-                        <template slot="title">
-                            <Icon type="ios-analytics"></Icon>
-                            人员管理
-                        </template>
-                        <Menu-Item name="用户管理">用户管理</Menu-Item>
-                        <Menu-Item name="角色管理">角色管理</Menu-Item>
-                        <Menu-Item name="权限管理">权限管理</Menu-Item>
-                    </Submenu>
+                    <Menu-Group title="内容管理">
+                        <Menu-Item name="个人主页"><Icon type="ios-home" size="15"></Icon>个人主页</Menu-Item>
+                        <Menu-Item name="1-1"><Icon type="ios-paper" size="15"></Icon>企业周报</Menu-Item>
+                        <Menu-Item name="1-2"><Icon type="md-medal" size="15"></Icon>企业信息</Menu-Item>
+                        <Menu-Item name="1-3"><Icon type="ios-contacts" size="15"></Icon>企业论坛</Menu-Item>
+                    </Menu-Group>
+                        <Submenu name="3">
+                            <template slot="title">
+                                <Icon type="ios-people"size="17" color="steelblue"></Icon>
+                                人员管理
+                            </template>
+                            <Menu-Item name="用户管理">用户管理</Menu-Item>
+                            <Menu-Item name="角色管理">角色管理</Menu-Item>
+                            <Menu-Item name="权限管理">权限管理</Menu-Item>
+                        </Submenu>
                 </i-Menu>
             </Sider>
             <Layout :style="{marginLeft: '200px'}">

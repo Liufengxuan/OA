@@ -23,9 +23,9 @@ namespace OA.Web.Controllers
         {
             string vcodeSID =Request.Cookies["sessionId"].Value.ToString();
             //获取正确验证码
-            string vode = MemcacheHelper.Get(vcodeSID).ToString(); 
+            string vode = MemcacheHelper.Get(vcodeSID).ToString();
             //根据用户名取得用户信息；
-           
+            int id = 0;
             if ((from.code == null || from.code == "")||from.code.Trim()!=vode)
             {
                 return Content("no:验证码错误！");
@@ -34,7 +34,14 @@ namespace OA.Web.Controllers
             Model.UserInfo userInfo = userInfoService.LoadEntities(u => u.UName == from.user).FirstOrDefault();
             if (userInfo==null)
             {
-                return Content("no:用户名错误");
+                if (int.TryParse(from.user, out id))
+                {
+                    userInfo = userInfoService.LoadEntities(u => u.ID == id).FirstOrDefault();
+                    if (userInfo == null)
+                    {
+                        return Content("no:用户名错误");
+                    }
+                }
             }
             if (from.pwd != userInfo.UPwd)
             {
@@ -45,7 +52,7 @@ namespace OA.Web.Controllers
                 Response.Cookies["userinfo"].Value = SerializeHelper.SerializeToString(userInfo);//登陆成功将userinfo写入cookies
             }
             else {
-                Response.Cookies[""].Value ="";
+                Response.Cookies["userinfo"].Value="";
             }
             string userInfoSID= MemcacheHelper.Set(SerializeHelper.SerializeToString(userInfo), DateTime.Now.AddMinutes(20));
             Response.Cookies["userInfoSID"].Value = userInfoSID;

@@ -118,10 +118,60 @@ namespace OA.Web.Controllers
                     {
                         return Content(SerializeHelper.SerializeToString(new { state = 0, msg = "添加成功,但该账号处于禁用状态", userinfo = userInfo }));
                     }
-                    return Content(SerializeHelper.SerializeToString(new { state = 0, msg = "添加成功", userinfo=userInfo }));
+                    return Content(SerializeHelper.SerializeToString(new { state = 0, msg = "添加成功", userinfo = userInfo }));
                 }
             }
+            
             return Content(SerializeHelper.SerializeToString(new { state=1,msg="添加失败"}));          
         }
+
+
+        public ActionResult EditUser(Models.AddUserForm form)
+        {
+            UserInfo editUserInfo = new UserInfo();
+            int editCount = 0;
+            if (form.ID > 0)
+            {
+                editUserInfo = userInfoService.LoadEntities(u => u.ID == form.ID).FirstOrDefault();
+
+                if (form.UName != editUserInfo.UName)
+                {
+                    editUserInfo.UName = form.UName;
+                    editCount++;
+                }
+                if (form.RoleId != editUserInfo.RoleInfo.FirstOrDefault().ID)
+                {
+                    editUserInfo.RoleInfo.Clear();
+                    editUserInfo.RoleInfo.Add( roleInfoService.LoadEntities(r => r.ID == form.RoleId).FirstOrDefault());
+                    editCount++;
+                }
+                if (form.DepId != editUserInfo.Department.FirstOrDefault().ID)
+                {
+                    editUserInfo.Department.Clear();
+                    editUserInfo.Department.Add(departmentService.LoadEntities(d => d.ID == form.DepId).FirstOrDefault());
+                    editCount++;
+                }
+                if ((short)form.DelFlag != editUserInfo.DelFlag)
+                {
+                    editUserInfo.DelFlag =(short) form.DelFlag;
+                    editCount++;
+                }
+                if (editCount != 0)
+                {
+                    if (userInfoService.EditEntity(editUserInfo))
+                    {
+                        return Content(SerializeHelper.SerializeToString(new { state = 0, msg = "修改成功！" }));
+                    }
+                    else {
+                        return Content(SerializeHelper.SerializeToString(new { state = 1, msg = "修改失败！" }));
+
+                    }
+                        
+                }             
+            }
+            return Content(SerializeHelper.SerializeToString(new { state = 1, msg = "无修改项" }));
+
+        }
+
     }
 }

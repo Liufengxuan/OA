@@ -260,6 +260,8 @@
     <Content Include="Scripts\vue.js" />
     <Content Include="Scripts\vue.min.js" />
     <Content Include="Scripts\vue2.js" />
+    <Content Include="static\UsrMgr\formCss.css" />
+    <Content Include="static\UsrMgr\main.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

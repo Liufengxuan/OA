@@ -1,0 +1,26 @@
+﻿#PageModule {
+    margin-top: 7px;
+    border-top-style: outset;
+    border-color: cornflowerblue;
+    padding: 7px
+}
+
+#seachModule {
+    margin-top: 6px;
+    margin-bottom: 6px;
+    /*border-top-style:outset;
+            border-top-color: cornflowerblue;*/
+    border-bottom-style: outset;
+    border-bottom-color: cornflowerblue;
+    padding: 7px
+}
+
+#MgrUser {
+    margin-top: 6px;
+    margin-bottom: 6px;
+    border-bottom-style: outset;
+    border-bottom-color: red;
+    border-top-style: outset;
+    border-top-color: red;
+    padding: 7px
+}
