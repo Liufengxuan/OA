@@ -51,4 +51,9 @@ namespace OA.IBLL
        
     }   
 	
+	public partial interface IWeeklyService : IBaseService<Weekly>
+    {
+       
+    }   
+	
 }

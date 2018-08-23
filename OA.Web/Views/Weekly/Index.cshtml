@@ -1,0 +1,185 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    @Styles.Render("~/static/Weekly/iview.css")
+    @Scripts.Render("~/Scripts/vue.js")
+    @Scripts.Render("~/Scripts/IView/iview.js")
+    @Scripts.Render("~/Scripts/vue-resource.js")
+</head>
+<body>
+    <div>
+
+        <template id="weeklyList">
+            <div>
+                <div style="width:800px">
+                    <Timeline-Item color="green" v-for="(item,index) in list">                   
+                        <p class="time">{{item.SubTime|timed}}&nbsp;&nbsp;&nbsp;提交</p>
+                        <Card style="margin-left:4%;margin-top:1%" :bordered="true">
+
+                            <p slot="title">
+                                {{item.Title}}
+                            </p>
+                            <h4>本周完成工作：</h4>
+                            <p style="margin-left:3%;margin-right:2%">{{item.JobContent}}</p>
+                            <h4>本周工作总结：</h4>
+                            <p style="margin-left:3%;margin-right:2%">{{item.JobSum}}</p>
+                            <h4>备注：</h4>
+                            <p style="margin-left:3%;margin-right:2%">{{item.Remark}}</p><br /><br /><br />
+                            <h3 style="margin-left:2%">{{item.Upvote|isDisabled|RateTitle}}</h3>
+                            <Rate :disabled="item.Upvote|isDisabled" v-on:on-change="updateScore(index)" style="margin-left:2%" allow-half v-model="list[index].avgScore">
+                            </Rate>
+                            <br /><span style="font-size:small;color: #f5a623;margin-left:2%">他的平均分： {{ list[index].avgScore }}分</span>
+                            <a style="width:50px;margin-left:90%">{{item.Upvote.split('-').length}}人已读</a>
+                        </Card>
+
+                    </Timeline-Item>
+                </div>
+            </div>
+        </template>
+
+
+
+        <!----------------------------------------------------------------------------------------------------------------------------------------------->
+        <div style="margin:2% 2% 4% 4%" id="main">
+            <Timeline>
+                <weekly :list="weeklys"><weekly>
+            </Timeline>
+        </div>
+        <!----------------------------------------------------------------------------------------------------------------------------------------------->
+
+
+
+    </div>
+</body>
+<script>
+
+    Vue.component('weekly', {
+        template: '#weeklyList',
+        props: ['list'],
+        data: function () {
+            return {
+                Wlist: [],
+            }
+        },
+
+        methods: {
+            updateScore: function (index) {
+                var score = this.list[index].avgScore;
+                var userId = "-39";/// window.parent.v.ui.ID______________________________________________________________________________________________________________
+                this.list[index].Upvote += userId;
+                this.list[index].Score = this.list[index].Score + score;
+                var avgScore = parseFloat((this.list[index].Score / this.list[index].Upvote.split("-").length).toFixed(2));
+                this.$set(this.list[index], 'avgScore', avgScore)
+                alert("ok");
+
+            },
+         
+
+        },
+        filters: {
+            isDisabled: function (input) {
+                //需要从父页面取值暂时写死为39测试账号
+                var userId = 39; //window.parent.v.ui.ID_____________________________________________________________________________________________________________________
+                
+
+                var arr = input.split('-');
+                for (var i = 0; i < arr.length; i++) {
+                    if (userId == arr[i]) {
+                        return true;
+                    }
+                }
+                return false;
+            },
+            RateTitle: function (b) {
+                if (b) {
+                    return "您已打过分";
+                } else {
+
+                    return "为他打分 ？"
+                }
+
+
+            },
+            timed: function (t) {
+                var time = parseInt(new Date(t).getTime() / 1000);
+                // 获取当前时间戳
+                var currentTime = parseInt(new Date().getTime() / 1000);
+                var diffTime = currentTime - time;
+                var second = 0;
+                var minute = 0;
+                var hour = 0;
+                if (null != diffTime && "" != diffTime) {
+                    if (diffTime > 60 && diffTime < 60 * 60) {
+                        diffTime = parseInt(diffTime / 60.0) + "分钟" + parseInt((parseFloat(diffTime / 60.0) - parseInt(diffTime / 60.0)) * 60) + "秒";
+                    }
+                    else if (diffTime >= 60 * 60 && diffTime < 60 * 60 * 24) {
+                        diffTime = parseInt(diffTime / 3600.0) + "小时" + parseInt((parseFloat(diffTime / 3600.0) -
+                            parseInt(diffTime / 3600.0)) * 60) + "分钟前" 
+                            //parseInt((parseFloat((parseFloat(diffTime / 3600.0) - parseInt(diffTime / 3600.0)) * 60) -
+                            //    parseInt((parseFloat(diffTime / 3600.0) - parseInt(diffTime / 3600.0)) * 60)) * 60) + "秒前";
+                    }
+                    else {
+                        //超过1天
+                        var date = new Date(parseInt(time) * 1000);
+                        diffTime = date.getFullYear() + "/" + (date.getMonth() + 1) + "/" + date.getDate();
+                        //diffTime = parseInt(diffTime) + "秒";
+                    }
+                }
+                return diffTime;
+            }
+        },
+        //components: {
+        //    'ddd': {
+        //        template: '',
+        //         //负责接收父组件传入的值
+        //    }
+        //},
+        created: function () {
+            //this.getWeeklys();
+        }
+    });
+
+
+
+    var _main = new Vue({
+        el: "#main",
+        data: {
+            weeklys: [],
+        },
+        methods: {
+            getWeeklys: function () {
+                this.$http.post("/Weekly/GetWeeklys").then(response => {
+                    this.weeklys = response.body.weeklys;
+                }, function () {
+                    alert("请求失败");
+                })
+
+            },
+
+        },
+        //components: {
+        //    'weekly': {
+        //        template: '#weeklyList',
+        //        props: ['list'] //负责接收父组件传入的值
+        //    }
+
+        //},
+
+        created: function () {
+             this.getWeeklys();
+
+        },
+
+
+    })
+
+</script>
+</html>

@@ -50,4 +50,9 @@ namespace OA.IDAL
       
     }
 	
+	public partial interface IWeeklyDAL :IBaseDAL<Weekly>
+    {
+      
+    }
+	
 }

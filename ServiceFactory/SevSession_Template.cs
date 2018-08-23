@@ -52,5 +52,10 @@ public class SevSession
     {
 		  return new UserInfoService();
     }   
+	
+	public static IWeeklyService  GetWeeklyService()
+    {
+		  return new WeeklyService();
+    }   
 	}
 }

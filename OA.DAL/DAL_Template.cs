@@ -50,5 +50,10 @@ namespace OA.DAL
     {
 
     }
+		
+	public partial class WeeklyDAL :BaseDAL<Weekly>,IWeeklyDAL
+    {
+
+    }
 	
 }

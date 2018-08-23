@@ -159,6 +159,7 @@
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\UserInfoController.cs" />
     <Compile Include="Controllers\UserMgrController.cs" />
+    <Compile Include="Controllers\WeeklyController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -261,7 +262,10 @@
     <Content Include="Scripts\vue.min.js" />
     <Content Include="Scripts\vue2.js" />
     <Content Include="static\UsrMgr\formCss.css" />
+    <Content Include="static\UsrMgr\iview_UserMgr.css" />
     <Content Include="static\UsrMgr\main.js" />
+    <Content Include="static\Weekly\fonts\ionicons.svg" />
+    <Content Include="static\Weekly\iview.css" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -276,6 +280,10 @@
     <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\UserMgr\Index.cshtml" />
+    <Content Include="Views\Weekly\Index.cshtml" />
+    <Content Include="static\Weekly\fonts\ionicons.eot" />
+    <Content Include="static\Weekly\fonts\ionicons.ttf" />
+    <Content Include="static\Weekly\fonts\ionicons.woff" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

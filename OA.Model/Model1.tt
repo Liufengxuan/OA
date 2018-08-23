@@ -305,7 +305,7 @@ public class CodeStringGenerator
             _code.SpaceAfter(Accessibility.ForGetter(navProp)),
             _code.SpaceAfter(Accessibility.ForSetter(navProp)));
     }
-    
+  
     public string AccessibilityAndVirtual(string accessibility)
     {
         return accessibility + (accessibility != "private" ? " virtual" : "");

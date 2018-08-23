@@ -9,11 +9,13 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>Index</title>
-    <link href="~/Content/Iview/iview.css" rel="stylesheet" />
+    @Styles.Render("~/static/UsrMgr/formCss.css")
+    @Styles.Render("~/static/UsrMgr/iview_UserMgr.css")
     @Scripts.Render("~/Scripts/vue.js")
     @Scripts.Render("~/Scripts/vue-resource.js")
     @Scripts.Render("~/Scripts/IView/iview.js")
-    @Styles.Render("~/static/UsrMgr/formCss.css")
+
+
 </head>
 <body>
 
@@ -27,7 +29,7 @@
                 <i-input style="width:150px " v-model="formItem.UserName" placeholder="员工姓名"></i-input>
 
                 <span style="margin-left:2%">部门：</span>
-                <i-select style="width:150px" id="select" v-model="formItem.selectDep">
+                <i-select  id="select" style="width:150px" v-model="formItem.selectDep">
                     <i-option v-for="item in depAndRole.depData" :value="item.ID">{{item.DepName}}</i-option>
                 </i-select>
 

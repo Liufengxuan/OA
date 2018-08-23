@@ -33,5 +33,6 @@ namespace OA.Model
         public virtual DbSet<R_UserInfo_ActionInfo> R_UserInfo_ActionInfo { get; set; }
         public virtual DbSet<RoleInfo> RoleInfo { get; set; }
         public virtual DbSet<SearchDetails> SearchDetails { get; set; }
+        public virtual DbSet<Weekly> Weekly { get; set; }
     }
 }

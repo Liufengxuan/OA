@@ -126,5 +126,19 @@ namespace  OA.DALFactory
             }
             set { _UserInfoDal = value; }
         }
+	
+		private IWeeklyDAL _WeeklyDal;
+        public IWeeklyDAL WeeklyDal
+        {
+            get
+            {
+                if(_WeeklyDal == null)
+                {
+                    _WeeklyDal = AbstractFactory.CreateWeeklyDal();
+                }
+                return _WeeklyDal;
+            }
+            set { _WeeklyDal = value; }
+        }
 	}	
 }

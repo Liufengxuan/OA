@@ -92,4 +92,14 @@ namespace OA.BLL
         }
     }   
 	
+	public partial class WeeklyService :BaseService<Weekly>,IWeeklyService
+    {
+    
+
+		 public override void SetCurrentDal()
+        {
+            CurrentDal = this.CurrentDBSession.WeeklyDal;
+        }
+    }   
+	
 }

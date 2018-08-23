@@ -19,6 +19,8 @@
         <AssociationConnector Association="OAModel.RoleInfoActionInfo" />
         <AssociationConnector Association="OAModel.UserInfoDepartment" />
         <AssociationConnector Association="OAModel.UserInfoRoleInfo" />
+        <EntityTypeShape EntityType="OAModel.Weekly" Width="1.5" PointX="2.875" PointY="6.625" />
+        <AssociationConnector Association="OAModel.FK_Weekly_UserInfo" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

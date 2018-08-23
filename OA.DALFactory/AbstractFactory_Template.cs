@@ -79,6 +79,14 @@ namespace OA.DALFactory
           return CreateInstance(fullClassName) as IUserInfoDAL;
 
         }
+		
+	    public static IWeeklyDAL CreateWeeklyDal()
+        {
+
+		 string fullClassName = NameSpace + ".WeeklyDAL";
+          return CreateInstance(fullClassName) as IWeeklyDAL;
+
+        }
 	}
 	
 }

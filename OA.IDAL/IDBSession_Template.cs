@@ -28,5 +28,7 @@ namespace OA.IDAL
 		ISearchDetailsDAL SearchDetailsDal{get;set;}
 	
 		IUserInfoDAL UserInfoDal{get;set;}
+	
+		IWeeklyDAL WeeklyDal{get;set;}
 	}	
 }
