@@ -167,6 +167,7 @@
     <Compile Include="Models\AddUserForm.cs" />
     <Compile Include="Models\LoginForm.cs" />
     <Compile Include="Models\PageForm.cs" />
+    <Compile Include="Models\RateForm.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
