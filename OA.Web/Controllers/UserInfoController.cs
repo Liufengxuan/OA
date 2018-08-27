@@ -14,7 +14,7 @@ namespace OA.Web.Controllers
          IBLL.IRoleInfoService roleInfoService = SevSession.GetRoleInfoService();
        
         // GET: UserInfo
-        public ActionResult Index()
+        public ActionResult Index()//测试
         {
             RoleInfo role= roleInfoService.LoadEntities(r => r.ID == 2).FirstOrDefault();
             var a=userInfoService.LoadEntities(u => u.ID == 39);

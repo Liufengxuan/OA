@@ -63,6 +63,7 @@
     <Compile Include="ReCode.cs" />
     <Compile Include="SerializeHelper.cs" />
     <Compile Include="ValidateCode.cs" />
+    <Compile Include="WeekHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

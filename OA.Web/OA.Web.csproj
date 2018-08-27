@@ -285,6 +285,7 @@
     <Content Include="static\Weekly\fonts\ionicons.eot" />
     <Content Include="static\Weekly\fonts\ionicons.ttf" />
     <Content Include="static\Weekly\fonts\ionicons.woff" />
+    <Content Include="Views\Weekly\WriteWeekly.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

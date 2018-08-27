@@ -17,6 +17,7 @@ namespace OA.Web.Controllers
         }
         public ActionResult ActiveUserInfo()
         {
+          
             string userInfoSID = Request.Cookies["userInfoSID"].Value;
             Model.UserInfo userInfo =Common.SerializeHelper.DeserializeToObject<Model.UserInfo>( MemcacheHelper.Get(userInfoSID).ToString());
             userInfo.UPwd = "";

@@ -102,7 +102,7 @@ data6: [],
 ui: [],
 
 //表格分页相关数据
-            page: {total: 20, size: 3, current: 1, searchByName: "" },
+            page: {total: 20, size: 6, current: 1, searchByName: "" },
 
     //部门和角色下拉框数据
             depAndRole: {

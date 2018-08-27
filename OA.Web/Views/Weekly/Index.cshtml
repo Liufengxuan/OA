@@ -28,11 +28,11 @@
                                 {{item.Title}}
                             </p>
                             <h4>本周完成工作：</h4>
-                            <p style="margin-left:3%;margin-right:2%">{{item.JobContent}}</p>
+                            <p style="margin-left:3%;margin-right:2%;word-break:break-word;">{{item.JobContent}}</p>
                             <h4>本周工作总结：</h4>
-                            <p style="margin-left:3%;margin-right:2%">{{item.JobSum}}</p>
+                            <p style="margin-left:3%;margin-right:2%;word-break:break-word;">{{item.JobSum}}</p>
                             <h4>备注：</h4>
-                            <p style="margin-left:3%;margin-right:2%">{{item.Remark}}</p><br /><br /><br />
+                            <p style="margin-left:3%;margin-right:2%;word-break:break-word;">{{item.Remark}}</p><br /><br /><br />
                             <h3 style="margin-left:2%">{{item.Upvote|isDisabled|RateTitle}}</h3>
                             <Rate :disabled="item.Upvote|isDisabled" v-on:on-change="updateScore(index)" style="margin-left:2%" allow-half v-model="list[index].avgScore">
                             </Rate>
@@ -50,6 +50,7 @@
         <div style="margin:2% 2% 1% 2%;width:100%" id="main">
 
             <div style="width:69%;float:left;">
+                <i-Button v-if="showWriteBtn" v-on:click="writeWeekly" style="margin-left:50%" type="success">填写本周 ({{showWeekDate}}) 周报</i-Button>
                 <Timeline>
                     <weekly v-if="showList" :list="weeklys"><weekly>
                 </Timeline>
@@ -69,15 +70,12 @@
                 <Affix :offset-top="150">
                     <Card style="border-top:solid red;margin-left:1%;margin-right:1%;">
                         <p slot="title">本周得分排名</p>
-
                         <div v-for="(item,index) in rank" style="width:220px">
                             <span style="width:50px;float:left">NO.{{index+1}}</span>&nbsp;
                             <span style="width:50px;float:left; white-space: nowrap; overflow: hidden;text-overflow: ellipsis; display: inline-block "><a :href="'#'+'_'+item.Id">{{item.UserInfo.UName}}</a></span>
                             <span style="width:50px;margin-right:13%;color: #f5a623;float:left; display: inline-block">&nbsp;&nbsp;{{item.avgScore.toFixed(2)}}分</span>
                         </div>
-
-                    </Card>
-
+                    </Card>     
                 </Affix>
                 @*<a href="#_29" title="API">5</a>*@
                 @*<button v-on:click="reLoad">123</button>*@
@@ -208,8 +206,8 @@
             showList: true,
             rank: [],
             selectDate: "",
-            showWeekDate:"",
-            
+            showWeekDate: "",
+            showWriteBtn: true,            
         },
         methods: {
             getWeeklys: function () {
@@ -220,6 +218,7 @@
                 }
                 this.$http.post("/Weekly/GetWeeklys", date).then(response => {
                     this.weeklys = response.body.weeklys;
+                    
                    
                 }, function () {
                     alert("请求失败");
@@ -229,6 +228,31 @@
             reLoad: function () {
                 this.getWeeklys();
             },
+            calcDates: function (date) {
+                if (date != "") {
+                    var currentDate = new Date(date)
+                    var timesStamp = currentDate.getTime();
+                    var currenDay = currentDate.getDay();
+                    var dates = [];
+                    for (var i = 0; i < 7; i++) {
+                        dates.push(new Date(timesStamp + 24 * 60 * 60 * 1000 * (i - (currenDay + 6) % 7)).toLocaleDateString().replace(/\//g, '-'));
+                    }
+                    return dates;
+                }
+            },
+            checkTswk: function () {
+                for (var item in this.weeklys) {
+                    if (this.weeklys[item].UserId == window.parent.v.ui.ID) {
+                        this.showWriteBtn = false;
+                        return;
+                    }
+                }
+            },
+            writeWeekly: function () {
+
+                window.location.href = "/Weekly/WriteWeekly";
+            }
+            
         },
         watch: {
             'weeklys': function () {
@@ -246,19 +270,12 @@
                 this.rank = _rank.slice(0,5);
                 this.$Message.success("数据已更新");
             },
-            'selectDate': function () {         
-                if (this.selectDate != "") {
-                    var currentDate = new Date(this.selectDate)
-                    var timesStamp = currentDate.getTime();
-                    var currenDay = currentDate.getDay();
-                    var dates = [];
-                    for (var i = 0; i < 7; i++) {
-                        dates.push(new Date(timesStamp + 24 * 60 * 60 * 1000 * (i - (currenDay + 6) % 7)).toLocaleDateString().replace(/\//g, '-'));
-                    }
+            'selectDate': function () {
+                    let dates=this.calcDates(this.selectDate);
                     this.showWeekDate = dates[0] + " To " + dates[6];
-                    this.getWeeklys();
+                this.getWeeklys();
+                
                 }
-            }
         },
         //components: {
         //    'weekly': {
@@ -271,6 +288,7 @@
         created: function () {
            
             this.selectDate = new Date();
+            this.checkTswk();
            // this.getWeeklys();
         },
 
