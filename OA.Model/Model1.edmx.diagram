@@ -9,19 +9,24 @@
         <EntityTypeShape EntityType="OAModel.ActionInfo" Width="1.5" PointX="6.375" PointY="1.375" />
         <EntityTypeShape EntityType="OAModel.Books" Width="1.5" PointX="13.875" PointY="0.625" />
         <EntityTypeShape EntityType="OAModel.Department" Width="1.5" PointX="0.5" PointY="5.75" />
-        <EntityTypeShape EntityType="OAModel.KeyWordsRank" Width="1.5" PointX="13" PointY="1.625" />
+        <EntityTypeShape EntityType="OAModel.KeyWordsRank" Width="1.5" PointX="11.375" PointY="1.5" />
         <EntityTypeShape EntityType="OAModel.R_UserInfo_ActionInfo" Width="1.5" PointX="3.75" PointY="0.5" />
         <EntityTypeShape EntityType="OAModel.RoleInfo" Width="1.5" PointX="3.625" PointY="3" />
-        <EntityTypeShape EntityType="OAModel.SearchDetails" Width="1.5" PointX="13.5" PointY="3.75" />
+        <EntityTypeShape EntityType="OAModel.SearchDetails" Width="1.5" PointX="11" PointY="3.5" />
         <AssociationConnector Association="OAModel.FK_ActionInfoR_UserInfo_ActionInfo" />
         <AssociationConnector Association="OAModel.FK_UserInfoR_UserInfo_ActionInfo" />
         <AssociationConnector Association="OAModel.DepartmentActionInfo" />
         <AssociationConnector Association="OAModel.RoleInfoActionInfo" />
         <AssociationConnector Association="OAModel.UserInfoDepartment" />
         <AssociationConnector Association="OAModel.UserInfoRoleInfo" />
-        <EntityTypeShape EntityType="OAModel.Weekly" Width="1.5" PointX="2.875" PointY="6.625" />
+        <EntityTypeShape EntityType="OAModel.Weekly" Width="1.5" PointX="4.375" PointY="6.625" />
         <AssociationConnector Association="OAModel.FK_Weekly_UserInfo" />
-      </Diagram>
+        <EntityTypeShape EntityType="OAModel.Apply" Width="1.5" PointX="6.875" PointY="0.75" />
+        <EntityTypeShape EntityType="OAModel.ApplyType" Width="1.5" PointX="4.625" PointY="14.875" />
+        <AssociationConnector Association="OAModel.FK_Apply_ApplyType" />
+        <AssociationConnector Association="OAModel.FK_Apply_UserInfo" />
+        <AssociationConnector Association="OAModel.FK_Apply_UserInfo1" />
+        </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>

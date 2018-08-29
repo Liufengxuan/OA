@@ -13,27 +13,20 @@ namespace OA.Model
     using System.Collections.Generic;
     using Newtonsoft.Json;
     
-    public partial class Department
+    public partial class ApplyType
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Department()
+        public ApplyType()
         {
-            this.ActionInfo = new HashSet<ActionInfo>();
-            this.UserInfo = new HashSet<UserInfo>();
+            this.Apply = new HashSet<Apply>();
         }
     
-        public int ID { get; set; }
-        public string DepName { get; set; }
-        public int ParentId { get; set; }
-        public string TreePath { get; set; }
-        public int Level { get; set; }
-        public bool IsLeaf { get; set; }
-
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public Nullable<int> parentId { get; set; }
+    
         [JsonIgnore]
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ActionInfo> ActionInfo { get; set; }
-        [JsonIgnore]
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<UserInfo> UserInfo { get; set; }
+        public virtual ICollection<Apply> Apply { get; set; }
     }
 }

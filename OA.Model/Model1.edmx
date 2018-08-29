@@ -25,6 +25,32 @@
           <Property Name="IconWidth" Type="int" Nullable="false" />
           <Property Name="IconHeight" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="Apply">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Type" Type="int" Nullable="false" />
+          <Property Name="Number" Type="nvarchar" MaxLength="50" />
+          <Property Name="Money" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="BeginDate" Type="datetime" />
+          <Property Name="EndDate" Type="datetime" />
+          <Property Name="SubTime" Type="datetime" Nullable="false" />
+          <Property Name="ApplicantId" Type="int" Nullable="false" />
+          <Property Name="ApproverId" Type="int" />
+          <Property Name="State" Type="int" />
+          <Property Name="Files" Type="varchar" MaxLength="50" />
+          <Property Name="Remark1" Type="nvarchar" MaxLength="50" />
+          <Property Name="Remark2" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="ApplyType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="parentId" Type="int" />
+        </EntityType>
         <EntityType Name="Books">
           <Key>
             <PropertyRef Name="Id" />
@@ -165,6 +191,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Apply_UserInfo">
+          <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="0..1" />
+          <End Role="Apply" Type="Self.Apply" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserInfo">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Apply">
+              <PropertyRef Name="ApproverId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_DepartmentActionInfo_ActionInfo">
           <End Role="ActionInfo" Type="Self.ActionInfo" Multiplicity="1" />
           <End Role="DepartmentActionInfo" Type="Self.DepartmentActionInfo" Multiplicity="*" />
@@ -287,6 +325,8 @@
         </Association>
         <EntityContainer Name="OAModelStoreContainer">
           <EntitySet Name="ActionInfo" EntityType="Self.ActionInfo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Apply" EntityType="Self.Apply" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ApplyType" EntityType="Self.ApplyType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Books" EntityType="Self.Books" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Department" EntityType="Self.Department" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DepartmentActionInfo" EntityType="Self.DepartmentActionInfo" Schema="dbo" store:Type="Tables" />
@@ -302,6 +342,10 @@
           <AssociationSet Name="FK_ActionInfoR_UserInfo_ActionInfo" Association="Self.FK_ActionInfoR_UserInfo_ActionInfo">
             <End Role="ActionInfo" EntitySet="ActionInfo" />
             <End Role="R_UserInfo_ActionInfo" EntitySet="R_UserInfo_ActionInfo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Apply_UserInfo" Association="Self.FK_Apply_UserInfo">
+            <End Role="UserInfo" EntitySet="UserInfo" />
+            <End Role="Apply" EntitySet="Apply" />
           </AssociationSet>
           <AssociationSet Name="FK_DepartmentActionInfo_ActionInfo" Association="Self.FK_DepartmentActionInfo_ActionInfo">
             <End Role="ActionInfo" EntitySet="ActionInfo" />
@@ -364,6 +408,8 @@
           <NavigationProperty Name="Department" Relationship="OAModel.UserInfoDepartment" FromRole="UserInfo" ToRole="Department" />
           <NavigationProperty Name="RoleInfo" Relationship="OAModel.UserInfoRoleInfo" FromRole="UserInfo" ToRole="RoleInfo" />
           <NavigationProperty Name="Weekly" Relationship="OAModel.FK_Weekly_UserInfo" FromRole="UserInfo" ToRole="Weekly" />
+          <NavigationProperty Name="Apply" Relationship="OAModel.FK_Apply_UserInfo" FromRole="UserInfo" ToRole="Apply" />
+          <NavigationProperty Name="Apply1" Relationship="OAModel.FK_Apply_UserInfo1" FromRole="UserInfo" ToRole="Apply" />
         </EntityType>
         <EntityContainer Name="OAEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="UserInfo" EntityType="Self.UserInfo" />
@@ -403,7 +449,21 @@
             <End Role="UserInfo" EntitySet="UserInfo" />
             <End Role="Weekly" EntitySet="Weekly" />
           </AssociationSet>
-        </EntityContainer>
+          <EntitySet Name="Apply" EntityType="OAModel.Apply" />
+          <EntitySet Name="ApplyType" EntityType="OAModel.ApplyType" />
+          <AssociationSet Name="FK_Apply_ApplyType" Association="OAModel.FK_Apply_ApplyType">
+            <End Role="ApplyType" EntitySet="ApplyType" />
+            <End Role="Apply" EntitySet="Apply" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Apply_UserInfo" Association="OAModel.FK_Apply_UserInfo">
+            <End Role="UserInfo" EntitySet="UserInfo" />
+            <End Role="Apply" EntitySet="Apply" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Apply_UserInfo1" Association="OAModel.FK_Apply_UserInfo1">
+            <End Role="UserInfo" EntitySet="UserInfo" />
+            <End Role="Apply" EntitySet="Apply" />
+          </AssociationSet>
+          </EntityContainer>
         <EntityType Name="ActionInfo">
           <Key>
             <PropertyRef Name="ID" />
@@ -569,7 +629,73 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
+        <EntityType Name="Apply">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Type" Type="Int32" Nullable="false" />
+          <Property Name="Number" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Money" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="BeginDate" Type="DateTime" Precision="3" />
+          <Property Name="EndDate" Type="DateTime" Precision="3" />
+          <Property Name="SubTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ApplicantId" Type="Int32" Nullable="false" />
+          <Property Name="Remark1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Remark2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ApplyType" Relationship="OAModel.FK_Apply_ApplyType" FromRole="Apply" ToRole="ApplyType" />
+          <NavigationProperty Name="UserInfo" Relationship="OAModel.FK_Apply_UserInfo" FromRole="Apply" ToRole="UserInfo" />
+          <Property Name="ApproverId" Type="Int32" />
+          <Property Name="State" Type="Int32" />
+          <Property Name="Files" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="UserInfo1" Relationship="OAModel.FK_Apply_UserInfo1" FromRole="Apply" ToRole="UserInfo" />
+        </EntityType>
+        <EntityType Name="ApplyType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="parentId" Type="Int32" />
+          <NavigationProperty Name="Apply" Relationship="OAModel.FK_Apply_ApplyType" FromRole="ApplyType" ToRole="Apply" />
+        </EntityType>
+        <Association Name="FK_Apply_ApplyType">
+          <End Type="OAModel.ApplyType" Role="ApplyType" Multiplicity="1" />
+          <End Type="OAModel.Apply" Role="Apply" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ApplyType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Apply">
+              <PropertyRef Name="Type" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Apply_UserInfo">
+          <End Type="OAModel.UserInfo" Role="UserInfo" Multiplicity="1" />
+          <End Type="OAModel.Apply" Role="Apply" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserInfo">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Apply">
+              <PropertyRef Name="ApplicantId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Apply_UserInfo1">
+          <End Type="OAModel.UserInfo" Role="UserInfo" Multiplicity="0..1" />
+          <End Type="OAModel.Apply" Role="Apply" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserInfo">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Apply">
+              <PropertyRef Name="ApproverId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -728,6 +854,34 @@
                 <ScalarProperty Name="JobSum" ColumnName="JobSum" />
                 <ScalarProperty Name="JobContent" ColumnName="JobContent" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Apply">
+            <EntityTypeMapping TypeName="OAModel.Apply">
+              <MappingFragment StoreEntitySet="Apply">
+                <ScalarProperty Name="Files" ColumnName="Files" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="ApproverId" ColumnName="ApproverId" />
+                <ScalarProperty Name="Remark2" ColumnName="Remark2" />
+                <ScalarProperty Name="Remark1" ColumnName="Remark1" />
+                <ScalarProperty Name="ApplicantId" ColumnName="ApplicantId" />
+                <ScalarProperty Name="SubTime" ColumnName="SubTime" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="BeginDate" ColumnName="BeginDate" />
+                <ScalarProperty Name="Money" ColumnName="Money" />
+                <ScalarProperty Name="Number" ColumnName="Number" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ApplyType">
+            <EntityTypeMapping TypeName="OAModel.ApplyType">
+              <MappingFragment StoreEntitySet="ApplyType">
+                <ScalarProperty Name="parentId" ColumnName="parentId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

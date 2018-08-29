@@ -34,5 +34,7 @@ namespace OA.Model
         public virtual DbSet<RoleInfo> RoleInfo { get; set; }
         public virtual DbSet<SearchDetails> SearchDetails { get; set; }
         public virtual DbSet<Weekly> Weekly { get; set; }
+        public virtual DbSet<Apply> Apply { get; set; }
+        public virtual DbSet<ApplyType> ApplyType { get; set; }
     }
 }

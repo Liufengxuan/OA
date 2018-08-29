@@ -56,6 +56,12 @@
     <Compile Include="ActionInfo.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Apply.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ApplyType.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Books.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
