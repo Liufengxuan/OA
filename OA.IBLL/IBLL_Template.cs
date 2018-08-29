@@ -16,6 +16,16 @@ namespace OA.IBLL
        
     }   
 	
+	public partial interface IApplyService : IBaseService<Apply>
+    {
+       
+    }   
+	
+	public partial interface IApplyTypeService : IBaseService<ApplyType>
+    {
+       
+    }   
+	
 	public partial interface IBooksService : IBaseService<Books>
     {
        
