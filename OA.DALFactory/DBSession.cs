@@ -4,6 +4,7 @@ using OA.Model;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -53,12 +54,22 @@ namespace OA.DALFactory
 
 
         /// <summary>
-        /// 连接一次数据库，提交对多张表的操作。提高性能。(工作单元模式)
+        ///   (工作单元模式) 连接一次数据库，提交对多张表的操作
         /// </summary>
         /// <returns></returns>
         public bool SaveChanges()
         {
             return Db.SaveChanges() > 0;
+        }
+
+
+        public int ExecuteSql(string sql, params SqlParameter[] pars)
+        {
+            return Db.Database.ExecuteSqlCommand(sql, pars);
+        }
+        public List<T> ExecuteQuery<T>(string sql, params SqlParameter[] pars)
+        {
+            return Db.Database.SqlQuery<T>(sql, pars).ToList();
         }
     }
 }

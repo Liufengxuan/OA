@@ -16,6 +16,16 @@ namespace OA.DAL
 
     }
 		
+	public partial class ApplyDAL :BaseDAL<Apply>,IApplyDAL
+    {
+
+    }
+		
+	public partial class ApplyTypeDAL :BaseDAL<ApplyType>,IApplyTypeDAL
+    {
+
+    }
+		
 	public partial class BooksDAL :BaseDAL<Books>,IBooksDAL
     {
 

@@ -29,6 +29,34 @@ namespace  OA.DALFactory
             set { _ActionInfoDal = value; }
         }
 	
+		private IApplyDAL _ApplyDal;
+        public IApplyDAL ApplyDal
+        {
+            get
+            {
+                if(_ApplyDal == null)
+                {
+                    _ApplyDal = AbstractFactory.CreateApplyDal();
+                }
+                return _ApplyDal;
+            }
+            set { _ApplyDal = value; }
+        }
+	
+		private IApplyTypeDAL _ApplyTypeDal;
+        public IApplyTypeDAL ApplyTypeDal
+        {
+            get
+            {
+                if(_ApplyTypeDal == null)
+                {
+                    _ApplyTypeDal = AbstractFactory.CreateApplyTypeDal();
+                }
+                return _ApplyTypeDal;
+            }
+            set { _ApplyTypeDal = value; }
+        }
+	
 		private IBooksDAL _BooksDal;
         public IBooksDAL BooksDal
         {

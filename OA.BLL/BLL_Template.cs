@@ -22,6 +22,26 @@ namespace OA.BLL
         }
     }   
 	
+	public partial class ApplyService :BaseService<Apply>,IApplyService
+    {
+    
+
+		 public override void SetCurrentDal()
+        {
+            CurrentDal = this.CurrentDBSession.ApplyDal;
+        }
+    }   
+	
+	public partial class ApplyTypeService :BaseService<ApplyType>,IApplyTypeService
+    {
+    
+
+		 public override void SetCurrentDal()
+        {
+            CurrentDal = this.CurrentDBSession.ApplyTypeDal;
+        }
+    }   
+	
 	public partial class BooksService :BaseService<Books>,IBooksService
     {
     

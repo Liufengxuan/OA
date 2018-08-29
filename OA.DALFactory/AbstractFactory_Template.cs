@@ -24,6 +24,22 @@ namespace OA.DALFactory
 
         }
 		
+	    public static IApplyDAL CreateApplyDal()
+        {
+
+		 string fullClassName = NameSpace + ".ApplyDAL";
+          return CreateInstance(fullClassName) as IApplyDAL;
+
+        }
+		
+	    public static IApplyTypeDAL CreateApplyTypeDal()
+        {
+
+		 string fullClassName = NameSpace + ".ApplyTypeDAL";
+          return CreateInstance(fullClassName) as IApplyTypeDAL;
+
+        }
+		
 	    public static IBooksDAL CreateBooksDal()
         {
 

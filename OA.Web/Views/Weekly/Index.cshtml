@@ -8,7 +8,7 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>Index</title>
+    <title>企业周报</title>
     @Styles.Render("~/static/Weekly/iview.css")
     @Scripts.Render("~/Scripts/vue.js")
     @Scripts.Render("~/Scripts/IView/iview.js")
@@ -47,7 +47,7 @@
 
 
         <!----------------------------------------------------------------------------------------------------------------------------------------------->
-        <div style="margin:2% 2% 1% 2%;width:100%" id="main">
+        <div style="margin:2% 2% 1% 2%;width:95%" id="main">
 
             <div style="width:69%;float:left;">
                 <i-Button v-if="showWriteBtn" v-on:click="writeWeekly" style="margin-left:50%" type="success">填写本周 ({{showWeekDate}}) 周报</i-Button>
@@ -211,10 +211,15 @@
         },
         methods: {
             getWeeklys: function () {
-                var arr = this.showWeekDate.split('To');
+                //edge浏览器不会格式化时间
+                let interval = this.showWeekDate.replace(/年/g, '-').replace(/月/g, '-').replace(/日/g, '');
+
+
+
+                var arr = interval.split('To');
                 var date = {
-                    start:arr[0],
-                    end:arr[1],
+                    start: new Date(Date.parse(arr[0])),
+                    end: new Date(Date.parse(arr[1])),
                 }
                 this.$http.post("/Weekly/GetWeeklys", date).then(response => {
                     this.weeklys = response.body.weeklys;

@@ -18,6 +18,16 @@ public class SevSession
 		  return new ActionInfoService();
     }   
 	
+	public static IApplyService  GetApplyService()
+    {
+		  return new ApplyService();
+    }   
+	
+	public static IApplyTypeService  GetApplyTypeService()
+    {
+		  return new ApplyTypeService();
+    }   
+	
 	public static IBooksService  GetBooksService()
     {
 		  return new BooksService();
