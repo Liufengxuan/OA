@@ -15,6 +15,16 @@ namespace OA.IDAL
       
     }
 	
+	public partial interface IApplyDAL :IBaseDAL<Apply>
+    {
+      
+    }
+	
+	public partial interface IApplyTypeDAL :IBaseDAL<ApplyType>
+    {
+      
+    }
+	
 	public partial interface IBooksDAL :IBaseDAL<Books>
     {
       

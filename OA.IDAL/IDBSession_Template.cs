@@ -15,6 +15,10 @@ namespace OA.IDAL
 	
 		IActionInfoDAL ActionInfoDal{get;set;}
 	
+		IApplyDAL ApplyDal{get;set;}
+	
+		IApplyTypeDAL ApplyTypeDal{get;set;}
+	
 		IBooksDAL BooksDal{get;set;}
 	
 		IDepartmentDAL DepartmentDal{get;set;}
