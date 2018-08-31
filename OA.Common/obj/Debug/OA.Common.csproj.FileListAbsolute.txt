@@ -1,0 +1,14 @@
+C:\Users\msfen\Desktop\OA\OA2\OA.Common\bin\Debug\OA.Common.dll
+C:\Users\msfen\Desktop\OA\OA2\OA.Common\bin\Debug\OA.Common.pdb
+C:\Users\msfen\Desktop\OA\OA2\OA.Common\bin\Debug\Commons.dll
+C:\Users\msfen\Desktop\OA\OA2\OA.Common\bin\Debug\ICSharpCode.SharpZipLib.dll
+C:\Users\msfen\Desktop\OA\OA2\OA.Common\bin\Debug\log4net.dll
+C:\Users\msfen\Desktop\OA\OA2\OA.Common\bin\Debug\Memcached.ClientLibrary.dll
+C:\Users\msfen\Desktop\OA\OA2\OA.Common\bin\Debug\Newtonsoft.Json.dll
+C:\Users\msfen\Desktop\OA\OA2\OA.Common\bin\Debug\Memcached.ClientLibrary.pdb
+C:\Users\msfen\Desktop\OA\OA2\OA.Common\bin\Debug\Newtonsoft.Json.xml
+C:\Users\msfen\Desktop\OA\OA2\OA.Common\obj\Debug\OA.Common.csprojAssemblyReference.cache
+C:\Users\msfen\Desktop\OA\OA2\OA.Common\obj\Debug\OA.Common.csproj.CoreCompileInputs.cache
+C:\Users\msfen\Desktop\OA\OA2\OA.Common\obj\Debug\OA.Common.csproj.CopyComplete
+C:\Users\msfen\Desktop\OA\OA2\OA.Common\obj\Debug\OA.Common.dll
+C:\Users\msfen\Desktop\OA\OA2\OA.Common\obj\Debug\OA.Common.pdb

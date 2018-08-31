@@ -176,6 +176,8 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Iview2\fonts\ionicons.svg" />
+    <Content Include="Content\Iview2\iview.css" />
     <Content Include="Content\Iview\fonts\ionicons.svg" />
     <Content Include="Content\Iview\iview.css" />
     <Content Include="favicon.ico" />
@@ -243,6 +245,9 @@
     <Content Include="Content\Iview\fonts\ionicons.woff" />
     <Content Include="Content\Iview\fonts\ionicons.ttf" />
     <Content Include="Content\Iview\fonts\ionicons.eot" />
+    <Content Include="Content\Iview2\fonts\ionicons.eot" />
+    <Content Include="Content\Iview2\fonts\ionicons.ttf" />
+    <Content Include="Content\Iview2\fonts\ionicons.woff" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -291,6 +296,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="static\Apply\" />
     <Folder Include="Views\UserInfo\" />
   </ItemGroup>
   <ItemGroup>

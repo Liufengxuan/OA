@@ -9,6 +9,8 @@ namespace OA.IBLL
 {
     public partial interface IUserInfoService:IBaseService<UserInfo>
     {
-        
+        bool DeleteEntities(List<int> list);
+        bool SetUserRoleInfo(int userId, List<int> roleIdList);
+        bool SetUserActionInfo(int actionId, int userId, bool isPass);
     }
 }

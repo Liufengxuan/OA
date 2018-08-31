@@ -40,12 +40,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IApplyService.cs" />
     <Compile Include="IBaseService.cs" />
     <Compile Include="IBLL_Template.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>IBLL_Template.tt</DependentUpon>
     </Compile>
+    <Compile Include="IRoleInfoService.cs" />
     <Compile Include="IUserInfoService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

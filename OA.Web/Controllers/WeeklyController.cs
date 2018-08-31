@@ -22,10 +22,10 @@ namespace OA.Web.Controllers
         {
             DateTime startDate = Convert.ToDateTime(start);
             DateTime endDate = Convert.ToDateTime(end);
-            var weeklys= weeklyService.LoadEntities(w => w.SubTime>=startDate&&w.SubTime<=endDate);
+            var weeklys= weeklyService.LoadEntities(w => w.SubTime>=startDate&&w.SubTime<=endDate).OrderByDescending(w=>w.SubTime);
 
             //注释启用按周查询
-            weeklys = weeklyService.LoadEntities(w => 1 == 1); 
+            weeklys = weeklyService.LoadEntities(w => 1 == 1).OrderByDescending(w => w.SubTime); 
 
             if (weeklys == null)
             {
@@ -36,7 +36,6 @@ namespace OA.Web.Controllers
                 return Content(Common.SerializeHelper.SerializeToString(new { weeklys = weeklys, state = 0, msg = "获取到日志" }));
             }
             return Content(Common.SerializeHelper.SerializeToString(new { weeklys = weeklys, state = 1, msg = "服务器查询出错" }));
-
         }
 
         public ActionResult UpdateScore(Models.RateForm form)

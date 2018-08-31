@@ -11,11 +11,13 @@ namespace OA.Web.Controllers
     {
         IBLL.IApplyService applyService = ServiceFactory.SevSession.GetApplyService();
         // GET: Apply
+        [HttpGet]
         public ActionResult Index()
         {
             return View();
         }
 
+        [HttpPost]
         public ActionResult GetTabTips()
         {
             //string userInfoSID = Request.Cookies["userInfoSID"].Value;
@@ -40,13 +42,51 @@ namespace OA.Web.Controllers
             //Model.UserInfo userInfo = Common.SerializeHelper.DeserializeToObject<Model.UserInfo>(MemcacheHelper.Get(userInfoSID).ToString());
 
             Model.UserInfo userInfo = new Model.UserInfo() { ID = 39 }; //测试
-                                                                        //------------------------------------------------------------------------------------------------------------------------
-            var list = applyService.LoadEntities(a => a.ApplicantId == userInfo.ID);
+            //------------------------------------------------------------------------------------------------------------------------
+            var list = applyService.LoadEntities(a => a.ApplicantId == userInfo.ID).OrderBy(a=>a.State);
             if (list != null)
             {
                 return Content(SerializeHelper.SerializeToString(new { state = 0, msg = "加载完成", list = list }));
             }
             return Content(SerializeHelper.SerializeToString(new { state = 1, msg = "没有找到相关数据", list = list }));
         }
+
+        [HttpPost]
+        public ActionResult GetReceiveList()
+        {
+            //string userInfoSID = Request.Cookies["userInfoSID"].Value;
+            //Model.UserInfo userInfo = Common.SerializeHelper.DeserializeToObject<Model.UserInfo>(MemcacheHelper.Get(userInfoSID).ToString());
+
+            Model.UserInfo userInfo = new Model.UserInfo() { ID = 39 }; //测试
+                                                                        //------------------------------------------------------------------------------------------------------------------------
+            var list = applyService.LoadEntities(a => a.ApproverId == userInfo.ID).OrderByDescending(a => a.State);
+
+            
+
+            return Content(SerializeHelper.SerializeToString(new { state = 0, msg = "加载完成", list = list }));
+
+        }
+
+        [HttpPost]
+        public ActionResult HandleApply(Model.Apply apply)
+        {
+            //string userInfoSID = Request.Cookies["userInfoSID"].Value;
+            //Model.UserInfo userInfo = Common.SerializeHelper.DeserializeToObject<Model.UserInfo>(MemcacheHelper.Get(userInfoSID).ToString());
+
+            Model.UserInfo userInfo = new Model.UserInfo() { ID = 39 }; //测试
+                                                                        //------------------------------------------------------------------------------------------------------------------------
+            if (apply.ApproverId == userInfo.ID)
+            {
+                applyService.HandleApply(apply.Id, Convert.ToInt32(apply.State), apply.Remark2);
+            }
+            else return Content(SerializeHelper.SerializeToString(new { state = 1, msg = "处理失败" }));
+            return Content(SerializeHelper.SerializeToString(new { state = 0, msg = "已处理" }));
+        }
+
+        //[HttpGet]
+        //public ActionResult Application()
+        //{
+               
+        //}
     }
 }

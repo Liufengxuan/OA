@@ -1,0 +1,306 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="OAModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="UserInfo">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UName" Type="String" MaxLength="32" FixedLength="false" Unicode="true" />
+    <Property Name="UPwd" Type="String" MaxLength="16" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="SubTime" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="DelFlag" Type="Int16" Nullable="false" />
+    <Property Name="ModifiedOn" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Remark" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="Sort" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="R_UserInfo_ActionInfo" Relationship="OAModel.FK_UserInfoR_UserInfo_ActionInfo" FromRole="UserInfo" ToRole="R_UserInfo_ActionInfo" />
+    <NavigationProperty Name="Department" Relationship="OAModel.UserInfoDepartment" FromRole="UserInfo" ToRole="Department" />
+    <NavigationProperty Name="RoleInfo" Relationship="OAModel.UserInfoRoleInfo" FromRole="UserInfo" ToRole="RoleInfo" />
+    <NavigationProperty Name="Weekly" Relationship="OAModel.FK_Weekly_UserInfo" FromRole="UserInfo" ToRole="Weekly" />
+    <NavigationProperty Name="Apply" Relationship="OAModel.FK_Apply_UserInfo" FromRole="UserInfo" ToRole="Apply" />
+    <NavigationProperty Name="Apply1" Relationship="OAModel.FK_Apply_UserInfo1" FromRole="UserInfo" ToRole="Apply" />
+  </EntityType>
+  <EntityContainer Name="OAEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="UserInfo" EntityType="Self.UserInfo" />
+    <EntitySet Name="ActionInfo" EntityType="OAModel.ActionInfo" />
+    <EntitySet Name="Books" EntityType="OAModel.Books" />
+    <EntitySet Name="Department" EntityType="OAModel.Department" />
+    <EntitySet Name="KeyWordsRank" EntityType="OAModel.KeyWordsRank" />
+    <EntitySet Name="R_UserInfo_ActionInfo" EntityType="OAModel.R_UserInfo_ActionInfo" />
+    <EntitySet Name="RoleInfo" EntityType="OAModel.RoleInfo" />
+    <EntitySet Name="SearchDetails" EntityType="OAModel.SearchDetails" />
+    <AssociationSet Name="FK_ActionInfoR_UserInfo_ActionInfo" Association="OAModel.FK_ActionInfoR_UserInfo_ActionInfo">
+      <End Role="ActionInfo" EntitySet="ActionInfo" />
+      <End Role="R_UserInfo_ActionInfo" EntitySet="R_UserInfo_ActionInfo" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserInfoR_UserInfo_ActionInfo" Association="OAModel.FK_UserInfoR_UserInfo_ActionInfo">
+      <End Role="UserInfo" EntitySet="UserInfo" />
+      <End Role="R_UserInfo_ActionInfo" EntitySet="R_UserInfo_ActionInfo" />
+    </AssociationSet>
+    <AssociationSet Name="DepartmentActionInfo" Association="OAModel.DepartmentActionInfo">
+      <End Role="ActionInfo" EntitySet="ActionInfo" />
+      <End Role="Department" EntitySet="Department" />
+    </AssociationSet>
+    <AssociationSet Name="RoleInfoActionInfo" Association="OAModel.RoleInfoActionInfo">
+      <End Role="ActionInfo" EntitySet="ActionInfo" />
+      <End Role="RoleInfo" EntitySet="RoleInfo" />
+    </AssociationSet>
+    <AssociationSet Name="UserInfoDepartment" Association="OAModel.UserInfoDepartment">
+      <End Role="Department" EntitySet="Department" />
+      <End Role="UserInfo" EntitySet="UserInfo" />
+    </AssociationSet>
+    <AssociationSet Name="UserInfoRoleInfo" Association="OAModel.UserInfoRoleInfo">
+      <End Role="RoleInfo" EntitySet="RoleInfo" />
+      <End Role="UserInfo" EntitySet="UserInfo" />
+    </AssociationSet>
+    <EntitySet Name="Weekly" EntityType="OAModel.Weekly" />
+    <AssociationSet Name="FK_Weekly_UserInfo" Association="OAModel.FK_Weekly_UserInfo">
+      <End Role="UserInfo" EntitySet="UserInfo" />
+      <End Role="Weekly" EntitySet="Weekly" />
+    </AssociationSet>
+    <EntitySet Name="Apply" EntityType="OAModel.Apply" />
+    <EntitySet Name="ApplyType" EntityType="OAModel.ApplyType" />
+    <AssociationSet Name="FK_Apply_ApplyType" Association="OAModel.FK_Apply_ApplyType">
+      <End Role="ApplyType" EntitySet="ApplyType" />
+      <End Role="Apply" EntitySet="Apply" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Apply_UserInfo" Association="OAModel.FK_Apply_UserInfo">
+      <End Role="UserInfo" EntitySet="UserInfo" />
+      <End Role="Apply" EntitySet="Apply" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Apply_UserInfo1" Association="OAModel.FK_Apply_UserInfo1">
+      <End Role="UserInfo" EntitySet="UserInfo" />
+      <End Role="Apply" EntitySet="Apply" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="ActionInfo">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="SubTime" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="DelFlag" Type="Int16" Nullable="false" />
+    <Property Name="ModifiedOn" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Remark" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="Url" Type="String" Nullable="false" MaxLength="512" FixedLength="false" Unicode="true" />
+    <Property Name="HttpMethod" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
+    <Property Name="ActionMethodName" Type="String" MaxLength="32" FixedLength="false" Unicode="true" />
+    <Property Name="ControllerName" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="ActionInfoName" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
+    <Property Name="Sort" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="ActionTypeEnum" Type="Int16" Nullable="false" />
+    <Property Name="MenuIcon" Type="String" MaxLength="512" FixedLength="false" Unicode="false" />
+    <Property Name="IconWidth" Type="Int32" Nullable="false" />
+    <Property Name="IconHeight" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="R_UserInfo_ActionInfo" Relationship="OAModel.FK_ActionInfoR_UserInfo_ActionInfo" FromRole="ActionInfo" ToRole="R_UserInfo_ActionInfo" />
+    <NavigationProperty Name="Department" Relationship="OAModel.DepartmentActionInfo" FromRole="ActionInfo" ToRole="Department" />
+    <NavigationProperty Name="RoleInfo" Relationship="OAModel.RoleInfoActionInfo" FromRole="ActionInfo" ToRole="RoleInfo" />
+  </EntityType>
+  <EntityType Name="Books">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Title" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="Author" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="PublisherId" Type="Int32" Nullable="false" />
+    <Property Name="PublishDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="ISBN" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="WordsCount" Type="Int32" Nullable="false" />
+    <Property Name="UnitPrice" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+    <Property Name="ContentDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="AurhorDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="EditorComment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="TOC" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="CategoryId" Type="Int32" />
+    <Property Name="Clicks" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Department">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="DepName" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
+    <Property Name="ParentId" Type="Int32" Nullable="false" />
+    <Property Name="TreePath" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="Level" Type="Int32" Nullable="false" />
+    <Property Name="IsLeaf" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="ActionInfo" Relationship="OAModel.DepartmentActionInfo" FromRole="Department" ToRole="ActionInfo" />
+    <NavigationProperty Name="UserInfo" Relationship="OAModel.UserInfoDepartment" FromRole="Department" ToRole="UserInfo" />
+  </EntityType>
+  <EntityType Name="KeyWordsRank">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Guid" Nullable="false" />
+    <Property Name="KeyWords" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="SearchCount" Type="Int32" />
+  </EntityType>
+  <EntityType Name="R_UserInfo_ActionInfo">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserInfoID" Type="Int32" Nullable="false" />
+    <Property Name="ActionInfoID" Type="Int32" Nullable="false" />
+    <Property Name="IsPass" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="ActionInfo" Relationship="OAModel.FK_ActionInfoR_UserInfo_ActionInfo" FromRole="R_UserInfo_ActionInfo" ToRole="ActionInfo" />
+    <NavigationProperty Name="UserInfo" Relationship="OAModel.FK_UserInfoR_UserInfo_ActionInfo" FromRole="R_UserInfo_ActionInfo" ToRole="UserInfo" />
+  </EntityType>
+  <EntityType Name="RoleInfo">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="RoleName" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
+    <Property Name="DelFlag" Type="Int16" Nullable="false" />
+    <Property Name="SubTime" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Remark" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="ModifiedOn" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Sort" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="ActionInfo" Relationship="OAModel.RoleInfoActionInfo" FromRole="RoleInfo" ToRole="ActionInfo" />
+    <NavigationProperty Name="UserInfo" Relationship="OAModel.UserInfoRoleInfo" FromRole="RoleInfo" ToRole="UserInfo" />
+  </EntityType>
+  <EntityType Name="SearchDetails">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Guid" Nullable="false" />
+    <Property Name="KeyWords" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="SearchDateTime" Type="DateTime" Precision="3" />
+  </EntityType>
+  <Association Name="FK_ActionInfoR_UserInfo_ActionInfo">
+    <End Type="OAModel.ActionInfo" Role="ActionInfo" Multiplicity="1" />
+    <End Type="OAModel.R_UserInfo_ActionInfo" Role="R_UserInfo_ActionInfo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ActionInfo">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="R_UserInfo_ActionInfo">
+        <PropertyRef Name="ActionInfoID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserInfoR_UserInfo_ActionInfo">
+    <End Type="OAModel.UserInfo" Role="UserInfo" Multiplicity="1" />
+    <End Type="OAModel.R_UserInfo_ActionInfo" Role="R_UserInfo_ActionInfo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserInfo">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="R_UserInfo_ActionInfo">
+        <PropertyRef Name="UserInfoID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="DepartmentActionInfo">
+    <End Type="OAModel.ActionInfo" Role="ActionInfo" Multiplicity="*" />
+    <End Type="OAModel.Department" Role="Department" Multiplicity="*" />
+  </Association>
+  <Association Name="RoleInfoActionInfo">
+    <End Type="OAModel.ActionInfo" Role="ActionInfo" Multiplicity="*" />
+    <End Type="OAModel.RoleInfo" Role="RoleInfo" Multiplicity="*" />
+  </Association>
+  <Association Name="UserInfoDepartment">
+    <End Type="OAModel.Department" Role="Department" Multiplicity="*" />
+    <End Type="OAModel.UserInfo" Role="UserInfo" Multiplicity="*" />
+  </Association>
+  <Association Name="UserInfoRoleInfo">
+    <End Type="OAModel.RoleInfo" Role="RoleInfo" Multiplicity="*" />
+    <End Type="OAModel.UserInfo" Role="UserInfo" Multiplicity="*" />
+  </Association>
+  <EntityType Name="Weekly">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Title" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="JobContent" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="true" />
+    <Property Name="JobSum" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="SubTime" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="UserId" Type="Int32" Nullable="false" />
+    <Property Name="Score" Type="Int32" Nullable="false" />
+    <Property Name="avgScore" Type="Double" Nullable="false" />
+    <Property Name="Upvote" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Downvote" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Remark" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="UserInfo" Relationship="OAModel.FK_Weekly_UserInfo" FromRole="Weekly" ToRole="UserInfo" />
+  </EntityType>
+  <Association Name="FK_Weekly_UserInfo">
+    <End Type="OAModel.UserInfo" Role="UserInfo" Multiplicity="1" />
+    <End Type="OAModel.Weekly" Role="Weekly" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserInfo">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Weekly">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Apply">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Type" Type="Int32" Nullable="false" />
+    <Property Name="Number" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Money" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="BeginDate" Type="DateTime" Precision="3" />
+    <Property Name="EndDate" Type="DateTime" Precision="3" />
+    <Property Name="SubTime" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="ApplicantId" Type="Int32" Nullable="false" />
+    <Property Name="Remark1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Remark2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="ApplyType" Relationship="OAModel.FK_Apply_ApplyType" FromRole="Apply" ToRole="ApplyType" />
+    <NavigationProperty Name="UserInfo" Relationship="OAModel.FK_Apply_UserInfo" FromRole="Apply" ToRole="UserInfo" />
+    <Property Name="ApproverId" Type="Int32" />
+    <Property Name="State" Type="Int32" />
+    <Property Name="Files" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="UserInfo1" Relationship="OAModel.FK_Apply_UserInfo1" FromRole="Apply" ToRole="UserInfo" />
+  </EntityType>
+  <EntityType Name="ApplyType">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="parentId" Type="Int32" />
+    <NavigationProperty Name="Apply" Relationship="OAModel.FK_Apply_ApplyType" FromRole="ApplyType" ToRole="Apply" />
+  </EntityType>
+  <Association Name="FK_Apply_ApplyType">
+    <End Type="OAModel.ApplyType" Role="ApplyType" Multiplicity="1" />
+    <End Type="OAModel.Apply" Role="Apply" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ApplyType">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Apply">
+        <PropertyRef Name="Type" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Apply_UserInfo">
+    <End Type="OAModel.UserInfo" Role="UserInfo" Multiplicity="1" />
+    <End Type="OAModel.Apply" Role="Apply" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserInfo">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Apply">
+        <PropertyRef Name="ApplicantId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Apply_UserInfo1">
+    <End Type="OAModel.UserInfo" Role="UserInfo" Multiplicity="0..1" />
+    <End Type="OAModel.Apply" Role="Apply" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserInfo">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Apply">
+        <PropertyRef Name="ApproverId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

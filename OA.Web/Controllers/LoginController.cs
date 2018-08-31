@@ -12,6 +12,7 @@ namespace OA.Web.Controllers
     {
         IBLL.IUserInfoService userInfoService = SevSession.GetUserInfoService();
         // GET: Login
+        [HttpGet]
         public ActionResult Index()
         {
             return View();
