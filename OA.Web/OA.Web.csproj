@@ -158,6 +158,7 @@
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\MyHomeController.cs" />
     <Compile Include="Controllers\UserInfoController.cs" />
     <Compile Include="Controllers\UserMgrController.cs" />
     <Compile Include="Controllers\WeeklyController.cs" />
@@ -169,7 +170,18 @@
     <Compile Include="Models\LoginForm.cs" />
     <Compile Include="Models\PageForm.cs" />
     <Compile Include="Models\RateForm.cs" />
+    <Compile Include="Models\WeatherForm.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\cn.com.webxml.www\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
@@ -184,11 +196,383 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Image\weather\0.gif" />
+    <Content Include="Image\weather\1.gif" />
+    <Content Include="Image\weather\10.gif" />
+    <Content Include="Image\weather\11.gif" />
+    <Content Include="Image\weather\12.gif" />
+    <Content Include="Image\weather\13.gif" />
+    <Content Include="Image\weather\14.gif" />
+    <Content Include="Image\weather\15.gif" />
+    <Content Include="Image\weather\16.gif" />
+    <Content Include="Image\weather\17.gif" />
+    <Content Include="Image\weather\18.gif" />
+    <Content Include="Image\weather\19.gif" />
+    <Content Include="Image\weather\2.gif" />
+    <Content Include="Image\weather\20.gif" />
+    <Content Include="Image\weather\21.gif" />
+    <Content Include="Image\weather\22.gif" />
+    <Content Include="Image\weather\23.gif" />
+    <Content Include="Image\weather\24.gif" />
+    <Content Include="Image\weather\25.gif" />
+    <Content Include="Image\weather\26.gif" />
+    <Content Include="Image\weather\27.gif" />
+    <Content Include="Image\weather\28.gif" />
+    <Content Include="Image\weather\29.gif" />
+    <Content Include="Image\weather\3.gif" />
+    <Content Include="Image\weather\30.gif" />
+    <Content Include="Image\weather\31.gif" />
+    <Content Include="Image\weather\4.gif" />
+    <Content Include="Image\weather\5.gif" />
+    <Content Include="Image\weather\6.gif" />
+    <Content Include="Image\weather\7.gif" />
+    <Content Include="Image\weather\8.gif" />
+    <Content Include="Image\weather\9.gif" />
+    <Content Include="Image\weather\a_0.gif" />
+    <Content Include="Image\weather\a_1.gif" />
+    <Content Include="Image\weather\a_10.gif" />
+    <Content Include="Image\weather\a_11.gif" />
+    <Content Include="Image\weather\a_12.gif" />
+    <Content Include="Image\weather\a_13.gif" />
+    <Content Include="Image\weather\a_14.gif" />
+    <Content Include="Image\weather\a_15.gif" />
+    <Content Include="Image\weather\a_16.gif" />
+    <Content Include="Image\weather\a_17.gif" />
+    <Content Include="Image\weather\a_18.gif" />
+    <Content Include="Image\weather\a_19.gif" />
+    <Content Include="Image\weather\a_2.gif" />
+    <Content Include="Image\weather\a_20.gif" />
+    <Content Include="Image\weather\a_21.gif" />
+    <Content Include="Image\weather\a_22.gif" />
+    <Content Include="Image\weather\a_23.gif" />
+    <Content Include="Image\weather\a_24.gif" />
+    <Content Include="Image\weather\a_25.gif" />
+    <Content Include="Image\weather\a_26.gif" />
+    <Content Include="Image\weather\a_27.gif" />
+    <Content Include="Image\weather\a_28.gif" />
+    <Content Include="Image\weather\a_29.gif" />
+    <Content Include="Image\weather\a_3.gif" />
+    <Content Include="Image\weather\a_30.gif" />
+    <Content Include="Image\weather\a_31.gif" />
+    <Content Include="Image\weather\a_4.gif" />
+    <Content Include="Image\weather\a_5.gif" />
+    <Content Include="Image\weather\a_6.gif" />
+    <Content Include="Image\weather\a_7.gif" />
+    <Content Include="Image\weather\a_8.gif" />
+    <Content Include="Image\weather\a_9.gif" />
+    <Content Include="Image\weather\a_nothing.gif" />
+    <Content Include="Image\weather\b_0.gif" />
+    <Content Include="Image\weather\b_1.gif" />
+    <Content Include="Image\weather\b_10.gif" />
+    <Content Include="Image\weather\b_11.gif" />
+    <Content Include="Image\weather\b_12.gif" />
+    <Content Include="Image\weather\b_13.gif" />
+    <Content Include="Image\weather\b_14.gif" />
+    <Content Include="Image\weather\b_15.gif" />
+    <Content Include="Image\weather\b_16.gif" />
+    <Content Include="Image\weather\b_17.gif" />
+    <Content Include="Image\weather\b_18.gif" />
+    <Content Include="Image\weather\b_19.gif" />
+    <Content Include="Image\weather\b_2.gif" />
+    <Content Include="Image\weather\b_20.gif" />
+    <Content Include="Image\weather\b_21.gif" />
+    <Content Include="Image\weather\b_22.gif" />
+    <Content Include="Image\weather\b_23.gif" />
+    <Content Include="Image\weather\b_24.gif" />
+    <Content Include="Image\weather\b_25.gif" />
+    <Content Include="Image\weather\b_26.gif" />
+    <Content Include="Image\weather\b_27.gif" />
+    <Content Include="Image\weather\b_28.gif" />
+    <Content Include="Image\weather\b_29.gif" />
+    <Content Include="Image\weather\b_3.gif" />
+    <Content Include="Image\weather\b_30.gif" />
+    <Content Include="Image\weather\b_31.gif" />
+    <Content Include="Image\weather\b_4.gif" />
+    <Content Include="Image\weather\b_5.gif" />
+    <Content Include="Image\weather\b_6.gif" />
+    <Content Include="Image\weather\b_7.gif" />
+    <Content Include="Image\weather\b_8.gif" />
+    <Content Include="Image\weather\b_9.gif" />
+    <Content Include="Image\weather\b_nothing.gif" />
+    <Content Include="Image\weather\nothing.gif" />
+    <Content Include="Image\weather\Read me.txt" />
+    <Content Include="Image\weather\r_b.gif" />
+    <Content Include="Image\weather\r_t1.gif" />
+    <Content Include="Image\weather\tem1.gif" />
+    <Content Include="Image\weather\tem2.gif" />
+    <Content Include="Image\weather\tem3.gif" />
+    <Content Include="Image\weather\tem4.gif" />
+    <Content Include="Image\weather\tem5.gif" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Scripts\elemen-ui\alert.js" />
+    <Content Include="Scripts\elemen-ui\aside.js" />
+    <Content Include="Scripts\elemen-ui\autocomplete.js" />
+    <Content Include="Scripts\elemen-ui\badge.js" />
+    <Content Include="Scripts\elemen-ui\breadcrumb-item.js" />
+    <Content Include="Scripts\elemen-ui\breadcrumb.js" />
+    <Content Include="Scripts\elemen-ui\button-group.js" />
+    <Content Include="Scripts\elemen-ui\button.js" />
+    <Content Include="Scripts\elemen-ui\card.js" />
+    <Content Include="Scripts\elemen-ui\carousel-item.js" />
+    <Content Include="Scripts\elemen-ui\carousel.js" />
+    <Content Include="Scripts\elemen-ui\cascader.js" />
+    <Content Include="Scripts\elemen-ui\checkbox-button.js" />
+    <Content Include="Scripts\elemen-ui\checkbox-group.js" />
+    <Content Include="Scripts\elemen-ui\checkbox.js" />
+    <Content Include="Scripts\elemen-ui\col.js" />
+    <Content Include="Scripts\elemen-ui\collapse-item.js" />
+    <Content Include="Scripts\elemen-ui\collapse.js" />
+    <Content Include="Scripts\elemen-ui\color-picker.js" />
+    <Content Include="Scripts\elemen-ui\container.js" />
+    <Content Include="Scripts\elemen-ui\date-picker.js" />
+    <Content Include="Scripts\elemen-ui\dialog.js" />
+    <Content Include="Scripts\elemen-ui\directives\mousewheel.js" />
+    <Content Include="Scripts\elemen-ui\directives\repeat-click.js" />
+    <Content Include="Scripts\elemen-ui\dropdown-item.js" />
+    <Content Include="Scripts\elemen-ui\dropdown-menu.js" />
+    <Content Include="Scripts\elemen-ui\dropdown.js" />
+    <Content Include="Scripts\elemen-ui\element-ui.common.js" />
+    <Content Include="Scripts\elemen-ui\footer.js" />
+    <Content Include="Scripts\elemen-ui\form-item.js" />
+    <Content Include="Scripts\elemen-ui\form.js" />
+    <Content Include="Scripts\elemen-ui\header.js" />
+    <Content Include="Scripts\elemen-ui\icon.js" />
+    <Content Include="Scripts\elemen-ui\index.js" />
+    <Content Include="Scripts\elemen-ui\input-number.js" />
+    <Content Include="Scripts\elemen-ui\input.js" />
+    <Content Include="Scripts\elemen-ui\loading.js" />
+    <Content Include="Scripts\elemen-ui\locale\format.js" />
+    <Content Include="Scripts\elemen-ui\locale\index.js" />
+    <Content Include="Scripts\elemen-ui\locale\lang\af-ZA.js" />
+    <Content Include="Scripts\elemen-ui\locale\lang\ar.js" />
+    <Content Include="Scripts\elemen-ui\locale\lang\bg.js" />
+    <Content Include="Scripts\elemen-ui\locale\lang\ca.js" />
+    <Content Include="Scripts\elemen-ui\locale\lang\cs-CZ.js" />
+    <Content Include="Scripts\elemen-ui\locale\lang\da.js" />
+    <Content Include="Scripts\elemen-ui\locale\lang\de.js" />
+    <Content Include="Scripts\elemen-ui\locale\lang\ee.js" />
+    <Content Include="Scripts\elemen-ui\locale\lang\el.js" />
+    <Content Include="Scripts\elemen-ui\locale\lang\en.js" />
+    <Content Include="Scripts\elemen-ui\locale\lang\es.js" />
+    <Content Include="Scripts\elemen-ui\locale\lang\fa.js" />
+    <Content Include="Scripts\elemen-ui\locale\lang\fi.js" />
+    <Content Include="Scripts\elemen-ui\locale\lang\fr.js" />
+    <Content Include="Scripts\elemen-ui\locale\lang\he.js" />
+    <Content Include="Scripts\elemen-ui\locale\lang\hu.js" />
+    <Content Include="Scripts\elemen-ui\locale\lang\id.js" />
+    <Content Include="Scripts\elemen-ui\locale\lang\it.js" />
+    <Content Include="Scripts\elemen-ui\locale\lang\ja.js" />
+    <Content Include="Scripts\elemen-ui\locale\lang\km.js" />
+    <Content Include="Scripts\elemen-ui\locale\lang\ko.js" />
+    <Content Include="Scripts\elemen-ui\locale\lang\ku.js" />
+    <Content Include="Scripts\elemen-ui\locale\lang\kz.js" />
+    <Content Include="Scripts\elemen-ui\locale\lang\lt.js" />
+    <Content Include="Scripts\elemen-ui\locale\lang\lv.js" />
+    <Content Include="Scripts\elemen-ui\locale\lang\mn.js" />
+    <Content Include="Scripts\elemen-ui\locale\lang\nb-NO.js" />
+    <Content Include="Scripts\elemen-ui\locale\lang\nl.js" />
+    <Content Include="Scripts\elemen-ui\locale\lang\pl.js" />
+    <Content Include="Scripts\elemen-ui\locale\lang\pt-br.js" />
+    <Content Include="Scripts\elemen-ui\locale\lang\pt.js" />
+    <Content Include="Scripts\elemen-ui\locale\lang\ro.js" />
+    <Content Include="Scripts\elemen-ui\locale\lang\ru-RU.js" />
+    <Content Include="Scripts\elemen-ui\locale\lang\sk.js" />
+    <Content Include="Scripts\elemen-ui\locale\lang\sl.js" />
+    <Content Include="Scripts\elemen-ui\locale\lang\sv-SE.js" />
+    <Content Include="Scripts\elemen-ui\locale\lang\ta.js" />
+    <Content Include="Scripts\elemen-ui\locale\lang\th.js" />
+    <Content Include="Scripts\elemen-ui\locale\lang\tk.js" />
+    <Content Include="Scripts\elemen-ui\locale\lang\tr-TR.js" />
+    <Content Include="Scripts\elemen-ui\locale\lang\ua.js" />
+    <Content Include="Scripts\elemen-ui\locale\lang\ug-CN.js" />
+    <Content Include="Scripts\elemen-ui\locale\lang\vi.js" />
+    <Content Include="Scripts\elemen-ui\locale\lang\zh-CN.js" />
+    <Content Include="Scripts\elemen-ui\locale\lang\zh-TW.js" />
+    <Content Include="Scripts\elemen-ui\main.js" />
+    <Content Include="Scripts\elemen-ui\menu-item-group.js" />
+    <Content Include="Scripts\elemen-ui\menu-item.js" />
+    <Content Include="Scripts\elemen-ui\menu.js" />
+    <Content Include="Scripts\elemen-ui\message-box.js" />
+    <Content Include="Scripts\elemen-ui\message.js" />
+    <Content Include="Scripts\elemen-ui\mixins\emitter.js" />
+    <Content Include="Scripts\elemen-ui\mixins\focus.js" />
+    <Content Include="Scripts\elemen-ui\mixins\locale.js" />
+    <Content Include="Scripts\elemen-ui\mixins\migrating.js" />
+    <Content Include="Scripts\elemen-ui\notification.js" />
+    <Content Include="Scripts\elemen-ui\option-group.js" />
+    <Content Include="Scripts\elemen-ui\option.js" />
+    <Content Include="Scripts\elemen-ui\pagination.js" />
+    <Content Include="Scripts\elemen-ui\popover.js" />
+    <Content Include="Scripts\elemen-ui\progress.js" />
+    <Content Include="Scripts\elemen-ui\radio-button.js" />
+    <Content Include="Scripts\elemen-ui\radio-group.js" />
+    <Content Include="Scripts\elemen-ui\radio.js" />
+    <Content Include="Scripts\elemen-ui\rate.js" />
+    <Content Include="Scripts\elemen-ui\row.js" />
+    <Content Include="Scripts\elemen-ui\scrollbar.js" />
+    <Content Include="Scripts\elemen-ui\select.js" />
+    <Content Include="Scripts\elemen-ui\slider.js" />
+    <Content Include="Scripts\elemen-ui\spinner.js" />
+    <Content Include="Scripts\elemen-ui\step.js" />
+    <Content Include="Scripts\elemen-ui\steps.js" />
+    <Content Include="Scripts\elemen-ui\submenu.js" />
+    <Content Include="Scripts\elemen-ui\switch.js" />
+    <Content Include="Scripts\elemen-ui\tab-pane.js" />
+    <Content Include="Scripts\elemen-ui\table-column.js" />
+    <Content Include="Scripts\elemen-ui\table.js" />
+    <Content Include="Scripts\elemen-ui\tabs.js" />
+    <Content Include="Scripts\elemen-ui\tag.js" />
+    <Content Include="Scripts\elemen-ui\theme-chalk\alert.css" />
+    <Content Include="Scripts\elemen-ui\theme-chalk\aside.css" />
+    <Content Include="Scripts\elemen-ui\theme-chalk\autocomplete.css" />
+    <Content Include="Scripts\elemen-ui\theme-chalk\badge.css" />
+    <Content Include="Scripts\elemen-ui\theme-chalk\base.css" />
+    <Content Include="Scripts\elemen-ui\theme-chalk\breadcrumb-item.css" />
+    <Content Include="Scripts\elemen-ui\theme-chalk\breadcrumb.css" />
+    <Content Include="Scripts\elemen-ui\theme-chalk\button-group.css" />
+    <Content Include="Scripts\elemen-ui\theme-chalk\button.css" />
+    <Content Include="Scripts\elemen-ui\theme-chalk\card.css" />
+    <Content Include="Scripts\elemen-ui\theme-chalk\carousel-item.css" />
+    <Content Include="Scripts\elemen-ui\theme-chalk\carousel.css" />
+    <Content Include="Scripts\elemen-ui\theme-chalk\cascader.css" />
+    <Content Include="Scripts\elemen-ui\theme-chalk\checkbox-button.css" />
+    <Content Include="Scripts\elemen-ui\theme-chalk\checkbox-group.css" />
+    <Content Include="Scripts\elemen-ui\theme-chalk\checkbox.css" />
+    <Content Include="Scripts\elemen-ui\theme-chalk\col.css" />
+    <Content Include="Scripts\elemen-ui\theme-chalk\collapse-item.css" />
+    <Content Include="Scripts\elemen-ui\theme-chalk\collapse.css" />
+    <Content Include="Scripts\elemen-ui\theme-chalk\color-picker.css" />
+    <Content Include="Scripts\elemen-ui\theme-chalk\container.css" />
+    <Content Include="Scripts\elemen-ui\theme-chalk\date-picker.css" />
+    <Content Include="Scripts\elemen-ui\theme-chalk\dialog.css" />
+    <Content Include="Scripts\elemen-ui\theme-chalk\display.css" />
+    <Content Include="Scripts\elemen-ui\theme-chalk\dropdown-item.css" />
+    <Content Include="Scripts\elemen-ui\theme-chalk\dropdown-menu.css" />
+    <Content Include="Scripts\elemen-ui\theme-chalk\dropdown.css" />
+    <Content Include="Scripts\elemen-ui\theme-chalk\footer.css" />
+    <Content Include="Scripts\elemen-ui\theme-chalk\form-item.css" />
+    <Content Include="Scripts\elemen-ui\theme-chalk\form.css" />
+    <Content Include="Scripts\elemen-ui\theme-chalk\header.css" />
+    <Content Include="Scripts\elemen-ui\theme-chalk\icon.css" />
+    <Content Include="Scripts\elemen-ui\theme-chalk\index.css" />
+    <Content Include="Scripts\elemen-ui\theme-chalk\input-number.css" />
+    <Content Include="Scripts\elemen-ui\theme-chalk\input.css" />
+    <Content Include="Scripts\elemen-ui\theme-chalk\loading.css" />
+    <Content Include="Scripts\elemen-ui\theme-chalk\main.css" />
+    <Content Include="Scripts\elemen-ui\theme-chalk\menu-item-group.css" />
+    <Content Include="Scripts\elemen-ui\theme-chalk\menu-item.css" />
+    <Content Include="Scripts\elemen-ui\theme-chalk\menu.css" />
+    <Content Include="Scripts\elemen-ui\theme-chalk\message-box.css" />
+    <Content Include="Scripts\elemen-ui\theme-chalk\message.css" />
+    <Content Include="Scripts\elemen-ui\theme-chalk\notification.css" />
+    <Content Include="Scripts\elemen-ui\theme-chalk\option-group.css" />
+    <Content Include="Scripts\elemen-ui\theme-chalk\option.css" />
+    <Content Include="Scripts\elemen-ui\theme-chalk\pagination.css" />
+    <Content Include="Scripts\elemen-ui\theme-chalk\popover.css" />
+    <Content Include="Scripts\elemen-ui\theme-chalk\popper.css" />
+    <Content Include="Scripts\elemen-ui\theme-chalk\progress.css" />
+    <Content Include="Scripts\elemen-ui\theme-chalk\radio-button.css" />
+    <Content Include="Scripts\elemen-ui\theme-chalk\radio-group.css" />
+    <Content Include="Scripts\elemen-ui\theme-chalk\radio.css" />
+    <Content Include="Scripts\elemen-ui\theme-chalk\rate.css" />
+    <Content Include="Scripts\elemen-ui\theme-chalk\reset.css" />
+    <Content Include="Scripts\elemen-ui\theme-chalk\row.css" />
+    <Content Include="Scripts\elemen-ui\theme-chalk\scrollbar.css" />
+    <Content Include="Scripts\elemen-ui\theme-chalk\select-dropdown.css" />
+    <Content Include="Scripts\elemen-ui\theme-chalk\select.css" />
+    <Content Include="Scripts\elemen-ui\theme-chalk\slider.css" />
+    <Content Include="Scripts\elemen-ui\theme-chalk\spinner.css" />
+    <Content Include="Scripts\elemen-ui\theme-chalk\step.css" />
+    <Content Include="Scripts\elemen-ui\theme-chalk\steps.css" />
+    <Content Include="Scripts\elemen-ui\theme-chalk\submenu.css" />
+    <Content Include="Scripts\elemen-ui\theme-chalk\switch.css" />
+    <Content Include="Scripts\elemen-ui\theme-chalk\tab-pane.css" />
+    <Content Include="Scripts\elemen-ui\theme-chalk\table-column.css" />
+    <Content Include="Scripts\elemen-ui\theme-chalk\table.css" />
+    <Content Include="Scripts\elemen-ui\theme-chalk\tabs.css" />
+    <Content Include="Scripts\elemen-ui\theme-chalk\tag.css" />
+    <Content Include="Scripts\elemen-ui\theme-chalk\time-picker.css" />
+    <Content Include="Scripts\elemen-ui\theme-chalk\time-select.css" />
+    <Content Include="Scripts\elemen-ui\theme-chalk\tooltip.css" />
+    <Content Include="Scripts\elemen-ui\theme-chalk\transfer.css" />
+    <Content Include="Scripts\elemen-ui\theme-chalk\tree.css" />
+    <Content Include="Scripts\elemen-ui\theme-chalk\upload.css" />
+    <Content Include="Scripts\elemen-ui\time-picker.js" />
+    <Content Include="Scripts\elemen-ui\time-select.js" />
+    <Content Include="Scripts\elemen-ui\tooltip.js" />
+    <Content Include="Scripts\elemen-ui\transfer.js" />
+    <Content Include="Scripts\elemen-ui\transitions\collapse-transition.js" />
+    <Content Include="Scripts\elemen-ui\tree.js" />
+    <Content Include="Scripts\elemen-ui\umd\locale\af-ZA.js" />
+    <Content Include="Scripts\elemen-ui\umd\locale\ar.js" />
+    <Content Include="Scripts\elemen-ui\umd\locale\bg.js" />
+    <Content Include="Scripts\elemen-ui\umd\locale\ca.js" />
+    <Content Include="Scripts\elemen-ui\umd\locale\cs-CZ.js" />
+    <Content Include="Scripts\elemen-ui\umd\locale\da.js" />
+    <Content Include="Scripts\elemen-ui\umd\locale\de.js" />
+    <Content Include="Scripts\elemen-ui\umd\locale\ee.js" />
+    <Content Include="Scripts\elemen-ui\umd\locale\el.js" />
+    <Content Include="Scripts\elemen-ui\umd\locale\en.js" />
+    <Content Include="Scripts\elemen-ui\umd\locale\es.js" />
+    <Content Include="Scripts\elemen-ui\umd\locale\fa.js" />
+    <Content Include="Scripts\elemen-ui\umd\locale\fi.js" />
+    <Content Include="Scripts\elemen-ui\umd\locale\fr.js" />
+    <Content Include="Scripts\elemen-ui\umd\locale\he.js" />
+    <Content Include="Scripts\elemen-ui\umd\locale\hu.js" />
+    <Content Include="Scripts\elemen-ui\umd\locale\id.js" />
+    <Content Include="Scripts\elemen-ui\umd\locale\it.js" />
+    <Content Include="Scripts\elemen-ui\umd\locale\ja.js" />
+    <Content Include="Scripts\elemen-ui\umd\locale\km.js" />
+    <Content Include="Scripts\elemen-ui\umd\locale\ko.js" />
+    <Content Include="Scripts\elemen-ui\umd\locale\ku.js" />
+    <Content Include="Scripts\elemen-ui\umd\locale\kz.js" />
+    <Content Include="Scripts\elemen-ui\umd\locale\lt.js" />
+    <Content Include="Scripts\elemen-ui\umd\locale\lv.js" />
+    <Content Include="Scripts\elemen-ui\umd\locale\mn.js" />
+    <Content Include="Scripts\elemen-ui\umd\locale\nb-NO.js" />
+    <Content Include="Scripts\elemen-ui\umd\locale\nl.js" />
+    <Content Include="Scripts\elemen-ui\umd\locale\pl.js" />
+    <Content Include="Scripts\elemen-ui\umd\locale\pt-br.js" />
+    <Content Include="Scripts\elemen-ui\umd\locale\pt.js" />
+    <Content Include="Scripts\elemen-ui\umd\locale\ro.js" />
+    <Content Include="Scripts\elemen-ui\umd\locale\ru-RU.js" />
+    <Content Include="Scripts\elemen-ui\umd\locale\sk.js" />
+    <Content Include="Scripts\elemen-ui\umd\locale\sl.js" />
+    <Content Include="Scripts\elemen-ui\umd\locale\sv-SE.js" />
+    <Content Include="Scripts\elemen-ui\umd\locale\ta.js" />
+    <Content Include="Scripts\elemen-ui\umd\locale\th.js" />
+    <Content Include="Scripts\elemen-ui\umd\locale\tk.js" />
+    <Content Include="Scripts\elemen-ui\umd\locale\tr-TR.js" />
+    <Content Include="Scripts\elemen-ui\umd\locale\ua.js" />
+    <Content Include="Scripts\elemen-ui\umd\locale\ug-CN.js" />
+    <Content Include="Scripts\elemen-ui\umd\locale\vi.js" />
+    <Content Include="Scripts\elemen-ui\umd\locale\zh-CN.js" />
+    <Content Include="Scripts\elemen-ui\umd\locale\zh-TW.js" />
+    <Content Include="Scripts\elemen-ui\upload.js" />
+    <Content Include="Scripts\elemen-ui\utils\after-leave.js" />
+    <Content Include="Scripts\elemen-ui\utils\aria-dialog.js" />
+    <Content Include="Scripts\elemen-ui\utils\aria-utils.js" />
+    <Content Include="Scripts\elemen-ui\utils\clickoutside.js" />
+    <Content Include="Scripts\elemen-ui\utils\date.js" />
+    <Content Include="Scripts\elemen-ui\utils\dom.js" />
+    <Content Include="Scripts\elemen-ui\utils\menu\aria-menubar.js" />
+    <Content Include="Scripts\elemen-ui\utils\menu\aria-menuitem.js" />
+    <Content Include="Scripts\elemen-ui\utils\menu\aria-submenu.js" />
+    <Content Include="Scripts\elemen-ui\utils\merge.js" />
+    <Content Include="Scripts\elemen-ui\utils\popper.js" />
+    <Content Include="Scripts\elemen-ui\utils\popup\index.js" />
+    <Content Include="Scripts\elemen-ui\utils\popup\popup-manager.js" />
+    <Content Include="Scripts\elemen-ui\utils\resize-event.js" />
+    <Content Include="Scripts\elemen-ui\utils\scroll-into-view.js" />
+    <Content Include="Scripts\elemen-ui\utils\scrollbar-width.js" />
+    <Content Include="Scripts\elemen-ui\utils\shared.js" />
+    <Content Include="Scripts\elemen-ui\utils\util.js" />
+    <Content Include="Scripts\elemen-ui\utils\vdom.js" />
+    <Content Include="Scripts\elemen-ui\utils\vue-popper.js" />
     <Content Include="Scripts\IView\iview.js" />
     <Content Include="Scripts\IView\iview.min.js" />
     <Content Include="Scripts\IView\locale\cs-CZ.js" />
@@ -248,6 +632,12 @@
     <Content Include="Content\Iview2\fonts\ionicons.eot" />
     <Content Include="Content\Iview2\fonts\ionicons.ttf" />
     <Content Include="Content\Iview2\fonts\ionicons.woff" />
+    <Content Include="Scripts\elemen-ui\theme-chalk\fonts\element-icons.ttf" />
+    <Content Include="Scripts\elemen-ui\theme-chalk\fonts\element-icons.woff" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -273,6 +663,11 @@
     <Content Include="static\UsrMgr\main.js" />
     <Content Include="static\Weekly\fonts\ionicons.svg" />
     <Content Include="static\Weekly\iview.css" />
+    <Content Include="Web References\cn.com.webxml.www\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </Content>
+    <None Include="Web References\cn.com.webxml.www\WeatherWebService.disco" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -293,6 +688,8 @@
     <Content Include="static\Weekly\fonts\ionicons.woff" />
     <Content Include="Views\Weekly\WriteWeekly.cshtml" />
     <Content Include="Views\Apply\Index.cshtml" />
+    <Content Include="Views\MyHome\Index.cshtml" />
+    <None Include="Web References\cn.com.webxml.www\WeatherWebService.wsdl" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -332,6 +729,22 @@
       <Project>{ae92119d-9fb1-44f2-b134-875af4e49d67}</Project>
       <Name>ServiceFactory</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferences Include="Web References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferenceUrl Include="http://www.webxml.com.cn/WebServices/WeatherWebService.asmx">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\cn.com.webxml.www\</RelPath>
+      <UpdateFromURL>http://www.webxml.com.cn/WebServices/WeatherWebService.asmx</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>OA_Web_cn_com_webxml_www_WeatherWebService</CachedSettingsPropName>
+    </WebReferenceUrl>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -1,6 +1,7 @@
 ﻿using Memcached.ClientLibrary;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,11 +14,10 @@ namespace OA.Common
 
        static MemcacheHelper()
        {
-           //最好放在配置文件中
-           string[] serverlist = { "127.0.0.1:11211"};
+            string[] serverlist = new string[] { ConfigurationManager.AppSettings["MemcacheAddress"] };
 
            //初始化池
-           SockIOPool pool = SockIOPool.GetInstance();
+            SockIOPool pool = SockIOPool.GetInstance();
            pool.SetServers(serverlist);
 
            pool.InitConnections = 3;
@@ -86,12 +86,28 @@ namespace OA.Common
        {
            return mc.Get(key);
        }
+
+      
+        public static object GetAndAddMinutes(string key, int Minutes)
+        {
+            object o = null;
+              o=  mc.Get(key);
+            if (o != null)
+            {
+               mc.Set(key, o.ToString(), DateTime.Now.AddMinutes(Minutes));
+
+            }
+            return o;
+        }
+
+
+
        /// <summary>
        /// 删除
        /// </summary>
        /// <param name="key"></param>
        /// <returns></returns>
-       public static bool Delete(string key)
+        public static bool Delete(string key)
        {
            if (mc.KeyExists(key))
            {

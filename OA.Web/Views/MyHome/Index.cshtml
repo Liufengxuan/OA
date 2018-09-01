@@ -1,0 +1,57 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <script src="~/Scripts/vue.js"></script>
+    <link href="~/Scripts/elemen-ui/theme-chalk/index.css" rel="stylesheet" />
+    <script src="~/Scripts/elemen-ui/index.js"></script>
+</head>
+<body>
+    <div  id="app" style="width:100%;height:100%">
+        <el-card  class="box-card">
+            <el-tooltip style="width:150px;" class="item" effect="light"  placement="top-start">
+                <div style="width:300px" slot="content">
+                    <h1  style="font-size:15px">{{weather.City[0]}} {{weather.City[1]}}</h1><br />
+                    <span>     {{weather.Text[0]}}</span><br />
+                    <span>     {{weather.Text[2]}}</span><br />
+                    <p>{{weather.Text[1]}}</p><br />
+                    <span style="font-size:5px">最后更新：{{weather.Date}}</span>
+                </div>
+                <div>
+                    <span class="el-icon-location">  {{weather.City[1]}}</span><br />
+                    <img :src="weather.Icon[0]" /> | <img :src="weather.Icon[1]" />
+                    <br /><span>{{weather.Text[3]}}</span>
+                    
+                </div>
+            </el-tooltip>
+
+        </el-card>
+    </div>
+</body>
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            weather: {},
+            //    {
+            //    Text: ["8月18日 雷阵雨转大雨", "今日天气实况：气温：24℃；风向/风力：东北风 2级；湿度：93%；紫外线强度：弱。空气质量：良。", "东北风4-5级", "23℃/26℃"],
+            //    City: ["山东", "济南"],
+            //    Icon: ["/Image/weather/9.gif", "/Image/weather/4.gif"],
+            //    Date:"2018/8/18 10:17:42"
+            //}
+        },
+        created() {
+            this.weather = JSON.parse('@Html.Raw(ViewData["weather"])');
+
+
+        }
+    })
+</script>
+</html>

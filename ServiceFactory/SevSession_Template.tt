@@ -28,7 +28,7 @@ using OA.IBLL;
 
 namespace ServiceFactory
 {
-public class SevSession
+public partial class SevSession
     {
 <#
 // Emit Entity Types

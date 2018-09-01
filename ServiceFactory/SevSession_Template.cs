@@ -10,7 +10,7 @@ using OA.IBLL;
 
 namespace ServiceFactory
 {
-public class SevSession
+public partial class SevSession
     {
 	
 	public static IActionInfoService  GetActionInfoService()

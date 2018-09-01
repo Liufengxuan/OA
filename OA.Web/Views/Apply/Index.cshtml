@@ -198,7 +198,7 @@
                     {
                         title: '姓名',
                         key: 'UserInfo.UName',
-                        width:140,
+                        width:90,
                         render: (h, params) => {
                             return h('div', [
                                 h('Icon', {
@@ -235,7 +235,7 @@
                     {
                         title:"期限 | 金额",
                         key: 'address',
-                        width: 300,
+                        width: 320,
                         render: (h, para) => {
                             let row = para.row;           
                             if (row.Number > 0) {
@@ -300,7 +300,7 @@
                     {
                         title: "提交时间",
                         key: 'SubTime',
-                        width: 150,
+                        width: 170,
                         render: (h, para) => {
                             return h('span', this.getLocalTime(para.row.SubTime));
 

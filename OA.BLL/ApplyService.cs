@@ -19,8 +19,15 @@ using System.Threading.Tasks;
                 new SqlParameter("@remark",System.Data.SqlDbType.NVarChar,50),
                 new SqlParameter("@id",System.Data.SqlDbType.Int,50)
             };
+            if (remark2 == null || remark2 == "")
+            {
+                pars[1].Value = DBNull.Value;
+            }
+            else {
+                pars[1].Value = remark2;
+            }
             pars[0].Value = aState;
-            pars[1].Value = remark2;
+           
             pars[2].Value = aId;
 
             return CurrentDBSession.ExecuteSql(sql, pars) > 0;

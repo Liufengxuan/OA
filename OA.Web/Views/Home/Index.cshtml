@@ -48,15 +48,21 @@
                         <Menu-Item name="1-2"><Icon type="md-medal" size="15"></Icon>企业信息</Menu-Item>
                         <Menu-Item name="1-3"><Icon type="ios-contacts" size="15"></Icon>企业论坛</Menu-Item>
                     </Menu-Group>
-                        <Submenu name="3">
-                            <template slot="title">
-                                <Icon type="ios-people"size="17" color="steelblue"></Icon>
-                                人员管理
-                            </template>
-                            <Menu-Item name="用户管理">用户管理</Menu-Item>
-                            <Menu-Item name="角色管理">角色管理</Menu-Item>
-                            <Menu-Item name="权限管理">权限管理</Menu-Item>
-                        </Submenu>
+                    <Submenu name="3">
+                        <template slot="title">
+                            <Icon type="ios-people" size="17" color="steelblue"></Icon>
+                            人员管理
+                        </template>
+                        <Menu-Item name="用户管理">用户管理</Menu-Item>
+                        <Menu-Item name="角色管理">角色管理</Menu-Item>
+                        <Menu-Item name="权限管理">权限管理</Menu-Item>
+                    </Submenu>
+                    <Submenu name="5">
+                        <template slot="title">
+                            <Icon type="ios-mail" size="17" color="steelblue"></Icon>
+                            企业邮箱
+                        </template>
+                    </Submenu>
                 </i-Menu>
             </Sider>
             <Layout :style="{marginLeft: '200px'}">
@@ -90,7 +96,8 @@
                     用户管理: "/UserMgr/index",
                     角色管理: "http://www.baidu.com",
                     企业周报: "/Weekly/Index",
-                    审批事项:"/Apply/Index",
+                    审批事项: "/Apply/Index",
+                    个人主页:"/MyHome/Index",
                 },                                                                                                                                                  
                 activeFromName: "",
             },
