@@ -23,6 +23,7 @@ namespace OA.Web.Controllers
         public ActionResult UserLogin(Models.LoginForm from)
         {
             string vcodeSID =Request.Cookies["sessionId"].Value.ToString();
+            Response.Cookies.Remove("sessionId");
             //获取正确验证码
             string vode = MemcacheHelper.Get(vcodeSID).ToString();
             //根据用户名取得用户信息；
@@ -53,7 +54,7 @@ namespace OA.Web.Controllers
                 Response.Cookies["userinfo"].Value = SerializeHelper.SerializeToString(userInfo);//登陆成功将userinfo写入cookies
             }
             else {
-                Response.Cookies["userinfo"].Value="";
+                Response.Cookies.Remove("userinfo");
             }
             string userInfoSID= MemcacheHelper.Set(SerializeHelper.SerializeToString(userInfo), DateTime.Now.AddMinutes(20));
             Response.Cookies["userInfoSID"].Value = userInfoSID;

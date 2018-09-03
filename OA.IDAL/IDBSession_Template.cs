@@ -15,6 +15,10 @@ namespace OA.IDAL
 	
 		IActionInfoDAL ActionInfoDal{get;set;}
 	
+		IAnnouncementDAL AnnouncementDal{get;set;}
+	
+		IAnnounTypeDAL AnnounTypeDal{get;set;}
+	
 		IApplyDAL ApplyDal{get;set;}
 	
 		IApplyTypeDAL ApplyTypeDal{get;set;}
@@ -25,6 +29,8 @@ namespace OA.IDAL
 	
 		IKeyWordsRankDAL KeyWordsRankDal{get;set;}
 	
+		INotepaperDAL NotepaperDal{get;set;}
+	
 		IR_UserInfo_ActionInfoDAL R_UserInfo_ActionInfoDal{get;set;}
 	
 		IRoleInfoDAL RoleInfoDal{get;set;}
@@ -32,6 +38,8 @@ namespace OA.IDAL
 		ISearchDetailsDAL SearchDetailsDal{get;set;}
 	
 		IUserInfoDAL UserInfoDal{get;set;}
+	
+		IUserMessageDAL UserMessageDal{get;set;}
 	
 		IWeeklyDAL WeeklyDal{get;set;}
 	}	

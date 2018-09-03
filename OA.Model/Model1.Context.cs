@@ -36,5 +36,9 @@ namespace OA.Model
         public virtual DbSet<Weekly> Weekly { get; set; }
         public virtual DbSet<Apply> Apply { get; set; }
         public virtual DbSet<ApplyType> ApplyType { get; set; }
+        public virtual DbSet<Announcement> Announcement { get; set; }
+        public virtual DbSet<AnnounType> AnnounType { get; set; }
+        public virtual DbSet<UserMessage> UserMessage { get; set; }
+        public virtual DbSet<Notepaper> Notepaper { get; set; }
     }
 }

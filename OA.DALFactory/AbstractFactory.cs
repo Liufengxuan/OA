@@ -22,7 +22,7 @@ namespace OA.DALFactory
         //    string fullClassName = NameSpace + ".UserInfoDAL";
         //    return CreateInstance(fullClassName) as IUserInfoDAL;
         //}
-        public static object CreateInstance(string className)
+        private static object CreateInstance(string className)
         {
             var assembly= Assembly.Load(AssemblyPath);
             return assembly.CreateInstance(className);

@@ -16,6 +16,16 @@ namespace OA.DAL
 
     }
 		
+	public partial class AnnouncementDAL :BaseDAL<Announcement>,IAnnouncementDAL
+    {
+
+    }
+		
+	public partial class AnnounTypeDAL :BaseDAL<AnnounType>,IAnnounTypeDAL
+    {
+
+    }
+		
 	public partial class ApplyDAL :BaseDAL<Apply>,IApplyDAL
     {
 
@@ -41,6 +51,11 @@ namespace OA.DAL
 
     }
 		
+	public partial class NotepaperDAL :BaseDAL<Notepaper>,INotepaperDAL
+    {
+
+    }
+		
 	public partial class R_UserInfo_ActionInfoDAL :BaseDAL<R_UserInfo_ActionInfo>,IR_UserInfo_ActionInfoDAL
     {
 
@@ -57,6 +72,11 @@ namespace OA.DAL
     }
 		
 	public partial class UserInfoDAL :BaseDAL<UserInfo>,IUserInfoDAL
+    {
+
+    }
+		
+	public partial class UserMessageDAL :BaseDAL<UserMessage>,IUserMessageDAL
     {
 
     }

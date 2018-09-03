@@ -12,13 +12,29 @@
     <script src="~/Scripts/vue.js"></script>
     <link href="~/Scripts/elemen-ui/theme-chalk/index.css" rel="stylesheet" />
     <script src="~/Scripts/elemen-ui/index.js"></script>
+    <script src="~/Scripts/vue-resource.js"></script>
+    <style>
+        .msg-row {
+            padding: 10px 0;
+            /*background-color: #f9fafc;*/
+            /*border-bottom: 1px dotted #000000;*/
+        }
+     
+        .msg-col > div {
+               width:100%; 
+               /*border: 1px solid blue;*/
+               
+               overflow: hidden;
+               text-overflow:ellipsis
+            }
+    </style>
 </head>
 <body>
-    <div  id="app" style="width:100%;height:100%">
-        <el-card  class="box-card">
-            <el-tooltip style="width:150px;" class="item" effect="light"  placement="top-start">
+    <div id="app" style="width:100%;height:100%">
+        <el-card style="height:90px" class="box-card">
+            <el-tooltip style="width:150px;" class="item" effect="light" placement="top-start">
                 <div style="width:300px" slot="content">
-                    <h1  style="font-size:15px">{{weather.City[0]}} {{weather.City[1]}}</h1><br />
+                    <h1 style="font-size:15px">{{weather.City[0]}} {{weather.City[1]}}</h1><br />
                     <span>     {{weather.Text[0]}}</span><br />
                     <span>     {{weather.Text[2]}}</span><br />
                     <p>{{weather.Text[1]}}</p><br />
@@ -28,29 +44,118 @@
                     <span class="el-icon-location">  {{weather.City[1]}}</span><br />
                     <img :src="weather.Icon[0]" /> | <img :src="weather.Icon[1]" />
                     <br /><span>{{weather.Text[3]}}</span>
-                    
+
                 </div>
             </el-tooltip>
 
         </el-card>
+
+        <el-row style="margin-top:1%;height:100%" :gutter="20">
+            <el-col :span="11">
+        
+                <el-card style="height:400px" shadow="hover" :body-style=" {padding:'1px 0'} ">
+                    <div slot="header" class="clearfix">
+                        <el-badge :value="msg.CountSum" class="item">
+                            <span style="padding: 1px 0" class="el-icon-message"> 消息中心  </span>
+                        </el-badge>
+                        <el-button style="float: right; padding: 1px 0" type="text">>>></el-button>
+                    </div>
+                    <div style="height:44px;border-bottom:2px solid green">
+                        <el-select v-model="msg.SelectValue" style="float: right;text-align:center;width:150px;" placeholder="请选择">
+                            <el-option style="text-align:center" :value="0" label="全部消息"></el-option>
+                            <el-option style="text-align:center" v-for="item in msg.MsgCount"
+                                       :label="item.Name"
+                                       :value="item.Id">
+                                <span style="float: left">{{ item.Name }}&nbsp;&nbsp;&nbsp;</span>
+                                <el-badge :value="item.Count" class="item"></el-badge>
+                            </el-option>
+                        </el-select>
+                    </div>
+
+                    <!--消息列表开始-->
+                    <div style="height:270px;margin-top:1%;overflow-y:auto">
+                        <el-card v-for="item in msg.MsgList" style="margin-bottom:10px;background:  #f9fafc;" shadow="hover" :body-style=" {padding:'2px 0'} ">
+                            <el-row class="msg-row">
+
+                                <el-col class="msg-col" :span="11"><DIV><NOBR><a class="el-icon-tickets" href="javascript:void(0)">{{item.Title}}</a></NOBR></DIV></el-col>
+                                <el-col class="msg-col" :offset="1" :span="5"><DIV> <NOBR>{{item.Remark}}</NOBR></DIV></el-col>
+                                <el-col class="msg-col" :offset="1" :span="6"><DIV> <NOBR>{{getLocalTime(item.NewsTime)}}</NOBR></DIV></el-col>
+                            </el-row>
+                        </el-card>
+                    </div>
+                    <!--消息列表结束-->
+                </el-card>
+            </el-col>
+            <el-col :span="13">
+                <div>
+                    <el-card style="height:400px" shadow="hover" :body-style=" {padding:'1px 0'} ">
+                        鼠标悬浮时显示
+                    </el-card>
+                </div>
+            </el-col>
+            
+        </el-row>
     </div>
 </body>
 <script>
-    new Vue({
+   var v= new Vue({
         el: '#app',
         data: {
             weather: {},
-            //    {
-            //    Text: ["8月18日 雷阵雨转大雨", "今日天气实况：气温：24℃；风向/风力：东北风 2级；湿度：93%；紫外线强度：弱。空气质量：良。", "东北风4-5级", "23℃/26℃"],
-            //    City: ["山东", "济南"],
-            //    Icon: ["/Image/weather/9.gif", "/Image/weather/4.gif"],
-            //    Date:"2018/8/18 10:17:42"
-            //}
+            msg: {
+                CountSum: 0,
+                MsgCount: [],
+                SelectValue: 0,
+                MsgList:[],
+            }
+           //{Name: "系统消息", Id: 1, Count: 5}
+            
         },
+        methods: {
+            GetUnreadMsgCount() {
+                this.$http.get("/MyHome/GetUnreadMsgCount").then(resp => {
+                    if (resp.body.state == 0) {
+                        this.msg.MsgCount = resp.body.rst;
+                        this.msg.CountSum = resp.body.Sum;
+                        this.$notify.info("您有新的消息 ！")
+                    } else {
+                       this.$message.error(resp.body.msg);
+                    }
+
+                }, function () {
+                    this.$message.error('请求失败');
+                    })
+
+            },
+            GetMsgList(Id, isread) {
+                var paras = {
+                    typeId: Id,
+                    isRead: isread
+                };
+                this.$http.post("/MyHome/GetMsgList", paras).then(resp => {
+                    if (resp.body.state == 0) {
+                        this.msg.MsgList = resp.body.rst
+                    } else {
+                        this.$message.error(resp.body.msg);
+                    }
+                }, resp => {
+                        this.$message.error('请求失败');
+                    })
+            },
+            getLocalTime(nS) {
+                return new Date(nS).toLocaleString().replace(/:\d{1,2}$/, ' ');
+            },
+       },
+       watch: {
+           'msg.SelectValue': function () {
+               this.GetMsgList(this.msg.SelectValue, false)
+           }
+
+       },
         created() {
             this.weather = JSON.parse('@Html.Raw(ViewData["weather"])');
-
-
+            this.GetUnreadMsgCount();
+            this.GetMsgList(this.msg.SelectValue, false)
         }
     })
 </script>

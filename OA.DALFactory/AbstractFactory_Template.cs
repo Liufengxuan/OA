@@ -24,6 +24,22 @@ namespace OA.DALFactory
 
         }
 		
+	    public static IAnnouncementDAL CreateAnnouncementDal()
+        {
+
+		 string fullClassName = NameSpace + ".AnnouncementDAL";
+          return CreateInstance(fullClassName) as IAnnouncementDAL;
+
+        }
+		
+	    public static IAnnounTypeDAL CreateAnnounTypeDal()
+        {
+
+		 string fullClassName = NameSpace + ".AnnounTypeDAL";
+          return CreateInstance(fullClassName) as IAnnounTypeDAL;
+
+        }
+		
 	    public static IApplyDAL CreateApplyDal()
         {
 
@@ -64,6 +80,14 @@ namespace OA.DALFactory
 
         }
 		
+	    public static INotepaperDAL CreateNotepaperDal()
+        {
+
+		 string fullClassName = NameSpace + ".NotepaperDAL";
+          return CreateInstance(fullClassName) as INotepaperDAL;
+
+        }
+		
 	    public static IR_UserInfo_ActionInfoDAL CreateR_UserInfo_ActionInfoDal()
         {
 
@@ -93,6 +117,14 @@ namespace OA.DALFactory
 
 		 string fullClassName = NameSpace + ".UserInfoDAL";
           return CreateInstance(fullClassName) as IUserInfoDAL;
+
+        }
+		
+	    public static IUserMessageDAL CreateUserMessageDal()
+        {
+
+		 string fullClassName = NameSpace + ".UserMessageDAL";
+          return CreateInstance(fullClassName) as IUserMessageDAL;
 
         }
 		

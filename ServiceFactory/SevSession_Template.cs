@@ -18,6 +18,16 @@ public partial class SevSession
 		  return new ActionInfoService();
     }   
 	
+	public static IAnnouncementService  GetAnnouncementService()
+    {
+		  return new AnnouncementService();
+    }   
+	
+	public static IAnnounTypeService  GetAnnounTypeService()
+    {
+		  return new AnnounTypeService();
+    }   
+	
 	public static IApplyService  GetApplyService()
     {
 		  return new ApplyService();
@@ -43,6 +53,11 @@ public partial class SevSession
 		  return new KeyWordsRankService();
     }   
 	
+	public static INotepaperService  GetNotepaperService()
+    {
+		  return new NotepaperService();
+    }   
+	
 	public static IR_UserInfo_ActionInfoService  GetR_UserInfo_ActionInfoService()
     {
 		  return new R_UserInfo_ActionInfoService();
@@ -61,6 +76,11 @@ public partial class SevSession
 	public static IUserInfoService  GetUserInfoService()
     {
 		  return new UserInfoService();
+    }   
+	
+	public static IUserMessageService  GetUserMessageService()
+    {
+		  return new UserMessageService();
     }   
 	
 	public static IWeeklyService  GetWeeklyService()

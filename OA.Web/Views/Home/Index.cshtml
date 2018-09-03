@@ -73,7 +73,7 @@
                         <Breadcrumb-Item v-on:on-click="goLastPage" to="javascript:void(0);">{{lastIframeSrc.name}}</Breadcrumb-Item>
                         <Breadcrumb-Item>{{activeFromName}}</Breadcrumb-Item>
                     </Breadcrumb>
-                    <Card>
+                    <Card :padding="2">
                         <div style="height: 650px"><iframe frameborder="0" style="height:100%;width:100%" :src="iframeSrc"></iframe></div>
                     </Card>
                 </Content>

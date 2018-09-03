@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="cb4b3ad35828464da01fcf03ad0c7b89" Name="Diagram1">
+      <Diagram DiagramId="cb4b3ad35828464da01fcf03ad0c7b89" Name="Diagram1" ZoomLevel="69">
         <EntityTypeShape EntityType="OAModel.UserInfo" Width="1.5" PointX="0.625" PointY="1.5" IsExpanded="true" />
         <EntityTypeShape EntityType="OAModel.ActionInfo" Width="1.5" PointX="6.375" PointY="1.375" />
         <EntityTypeShape EntityType="OAModel.Books" Width="1.5" PointX="13.875" PointY="0.625" />
@@ -22,10 +22,17 @@
         <EntityTypeShape EntityType="OAModel.Weekly" Width="1.5" PointX="4.375" PointY="6.625" />
         <AssociationConnector Association="OAModel.FK_Weekly_UserInfo" />
         <EntityTypeShape EntityType="OAModel.Apply" Width="1.5" PointX="6.875" PointY="0.75" />
-        <EntityTypeShape EntityType="OAModel.ApplyType" Width="1.5" PointX="4.625" PointY="14.875" />
+        <EntityTypeShape EntityType="OAModel.ApplyType" Width="1.5" PointX="8.5" PointY="14.25" />
         <AssociationConnector Association="OAModel.FK_Apply_ApplyType" />
         <AssociationConnector Association="OAModel.FK_Apply_UserInfo" />
         <AssociationConnector Association="OAModel.FK_Apply_UserInfo1" />
+        <EntityTypeShape EntityType="OAModel.Announcement" Width="1.5" PointX="2.5" PointY="13.25" />
+        <EntityTypeShape EntityType="OAModel.AnnounType" Width="1.5" PointX="3.25" PointY="17.75" />
+        <EntityTypeShape EntityType="OAModel.UserMessage" Width="1.5" PointX="1" PointY="9.125" />
+        <AssociationConnector Association="OAModel.FK_Announcement_AnnounType" />
+        <AssociationConnector Association="OAModel.FK_UserMessage_Announcement" />
+        <AssociationConnector Association="OAModel.FK_UserMessage_UserInfo" />
+        <EntityTypeShape EntityType="OAModel.Notepaper" Width="1.5" PointX="10.375" PointY="5.5" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -25,6 +25,28 @@
           <Property Name="IconWidth" Type="int" Nullable="false" />
           <Property Name="IconHeight" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="Announcement">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Context" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="NewsTime" Type="datetime" Nullable="false" />
+          <Property Name="IsRevoke" Type="smallint" Nullable="false" />
+          <Property Name="RevokeTime" Type="datetime" />
+          <Property Name="AnnounTypeId" Type="int" Nullable="false" />
+          <Property Name="Remark" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="AnnounType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="Leva" Type="int" />
+          <Property Name="ParentId" Type="int" />
+        </EntityType>
         <EntityType Name="Apply">
           <Key>
             <PropertyRef Name="Id" />
@@ -97,6 +119,16 @@
           <Property Name="KeyWords" Type="nvarchar" MaxLength="255" />
           <Property Name="SearchCount" Type="int" />
         </EntityType>
+        <EntityType Name="Notepaper">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Context" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="IsComplete" Type="smallint" Nullable="false" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="SubTime" Type="datetime" Nullable="false" />
+        </EntityType>
         <EntityType Name="R_UserInfo_ActionInfo">
           <Key>
             <PropertyRef Name="ID" />
@@ -163,6 +195,17 @@
           <Property Name="RoleInfo_ID" Type="int" Nullable="false" />
           <Property Name="UserInfo_ID" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="UserMessage">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AnnounId" Type="int" Nullable="false" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="IsRead" Type="smallint" Nullable="false" />
+          <Property Name="ReadTime" Type="datetime" />
+          <Property Name="Remark" Type="nvarchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="Weekly">
           <Key>
             <PropertyRef Name="Id" />
@@ -188,6 +231,18 @@
             </Principal>
             <Dependent Role="R_UserInfo_ActionInfo">
               <PropertyRef Name="ActionInfoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Announcement_AnnounType">
+          <End Role="AnnounType" Type="Self.AnnounType" Multiplicity="1" />
+          <End Role="Announcement" Type="Self.Announcement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AnnounType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Announcement">
+              <PropertyRef Name="AnnounTypeId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -311,6 +366,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_UserMessage_Announcement">
+          <End Role="Announcement" Type="Self.Announcement" Multiplicity="1" />
+          <End Role="UserMessage" Type="Self.UserMessage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Announcement">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserMessage">
+              <PropertyRef Name="AnnounId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserMessage_UserInfo">
+          <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="1" />
+          <End Role="UserMessage" Type="Self.UserMessage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserInfo">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="UserMessage">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Weekly_UserInfo">
           <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="1" />
           <End Role="Weekly" Type="Self.Weekly" Multiplicity="*" />
@@ -325,12 +404,15 @@
         </Association>
         <EntityContainer Name="OAModelStoreContainer">
           <EntitySet Name="ActionInfo" EntityType="Self.ActionInfo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Announcement" EntityType="Self.Announcement" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AnnounType" EntityType="Self.AnnounType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Apply" EntityType="Self.Apply" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ApplyType" EntityType="Self.ApplyType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Books" EntityType="Self.Books" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Department" EntityType="Self.Department" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DepartmentActionInfo" EntityType="Self.DepartmentActionInfo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="KeyWordsRank" EntityType="Self.KeyWordsRank" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Notepaper" EntityType="Self.Notepaper" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="R_UserInfo_ActionInfo" EntityType="Self.R_UserInfo_ActionInfo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RoleInfo" EntityType="Self.RoleInfo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RoleInfoActionInfo" EntityType="Self.RoleInfoActionInfo" Schema="dbo" store:Type="Tables" />
@@ -338,10 +420,15 @@
           <EntitySet Name="UserInfo" EntityType="Self.UserInfo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserInfoDepartment" EntityType="Self.UserInfoDepartment" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserInfoRoleInfo" EntityType="Self.UserInfoRoleInfo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserMessage" EntityType="Self.UserMessage" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Weekly" EntityType="Self.Weekly" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_ActionInfoR_UserInfo_ActionInfo" Association="Self.FK_ActionInfoR_UserInfo_ActionInfo">
             <End Role="ActionInfo" EntitySet="ActionInfo" />
             <End Role="R_UserInfo_ActionInfo" EntitySet="R_UserInfo_ActionInfo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Announcement_AnnounType" Association="Self.FK_Announcement_AnnounType">
+            <End Role="AnnounType" EntitySet="AnnounType" />
+            <End Role="Announcement" EntitySet="Announcement" />
           </AssociationSet>
           <AssociationSet Name="FK_Apply_UserInfo" Association="Self.FK_Apply_UserInfo">
             <End Role="UserInfo" EntitySet="UserInfo" />
@@ -383,6 +470,14 @@
             <End Role="UserInfo" EntitySet="UserInfo" />
             <End Role="UserInfoRoleInfo" EntitySet="UserInfoRoleInfo" />
           </AssociationSet>
+          <AssociationSet Name="FK_UserMessage_Announcement" Association="Self.FK_UserMessage_Announcement">
+            <End Role="Announcement" EntitySet="Announcement" />
+            <End Role="UserMessage" EntitySet="UserMessage" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserMessage_UserInfo" Association="Self.FK_UserMessage_UserInfo">
+            <End Role="UserInfo" EntitySet="UserInfo" />
+            <End Role="UserMessage" EntitySet="UserMessage" />
+          </AssociationSet>
           <AssociationSet Name="FK_Weekly_UserInfo" Association="Self.FK_Weekly_UserInfo">
             <End Role="UserInfo" EntitySet="UserInfo" />
             <End Role="Weekly" EntitySet="Weekly" />
@@ -410,6 +505,7 @@
           <NavigationProperty Name="Weekly" Relationship="OAModel.FK_Weekly_UserInfo" FromRole="UserInfo" ToRole="Weekly" />
           <NavigationProperty Name="Apply" Relationship="OAModel.FK_Apply_UserInfo" FromRole="UserInfo" ToRole="Apply" />
           <NavigationProperty Name="Apply1" Relationship="OAModel.FK_Apply_UserInfo1" FromRole="UserInfo" ToRole="Apply" />
+          <NavigationProperty Name="UserMessage" Relationship="OAModel.FK_UserMessage_UserInfo" FromRole="UserInfo" ToRole="UserMessage" />
         </EntityType>
         <EntityContainer Name="OAEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="UserInfo" EntityType="Self.UserInfo" />
@@ -463,6 +559,22 @@
             <End Role="UserInfo" EntitySet="UserInfo" />
             <End Role="Apply" EntitySet="Apply" />
           </AssociationSet>
+          <EntitySet Name="Announcement" EntityType="OAModel.Announcement" />
+          <EntitySet Name="AnnounType" EntityType="OAModel.AnnounType" />
+          <EntitySet Name="UserMessage" EntityType="OAModel.UserMessage" />
+          <AssociationSet Name="FK_Announcement_AnnounType" Association="OAModel.FK_Announcement_AnnounType">
+            <End Role="AnnounType" EntitySet="AnnounType" />
+            <End Role="Announcement" EntitySet="Announcement" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserMessage_Announcement" Association="OAModel.FK_UserMessage_Announcement">
+            <End Role="Announcement" EntitySet="Announcement" />
+            <End Role="UserMessage" EntitySet="UserMessage" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserMessage_UserInfo" Association="OAModel.FK_UserMessage_UserInfo">
+            <End Role="UserInfo" EntitySet="UserInfo" />
+            <End Role="UserMessage" EntitySet="UserMessage" />
+          </AssociationSet>
+          <EntitySet Name="Notepaper" EntityType="OAModel.Notepaper" />
           </EntityContainer>
         <EntityType Name="ActionInfo">
           <Key>
@@ -695,6 +807,90 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Announcement">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Context" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="NewsTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="IsRevoke" Type="Int16" Nullable="false" />
+          <Property Name="RevokeTime" Type="DateTime" Precision="3" />
+          <Property Name="AnnounTypeId" Type="Int32" Nullable="false" />
+          <Property Name="Remark" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AnnounType" Relationship="OAModel.FK_Announcement_AnnounType" FromRole="Announcement" ToRole="AnnounType" />
+          <NavigationProperty Name="UserMessage" Relationship="OAModel.FK_UserMessage_Announcement" FromRole="Announcement" ToRole="UserMessage" />
+        </EntityType>
+        <EntityType Name="AnnounType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Leva" Type="Int32" />
+          <Property Name="ParentId" Type="Int32" />
+          <NavigationProperty Name="Announcement" Relationship="OAModel.FK_Announcement_AnnounType" FromRole="AnnounType" ToRole="Announcement" />
+        </EntityType>
+        <EntityType Name="UserMessage">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AnnounId" Type="Int32" Nullable="false" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="IsRead" Type="Int16" Nullable="false" />
+          <Property Name="ReadTime" Type="DateTime" Precision="3" />
+          <Property Name="Remark" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Announcement" Relationship="OAModel.FK_UserMessage_Announcement" FromRole="UserMessage" ToRole="Announcement" />
+          <NavigationProperty Name="UserInfo" Relationship="OAModel.FK_UserMessage_UserInfo" FromRole="UserMessage" ToRole="UserInfo" />
+        </EntityType>
+        <Association Name="FK_Announcement_AnnounType">
+          <End Type="OAModel.AnnounType" Role="AnnounType" Multiplicity="1" />
+          <End Type="OAModel.Announcement" Role="Announcement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AnnounType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Announcement">
+              <PropertyRef Name="AnnounTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserMessage_Announcement">
+          <End Type="OAModel.Announcement" Role="Announcement" Multiplicity="1" />
+          <End Type="OAModel.UserMessage" Role="UserMessage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Announcement">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserMessage">
+              <PropertyRef Name="AnnounId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserMessage_UserInfo">
+          <End Type="OAModel.UserInfo" Role="UserInfo" Multiplicity="1" />
+          <End Type="OAModel.UserMessage" Role="UserMessage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserInfo">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="UserMessage">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Notepaper">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Context" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsComplete" Type="Int16" Nullable="false" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="SubTime" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -882,6 +1078,53 @@
               <MappingFragment StoreEntitySet="ApplyType">
                 <ScalarProperty Name="parentId" ColumnName="parentId" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Announcement">
+            <EntityTypeMapping TypeName="OAModel.Announcement">
+              <MappingFragment StoreEntitySet="Announcement">
+                <ScalarProperty Name="Remark" ColumnName="Remark" />
+                <ScalarProperty Name="AnnounTypeId" ColumnName="AnnounTypeId" />
+                <ScalarProperty Name="RevokeTime" ColumnName="RevokeTime" />
+                <ScalarProperty Name="IsRevoke" ColumnName="IsRevoke" />
+                <ScalarProperty Name="NewsTime" ColumnName="NewsTime" />
+                <ScalarProperty Name="Context" ColumnName="Context" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AnnounType">
+            <EntityTypeMapping TypeName="OAModel.AnnounType">
+              <MappingFragment StoreEntitySet="AnnounType">
+                <ScalarProperty Name="ParentId" ColumnName="ParentId" />
+                <ScalarProperty Name="Leva" ColumnName="Leva" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserMessage">
+            <EntityTypeMapping TypeName="OAModel.UserMessage">
+              <MappingFragment StoreEntitySet="UserMessage">
+                <ScalarProperty Name="Remark" ColumnName="Remark" />
+                <ScalarProperty Name="ReadTime" ColumnName="ReadTime" />
+                <ScalarProperty Name="IsRead" ColumnName="IsRead" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="AnnounId" ColumnName="AnnounId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Notepaper">
+            <EntityTypeMapping TypeName="OAModel.Notepaper">
+              <MappingFragment StoreEntitySet="Notepaper">
+                <ScalarProperty Name="SubTime" ColumnName="SubTime" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="IsComplete" ColumnName="IsComplete" />
+                <ScalarProperty Name="Context" ColumnName="Context" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

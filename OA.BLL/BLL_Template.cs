@@ -22,6 +22,26 @@ namespace OA.BLL
         }
     }   
 	
+	public partial class AnnouncementService :BaseService<Announcement>,IAnnouncementService
+    {
+    
+
+		 public override void SetCurrentDal()
+        {
+            CurrentDal = this.CurrentDBSession.AnnouncementDal;
+        }
+    }   
+	
+	public partial class AnnounTypeService :BaseService<AnnounType>,IAnnounTypeService
+    {
+    
+
+		 public override void SetCurrentDal()
+        {
+            CurrentDal = this.CurrentDBSession.AnnounTypeDal;
+        }
+    }   
+	
 	public partial class ApplyService :BaseService<Apply>,IApplyService
     {
     
@@ -72,6 +92,16 @@ namespace OA.BLL
         }
     }   
 	
+	public partial class NotepaperService :BaseService<Notepaper>,INotepaperService
+    {
+    
+
+		 public override void SetCurrentDal()
+        {
+            CurrentDal = this.CurrentDBSession.NotepaperDal;
+        }
+    }   
+	
 	public partial class R_UserInfo_ActionInfoService :BaseService<R_UserInfo_ActionInfo>,IR_UserInfo_ActionInfoService
     {
     
@@ -109,6 +139,16 @@ namespace OA.BLL
 		 public override void SetCurrentDal()
         {
             CurrentDal = this.CurrentDBSession.UserInfoDal;
+        }
+    }   
+	
+	public partial class UserMessageService :BaseService<UserMessage>,IUserMessageService
+    {
+    
+
+		 public override void SetCurrentDal()
+        {
+            CurrentDal = this.CurrentDBSession.UserMessageDal;
         }
     }   
 	

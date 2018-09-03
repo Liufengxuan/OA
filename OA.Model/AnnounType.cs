@@ -13,20 +13,21 @@ namespace OA.Model
     using System.Collections.Generic;
     using Newtonsoft.Json;
     
-    public partial class ApplyType
+    public partial class AnnounType
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public ApplyType()
+        public AnnounType()
         {
-            this.Apply = new HashSet<Apply>();
+            this.Announcement = new HashSet<Announcement>();
         }
     
         public int Id { get; set; }
         public string Name { get; set; }
-        public Nullable<int> parentId { get; set; }
-
+        public Nullable<int> Leva { get; set; }
+        public Nullable<int> ParentId { get; set; }
+    
         [JsonIgnore]
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Apply> Apply { get; set; }
+        public virtual ICollection<Announcement> Announcement { get; set; }
     }
 }

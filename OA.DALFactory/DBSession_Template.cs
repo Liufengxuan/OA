@@ -29,6 +29,34 @@ namespace  OA.DALFactory
             set { _ActionInfoDal = value; }
         }
 	
+		private IAnnouncementDAL _AnnouncementDal;
+        public IAnnouncementDAL AnnouncementDal
+        {
+            get
+            {
+                if(_AnnouncementDal == null)
+                {
+                    _AnnouncementDal = AbstractFactory.CreateAnnouncementDal();
+                }
+                return _AnnouncementDal;
+            }
+            set { _AnnouncementDal = value; }
+        }
+	
+		private IAnnounTypeDAL _AnnounTypeDal;
+        public IAnnounTypeDAL AnnounTypeDal
+        {
+            get
+            {
+                if(_AnnounTypeDal == null)
+                {
+                    _AnnounTypeDal = AbstractFactory.CreateAnnounTypeDal();
+                }
+                return _AnnounTypeDal;
+            }
+            set { _AnnounTypeDal = value; }
+        }
+	
 		private IApplyDAL _ApplyDal;
         public IApplyDAL ApplyDal
         {
@@ -99,6 +127,20 @@ namespace  OA.DALFactory
             set { _KeyWordsRankDal = value; }
         }
 	
+		private INotepaperDAL _NotepaperDal;
+        public INotepaperDAL NotepaperDal
+        {
+            get
+            {
+                if(_NotepaperDal == null)
+                {
+                    _NotepaperDal = AbstractFactory.CreateNotepaperDal();
+                }
+                return _NotepaperDal;
+            }
+            set { _NotepaperDal = value; }
+        }
+	
 		private IR_UserInfo_ActionInfoDAL _R_UserInfo_ActionInfoDal;
         public IR_UserInfo_ActionInfoDAL R_UserInfo_ActionInfoDal
         {
@@ -153,6 +195,20 @@ namespace  OA.DALFactory
                 return _UserInfoDal;
             }
             set { _UserInfoDal = value; }
+        }
+	
+		private IUserMessageDAL _UserMessageDal;
+        public IUserMessageDAL UserMessageDal
+        {
+            get
+            {
+                if(_UserMessageDal == null)
+                {
+                    _UserMessageDal = AbstractFactory.CreateUserMessageDal();
+                }
+                return _UserMessageDal;
+            }
+            set { _UserMessageDal = value; }
         }
 	
 		private IWeeklyDAL _WeeklyDal;

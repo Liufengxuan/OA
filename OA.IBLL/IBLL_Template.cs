@@ -16,6 +16,16 @@ namespace OA.IBLL
        
     }   
 	
+	public partial interface IAnnouncementService : IBaseService<Announcement>
+    {
+       
+    }   
+	
+	public partial interface IAnnounTypeService : IBaseService<AnnounType>
+    {
+       
+    }   
+	
 	public partial interface IApplyService : IBaseService<Apply>
     {
        
@@ -41,6 +51,11 @@ namespace OA.IBLL
        
     }   
 	
+	public partial interface INotepaperService : IBaseService<Notepaper>
+    {
+       
+    }   
+	
 	public partial interface IR_UserInfo_ActionInfoService : IBaseService<R_UserInfo_ActionInfo>
     {
        
@@ -57,6 +72,11 @@ namespace OA.IBLL
     }   
 	
 	public partial interface IUserInfoService : IBaseService<UserInfo>
+    {
+       
+    }   
+	
+	public partial interface IUserMessageService : IBaseService<UserMessage>
     {
        
     }   

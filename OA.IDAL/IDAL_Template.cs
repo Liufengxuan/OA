@@ -15,6 +15,16 @@ namespace OA.IDAL
       
     }
 	
+	public partial interface IAnnouncementDAL :IBaseDAL<Announcement>
+    {
+      
+    }
+	
+	public partial interface IAnnounTypeDAL :IBaseDAL<AnnounType>
+    {
+      
+    }
+	
 	public partial interface IApplyDAL :IBaseDAL<Apply>
     {
       
@@ -40,6 +50,11 @@ namespace OA.IDAL
       
     }
 	
+	public partial interface INotepaperDAL :IBaseDAL<Notepaper>
+    {
+      
+    }
+	
 	public partial interface IR_UserInfo_ActionInfoDAL :IBaseDAL<R_UserInfo_ActionInfo>
     {
       
@@ -56,6 +71,11 @@ namespace OA.IDAL
     }
 	
 	public partial interface IUserInfoDAL :IBaseDAL<UserInfo>
+    {
+      
+    }
+	
+	public partial interface IUserMessageDAL :IBaseDAL<UserMessage>
     {
       
     }

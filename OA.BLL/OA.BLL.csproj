@@ -57,6 +57,7 @@
     </Compile>
     <Compile Include="RoleInfoService.cs" />
     <Compile Include="UserInfoService.cs" />
+    <Compile Include="UserMessageService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\OA.DALFactory\OA.DALFactory.csproj">
