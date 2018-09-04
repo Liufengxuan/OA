@@ -11,6 +11,7 @@ namespace OA.Web.Controllers
     public class MyHomeController : MessageController
     {
         IBLL.IUserMessageService userMessageService = ServiceFactory.SevSession.GetUserMessageService();
+        IBLL.INotepaperService notepaperService = ServiceFactory.SevSession.GetNotepaperService();
         // GET: MyHome
         [HttpGet]
         public ActionResult Index()
@@ -41,6 +42,57 @@ namespace OA.Web.Controllers
             else {
                 return Content(Common.SerializeHelper.SerializeToString(new { state = 1, msg = "没有获取到数据" }));
             }
+        }
+
+
+        [HttpPost]
+        public ActionResult UpdateReadState(int MsgId)
+        {
+            int id = GetActiveUserInfo().ID;
+            UserMessage uM=userMessageService.LoadEntities(u => u.UserId == id&&u.AnnounId==MsgId).FirstOrDefault();
+            uM.IsRead = 1;
+            uM.ReadTime = DateTime.Now;
+            if (userMessageService.EditEntity(uM))
+            {
+                return Content(Common.SerializeHelper.SerializeToString(new { state = 0, msg = "已读取该内容。" }));
+                
+            }
+            return Content(Common.SerializeHelper.SerializeToString(new { state = 1, msg = "操作失败" }));
+           
+        }
+
+        public ActionResult GetNotePaperList(int condition)
+        {
+            //condition
+            //0今天、1待做、2历史
+            DateTime startDate = DateTime.Today;
+            DateTime EndDate = DateTime.Today.AddDays(86399F / 86400);
+            int id=GetActiveUserInfo().ID;
+            double total,completeCount,progress;
+            System.Linq.Expressions.Expression<Func<Model.Notepaper, bool>> lmd = n => n.UserId == id && n.SubTime > startDate && n.SubTime < EndDate;
+            var query= notepaperService.LoadEntities(lmd);
+            List<Notepaper> list = query.ToList();
+            total = list.Count();
+            completeCount =list.Where(u => u.IsComplete == 0).Count();
+            progress = total == 0 ? 0 : (completeCount / total) * 100;
+
+            if (condition == 0)
+            {
+                return Content(Common.SerializeHelper.SerializeToString(new { state = 0, msg = "获取成功", rst = query, progress = progress }));
+            }
+
+
+            if (condition == 1)
+            {
+                lmd = n => n.UserId == id && n.IsComplete == 0;
+            }
+            else if (condition == 2)
+            {
+                lmd = n => n.UserId == id && n.SubTime < startDate && n.IsComplete == 1;
+            }
+             query = notepaperService.LoadEntities(lmd);
+
+            return Content(Common.SerializeHelper.SerializeToString(new { state = 0, msg = "获取成功", rst = query, progress = progress }));
         }
     }
 }

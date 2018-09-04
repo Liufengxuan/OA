@@ -13,25 +13,47 @@
     <link href="~/Scripts/elemen-ui/theme-chalk/index.css" rel="stylesheet" />
     <script src="~/Scripts/elemen-ui/index.js"></script>
     <script src="~/Scripts/vue-resource.js"></script>
+
     <style>
         .msg-row {
             padding: 10px 0;
             /*background-color: #f9fafc;*/
             /*border-bottom: 1px dotted #000000;*/
         }
-     
+
         .msg-col > div {
-               width:100%; 
-               /*border: 1px solid blue;*/
-               
-               overflow: hidden;
-               text-overflow:ellipsis
-            }
+            width: 100%;
+            /*border: 1px solid blue;*/
+            overflow: hidden;
+            text-overflow: ellipsis
+        }
+
+        .MsgConfirm {
+            width: 600px
+        }
     </style>
+    <style>
+        .card-Notepaper {
+            height: 400px;
+        }
+
+
+        .card-Notepaper-progress {
+            width: 100%;
+            height: 320px;
+            text-align: center;
+        }
+
+        .card-Notepaper-main {
+            width: 100%;
+            height: 320px;
+        }
+    </style>
+
 </head>
 <body>
-    <div id="app" style="width:100%;height:100%">
-        <el-card style="height:90px" class="box-card">
+    <div id="app" style="width:99%;height:100%;background:  #f9fafc">
+        <el-card style="height:90px;" class="box-card">
             <el-tooltip style="width:150px;" class="item" effect="light" placement="top-start">
                 <div style="width:300px" slot="content">
                     <h1 style="font-size:15px">{{weather.City[0]}} {{weather.City[1]}}</h1><br />
@@ -52,15 +74,17 @@
 
         <el-row style="margin-top:1%;height:100%" :gutter="20">
             <el-col :span="11">
-        
+
                 <el-card style="height:400px" shadow="hover" :body-style=" {padding:'1px 0'} ">
                     <div slot="header" class="clearfix">
                         <el-badge :value="msg.CountSum" class="item">
-                            <span style="padding: 1px 0" class="el-icon-message"> 消息中心  </span>
+                            <span style="padding: 1px 0" class="el-icon-message"> 我的消息  </span>
+
                         </el-badge>
-                        <el-button style="float: right; padding: 1px 0" type="text">>>></el-button>
+                        <el-button style="float: right; padding: 1px 0" type="text">消息中心 >></el-button>
                     </div>
-                    <div style="height:44px;border-bottom:2px solid green">
+                    <div style="height:44px;border-bottom:2px solid #d8d3d3">
+                        <el-button style="margin-left:2%;padding: 3px 1px" type="text">设为已读</el-button>
                         <el-select v-model="msg.SelectValue" style="float: right;text-align:center;width:150px;" placeholder="请选择">
                             <el-option style="text-align:center" :value="0" label="全部消息"></el-option>
                             <el-option style="text-align:center" v-for="item in msg.MsgCount"
@@ -74,11 +98,12 @@
 
                     <!--消息列表开始-->
                     <div style="height:270px;margin-top:1%;overflow-y:auto">
-                        <el-card v-for="item in msg.MsgList" style="margin-bottom:10px;background:  #f9fafc;" shadow="hover" :body-style=" {padding:'2px 0'} ">
+                        <el-card v-for="(item,index) in msg.MsgList" style="margin-bottom:10px;background:  #f9fafc;margin-left:4px;margin-right:4px" shadow="hover" :body-style=" {padding:'2px 0'} ">
                             <el-row class="msg-row">
-
-                                <el-col class="msg-col" :span="11"><DIV><NOBR><a class="el-icon-tickets" href="javascript:void(0)">{{item.Title}}</a></NOBR></DIV></el-col>
-                                <el-col class="msg-col" :offset="1" :span="5"><DIV> <NOBR>{{item.Remark}}</NOBR></DIV></el-col>
+                                <el-tooltip class="item" effect="light" :content="item.Title" placement="top">
+                                    <el-col class="msg-col" :span="13"><DIV><NOBR><a v-on:click="ShowMsg(item)" class="el-icon-tickets" href="javascript:void(0)">{{item.Title}}</a></NOBR></DIV></el-col>
+                                </el-tooltip>
+                                <el-col class="msg-col" :offset="1" :span="3"><DIV> <NOBR>{{item.Remark}}</NOBR></DIV></el-col>
                                 <el-col class="msg-col" :offset="1" :span="6"><DIV> <NOBR>{{getLocalTime(item.NewsTime)}}</NOBR></DIV></el-col>
                             </el-row>
                         </el-card>
@@ -86,16 +111,49 @@
                     <!--消息列表结束-->
                 </el-card>
             </el-col>
+            <!--便笺开始-->
             <el-col :span="13">
                 <div>
-                    <el-card style="height:400px" shadow="hover" :body-style=" {padding:'1px 0'} ">
-                        鼠标悬浮时显示
+                    <el-card class="card-Notepaper" shadow="hover" :body-style=" {padding:'10px 10px'} ">
+                        <div slot="header" class="clearfix">
+                            <span style="padding: 1px 0" class="el-icon-edit-outline">  便笺  </span>
+                            <el-button class="el-icon-delete" style="float: right; padding: 1px 0" type="text">清空</el-button>
+                        </div>
+                        <el-row :gutter="14">
+                            <el-col :span="8">
+                                <el-card  class="card-Notepaper-progress" shadow="always">
+                                    <el-progress type="circle" :percentage="notePaper.progressVal" :stroke-width="24"></el-progress>
+
+                                    <el-radio-group style="margin-top:100px" v-model="notePaper.radioLabel" :border="true"   size="mini">
+                                        <el-radio-button  label="今日"></el-radio-button>
+                                        <el-radio-button  label="待做"></el-radio-button>
+                                        <el-radio-button  label="历史"></el-radio-button>
+                                    </el-radio-group>
+
+                                </el-card>
+                            </el-col>
+                            <el-col :span="16">
+                                <el-card class="card-Notepaper-main" shadow="always">
+
+                                  
+
+
+                                </el-card>
+                            </el-col>
+                        </el-row>
                     </el-card>
                 </div>
             </el-col>
-            
+            <!--便笺结束-->
         </el-row>
-    </div>
+        <el-row style="margin-top:1%;height:100%" :gutter="20">
+            <el-col :span="24">
+                <el-card style="height:400px" shadow="hover" :body-style=" {padding:'2px 1px'} ">
+                   
+                </el-card>
+            </el-col>
+        </el-row>
+</div>
 </body>
 <script>
    var v= new Vue({
@@ -107,9 +165,14 @@
                 MsgCount: [],
                 SelectValue: 0,
                 MsgList:[],
-            }
+            },
            //{Name: "系统消息", Id: 1, Count: 5}
-            
+            notePaper: {
+                progressVal: 0,
+                condition: 0,//0今天、1待做、2历史
+                radioLabel: '今日',
+                npList: [],
+            }
         },
         methods: {
             GetUnreadMsgCount() {
@@ -145,17 +208,84 @@
             getLocalTime(nS) {
                 return new Date(nS).toLocaleString().replace(/:\d{1,2}$/, ' ');
             },
+            ShowMsg(obj) {
+                //展示这条信息、并再用户点击确定后将此用户的这条信息标记为已读。
+                this.$alert('······',obj.Title, {
+                    customClass: 'MsgConfirm',
+                    showClose: false,
+                    dangerouslyUseHTMLString:true,
+                    confirmButtonText: '确定',
+                    message: `<p style="padding:10px 20px; text-indent: 2em;text-align:left" >
+                                ${obj.Context.replace(/\s+/g, '<br/>')}
+                                </p><br/><br/>
+                                <span style=" width=50px;margin-left:90%">${obj.Remark}</span><br/>
+                                <span style=" width=50px;margin-left:75%">${this.getLocalTime(obj.NewsTime)}</span>`,
+                    roundButton: true,
+                    center: true,
+                    callback: action => {
+                        this.$http.post("/MyHome/UpdateReadState", "{MsgId:" + obj.Id+"}").then(resp => {
+                            if (resp.body.state == 0) {
+                                this.GetUnreadMsgCount();
+                                this.GetMsgList(0, false);
+                            } else {
+                                this.$message.error(resp.body.msg);
+                            }
+                        }, function () {
+                            this.$message.error('请求失败');
+                            })
+                    }
+
+                });
+                
+            },
+            getNPList() {
+                this.$http.post("/MyHome/GetNotePaperList", "{condition:" + this.notePaper.condition + "}").then(resp => {
+                    if (resp.body.state == 0) {
+                        this.notePaper.progressVal = resp.body.progress;
+                        this.notePaper.npList = resp.body.rst;
+                        this.$notify.info("您有代办事项未完成 ！");
+                    }
+                }, function () {
+                        
+                    })
+
+            }
+            
+            
        },
        watch: {
            'msg.SelectValue': function () {
                this.GetMsgList(this.msg.SelectValue, false)
+           },
+           'notePaper.radioLabel': function () {
+               let c = this.notePaper.radioLabel;
+               if (c == '历史') {
+                   this.notePaper.condition = 2;
+               } else if (c == '待做') {
+                   this.notePaper.condition = 1;
+               } else {
+                   this.notePaper.condition = 0;
+               }
+               this.getNPList();
            }
 
        },
         created() {
             this.weather = JSON.parse('@Html.Raw(ViewData["weather"])');
             this.GetUnreadMsgCount();
-            this.GetMsgList(this.msg.SelectValue, false)
+            this.GetMsgList(this.msg.SelectValue, false);
+            this.getNPList();
+        //    if (self.frameElement && self.frameElement.tagName == "IFRAME") {
+        //        alert('在iframe中');
+        //    }
+        //    //方式二  
+        //    if (window.frames.length != parent.frames.length) {
+        //        alert('在iframe中');
+        //    }
+        //    //方式三  
+        //    if (self != top) {
+        //        alert('在iframe中');
+        //    }  
         }
     })
 </script>
