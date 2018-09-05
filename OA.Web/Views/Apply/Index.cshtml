@@ -120,7 +120,7 @@
                         this.dateList = resp.body.list;
                         this.$Message.success(resp.body.msg);
                     } else {
-                        this.$Message.success(resp.body.msg);
+                        this.$Message.error(resp.body.msg);
                     }
 
                 }, function () {

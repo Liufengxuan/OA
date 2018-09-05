@@ -1,4 +1,5 @@
-﻿using System.Web;
+﻿using OA.Web.Filter;
+using System.Web;
 using System.Web.Mvc;
 
 namespace OA.Web
@@ -7,7 +8,7 @@ namespace OA.Web
     {
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
-            filters.Add(new HandleErrorAttribute());
+            filters.Add(new OAExceptionAttribute());
         }
     }
 }

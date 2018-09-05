@@ -41,9 +41,6 @@ namespace OA.Web.Controllers
         {
             Model.UserInfo userInfo = null;//GetActiveUserInfo();
             userInfo = new Model.UserInfo() { ID = 39 }; //测试
-
-
-
             //------------------------------------------------------------------------------------------------------------------------
             var list = applyService.LoadEntities(a => a.ApplicantId == userInfo.ID).OrderBy(a=>a.State);
             if (list != null)

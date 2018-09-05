@@ -24,5 +24,29 @@ namespace OA.Web.Controllers
             int ca = 1;
             return View();
         }
+
+        public ActionResult ThrowE1()//测试
+        {
+            int i = 1, o = 0;
+
+            int a = i / o;
+
+            return Content(a.ToString());
+        }
+        public ActionResult ThrowE2()//测试
+        {
+
+            try
+            {
+                Convert.ToDateTime("3333333333333333333");
+                
+            }
+            catch {
+                throw new DllNotFoundException();
+            }
+            return Content("123");
+
+
+        }
     }
 }

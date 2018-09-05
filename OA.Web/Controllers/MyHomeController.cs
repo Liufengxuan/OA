@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using OA.Model;
 using OA.Model.EnumType;
+using OA.Common;
 
 namespace OA.Web.Controllers
 {
@@ -16,11 +17,14 @@ namespace OA.Web.Controllers
         [HttpGet]
         public ActionResult Index()
         {
-           
-           ViewData["weather"] = "{\"Text\":[\"9月3日 多云转晴\",\"今日天气实况：气温：25℃；风向 / 风力：南风 1级；湿度：93 %；紫外线强度：中等。空气质量：中。\",\"北风小于3级\",\"20℃/ 32℃\"],\"City\":[\"山东\",\"济南\"],\"Icon\":[\" /Image/weather/1.gif\",\" /Image/weather/0.gif\"],\"Date\":\"2018 / 9 / 3 8:42:10\"}";//test
 
-
-            //ViewData["weather"] =Common.SerializeHelper.SerializeToString(base.GetWeather());//获取实时天气
+            //ViewData["weather"] = "{\"Text\":[\"9月3日 多云转晴\",\"今日天气实况：气温：25℃；风向 / 风力：南风 1级；湿度：93 %；紫外线强度：中等。空气质量：中。\",\"北风小于3级\",\"20℃/ 32℃\"],\"City\":[\"山东\",\"济南\"],\"Icon\":[\" /Image/weather/1.gif\",\" /Image/weather/0.gif\"],\"Date\":\"2018 / 9 / 3 8:42:10\"}";//test
+            string cache= RedisHelper.Get<string>("weather");     //他妈的这个redis 存对象有问题、坑。还是序列化后再存吧
+            if(cache == null) {
+                cache = Common.SerializeHelper.SerializeToString(GetWeather());
+                RedisHelper.Set("weather", cache, DateTime.Now.AddHours(4));     
+            }
+            ViewData["weather"] = cache;//获取实时天气
             return View();
         }
 
@@ -67,6 +71,16 @@ namespace OA.Web.Controllers
             //0今天、1待做、2历史
             DateTime startDate = DateTime.Today;
             DateTime EndDate = DateTime.Today.AddDays(86399F / 86400);
+
+            //测试
+            startDate = Convert.ToDateTime("2018-09-04 00:00:00.000");
+            EndDate = Convert.ToDateTime("2018-09-04 23:59:00.000");
+
+
+
+
+
+
             int id=GetActiveUserInfo().ID;
             double total,completeCount,progress;
             System.Linq.Expressions.Expression<Func<Model.Notepaper, bool>> lmd = n => n.UserId == id && n.SubTime > startDate && n.SubTime < EndDate;

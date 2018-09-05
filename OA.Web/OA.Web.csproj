@@ -52,6 +52,10 @@
     <Reference Include="EntityFramework.SqlServer">
       <HintPath>..\..\..\OA\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\log4net.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -163,6 +167,7 @@
     <Compile Include="Controllers\UserInfoController.cs" />
     <Compile Include="Controllers\UserMgrController.cs" />
     <Compile Include="Controllers\WeeklyController.cs" />
+    <Compile Include="Filter\OAExceptionAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -185,6 +190,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\Config\Log4NetConfig.xml" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -658,6 +664,9 @@
     <Content Include="Scripts\vue.js" />
     <Content Include="Scripts\vue.min.js" />
     <Content Include="Scripts\vue2.js" />
+    <Content Include="static\Error\error.html" />
+    <Content Include="static\Error\error403.html" />
+    <Content Include="static\Error\error404.html" />
     <Content Include="static\UsrMgr\formCss.css" />
     <Content Include="static\UsrMgr\iview_UserMgr.css" />
     <Content Include="static\UsrMgr\main.js" />
@@ -692,8 +701,7 @@
     <None Include="Web References\cn.com.webxml.www\WeatherWebService.wsdl" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
-    <Folder Include="Config\" />
+    <Folder Include="App_Data\Log\" />
     <Folder Include="static\Apply\" />
     <Folder Include="Views\Message\" />
     <Folder Include="Views\UserInfo\" />

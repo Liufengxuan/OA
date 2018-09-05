@@ -135,7 +135,16 @@
                             <el-col :span="16">
                                 <el-card class="card-Notepaper-main" shadow="always">
 
-                                  
+
+                                    <el-tag style="margin:6px 3px" :key="index"
+                                            v-for="(tag,index) in notePaper.npList"
+                                            closable
+                                            :type="tag.IsComplete==0?'success':'info'"
+                                            :disable-transitions="false"
+                                            v-on:close="handleNpClose(index)">
+                                        {{tag.Context}}
+                                    </el-tag>
+
 
 
                                 </el-card>
@@ -239,18 +248,21 @@
                 
             },
             getNPList() {
-                this.$http.post("/MyHome/GetNotePaperList", "{condition:" + this.notePaper.condition + "}").then(resp => {
+                    this.$http.post("/MyHome/GetNotePaperList", "{condition:" + this.notePaper.condition + "}").then(resp => {
                     if (resp.body.state == 0) {
                         this.notePaper.progressVal = resp.body.progress;
                         this.notePaper.npList = resp.body.rst;
-                        this.$notify.info("您有代办事项未完成 ！");
+                        if (resp.body.rst.length > 0) {
+                            this.$notify.info("您有代办事项未完成 ！");
+                        }
                     }
                 }, function () {
-                        
+                    this.$message.error('请求失败');
                     })
-
+            },
+            handleNpClose(index) {
+                this.notePaper.npList.splice(index, 1)
             }
-            
             
        },
        watch: {
@@ -275,6 +287,8 @@
             this.GetUnreadMsgCount();
             this.GetMsgList(this.msg.SelectValue, false);
             this.getNPList();
+               
+             
         //    if (self.frameElement && self.frameElement.tagName == "IFRAME") {
         //        alert('在iframe中');
         //    }
