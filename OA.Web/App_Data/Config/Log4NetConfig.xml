@@ -1,13 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <log4net>
-  <!-- OFF, FATAL, ERROR, WARN, INFO, DEBUG, ALL -->
-  <!-- Set root logger level to ERROR and its appenders -->
   <root>
     <level value="ERROR"/>
     <appender-ref ref="SysAppender"/>
   </root>
 
-  <!-- Print only messages of level DEBUG or above in the packages -->
   <logger name="OAWebLogger">
     <level value="ERROR"/>
   </logger>
@@ -18,14 +15,15 @@
     <param name="DatePattern" value="&quot;sys_&quot;yyyyMMdd &quot;.log&quot;" />
     <param name="StaticLogFileName" value="false" />
     <layout type="log4net.Layout.PatternLayout,log4net">
-      <param name="ConversionPattern" value="%d [%t] %-5p %c - %m%n" />
-      <param name="Header" value="&#13;&#10;----------------------header--------------------------&#13;&#10;&#13;&#10;-------------------------------------------------------&#13;&#10;" />
+      <!--<param name="ConversionPattern" value="%d [%t] %-5p %c - %m%n" />-->
+      <param name="ConversionPattern" value="%d [%t] %-5p %n %c :[行号:%-5L] %n - %m%n" />
+      <param name="Header" value="&#13;&#10;&#13;&#10;&#13;&#10;----------------------header--------------------------&#13;&#10;&#13;&#10;-------------------------------------------------------&#13;&#10;" />
       <param name="Footer" value="&#13;&#10;----------------------footer--------------------------&#13;&#10;" />
     </layout>
   </appender>
   <appender name="consoleApp" type="log4net.Appender.ConsoleAppender,log4net">
     <layout type="log4net.Layout.PatternLayout,log4net">
-      <param name="ConversionPattern" value="%d [%t] %-5p %c : [行号:%-5L] - %m%n" />
+      <param name="ConversionPattern" value="%d [%t] %-5p %n %c :[行号:%-5L] %n - %m%n" />
     </layout>
   </appender>
 </log4net>

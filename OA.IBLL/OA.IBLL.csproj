@@ -47,6 +47,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>IBLL_Template.tt</DependentUpon>
     </Compile>
+    <Compile Include="INotepaperService.cs" />
     <Compile Include="IRoleInfoService.cs" />
     <Compile Include="IUserInfoService.cs" />
     <Compile Include="IUserMessageService.cs" />

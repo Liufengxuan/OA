@@ -48,6 +48,22 @@
             width: 100%;
             height: 320px;
         }
+
+
+
+        .button-new-tag {
+            margin-left: 10px;
+            height: 32px;
+            line-height: 30px;
+            padding-top: 0;
+            padding-bottom: 0;
+        }
+
+        .input-new-tag {
+            width: 600px;
+            margin-left: 10px;
+            vertical-align: bottom;
+        }
     </style>
 
 </head>
@@ -147,6 +163,16 @@
 
 
 
+                                    <el-input class="input-new-tag"
+                                              v-if="notePaper.inputVisible"
+                                              v-model="notePaper.inputValue"
+                                              ref="saveTagInput"
+                                              size="small"
+                                              v-on:keyup.enter.native="handleInputConfirm"
+                                             v-on:blur="handleInputConfirm">
+                                    </el-input>
+                                    <el-button v-else class="button-new-tag" size="small"  v-on:click="notePaper_showInput">＋ 添加 便签</el-button>
+
                                 </el-card>
                             </el-col>
                         </el-row>
@@ -181,6 +207,10 @@
                 condition: 0,//0今天、1待做、2历史
                 radioLabel: '今日',
                 npList: [],
+
+                inputVisible: false,
+                inputValue:'',
+
             }
         },
         methods: {
@@ -232,7 +262,7 @@
                     roundButton: true,
                     center: true,
                     callback: action => {
-                        this.$http.post("/MyHome/UpdateReadState", "{MsgId:" + obj.Id+"}").then(resp => {
+                        this.$http.post("/MyHome/ChangeReadState", "{MsgId:" + obj.Id+"}").then(resp => {
                             if (resp.body.state == 0) {
                                 this.GetUnreadMsgCount();
                                 this.GetMsgList(0, false);
@@ -244,9 +274,9 @@
                             })
                     }
 
-                });
-                
+                });             
             },
+             //notepaper
             getNPList() {
                     this.$http.post("/MyHome/GetNotePaperList", "{condition:" + this.notePaper.condition + "}").then(resp => {
                     if (resp.body.state == 0) {
@@ -261,9 +291,84 @@
                     })
             },
             handleNpClose(index) {
-                this.notePaper.npList.splice(index, 1)
-            }
-            
+                var form = {
+                    npId:999//this.notePaper.npList[index].Id
+                };
+                if (this.notePaper.npList[index].IsComplete > 0) {
+                    this.$confirm('确认永久删除这条记录吗？')
+                        .then(_ => {
+                            this.$http.get("/MyHome/DeleteNotepaperById/?npId=" + form.npId).then(resp => {
+                                if (resp.body.state == 0) {
+                                    this.$message.success(resp.body.msg);
+                                    this.notePaper.npList.splice(index, 1)
+                                }
+                                else {
+                                    this.$message.error(resp.body.msg);
+                                }
+                            }, function () {
+                                this.$message.error("请求失败");
+                            })
+                        })
+                        .catch(_ => { return });
+                }
+                else { 
+                    this.$http.get("/MyHome/ChangeNotepaperState/?npId=" + form.npId).then(resp => {
+                    if (resp.body.state == 0) {
+                        this.$message.success(resp.body.msg);
+                        this.notePaper.npList[index].IsComplete = 1;
+                    }
+                    else {
+                        this.$message.error(resp.body.msg);
+                    }
+                }, function () {
+                  
+                    this.$message.error("请求失败");
+                    })
+                }
+
+
+               
+            },          
+            notePaper_showInput() {
+                this.notePaper.inputVisible = true;
+                this.$nextTick(_ => {
+                    this.$refs.saveTagInput.$refs.input.focus();
+                });
+            },
+            handleInputConfirm() {
+                let inputValue = this.notePaper.inputValue;
+                if (inputValue == null || inputValue == "") {
+                    this.notePaper.inputVisible = false;
+                    this.notePaper.inputValue = '';
+                    return
+                }
+                this.$http.post("/MyHome/AddNotepaper", "{text:'" + inputValue + "'}").then(resp => {
+                    if (resp.body.state == 0) {
+                        this.$message.success(resp.body.msg);
+                        if (resp.body.NewNotepaper != null) {
+                            this.notePaper.npList.push(resp.body.NewNotepaper);
+                            this.notePaper.inputVisible = false;
+                            this.notePaper.inputValue = '';
+                        }
+                    } else {
+                        this.$message.error(resp.body.msg);
+
+                    }
+
+                }, function () {
+
+                    this.$message.error("请求出错");
+                    })
+
+
+
+
+
+               
+               
+
+            },
+            //notepaper
        },
        watch: {
            'msg.SelectValue': function () {

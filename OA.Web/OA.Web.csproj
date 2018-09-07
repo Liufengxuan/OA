@@ -667,6 +667,7 @@
     <Content Include="static\Error\error.html" />
     <Content Include="static\Error\error403.html" />
     <Content Include="static\Error\error404.html" />
+    <Content Include="static\Error\nopermission.html" />
     <Content Include="static\UsrMgr\formCss.css" />
     <Content Include="static\UsrMgr\iview_UserMgr.css" />
     <Content Include="static\UsrMgr\main.js" />

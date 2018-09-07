@@ -39,7 +39,7 @@
                             <span style="color:black;font-size:15px;font-style:initial">&nbsp&nbsp{{ui.UName}}</span>
                         </template>
                         <Menu-Item name="4-1" style="font-size:12px;background-color:chocolate">个人信息</Menu-Item>
-                        <Menu-Item name="4-2" style="font-size:12px;background-color:chocolate">退出登陆</Menu-Item>
+                        <Menu-Item name="logout"    style="font-size:12px;background-color:chocolate">注销登陆 </a></Menu-Item>
                     </Submenu>
                     <Menu-Group title="内容管理">
                         <Menu-Item name="个人主页"><Icon type="ios-home" size="15"></Icon>个人主页</Menu-Item>
@@ -70,7 +70,7 @@
                 <Content :style="{padding: '0 16px 16px'}">
                     <Breadcrumb :style="{margin: '16px 0'}">
                         <Breadcrumb-Item to="/Home/Index"><Icon type="ios-home-outline"></Icon>{{ui.UName}}</Breadcrumb-Item>
-                        <Breadcrumb-Item v-on:on-click="goLastPage" to="javascript:void(0);">{{lastIframeSrc.name}}</Breadcrumb-Item>
+                        <Breadcrumb-Item v-on:click.native="goLastPage" to="javascript:void(0);">{{lastIframeSrc.name}}</Breadcrumb-Item>
                         <Breadcrumb-Item>{{activeFromName}}</Breadcrumb-Item>
                     </Breadcrumb>
                     <Card :padding="2">
@@ -93,14 +93,19 @@
                     src:"",
                 },
                 menuList: {
-                    用户管理: "/UserMgr/index",
+                    用户管理: "/UserMgr/Index",
                     角色管理: "http://www.baidu.com",
                     企业周报: "/Weekly/Index",
                     审批事项: "/Apply/Index",
-                    个人主页:"/MyHome/Index",
+                    个人主页: "/MyHome/Index",
                 },                                                                                                                                                  
                 activeFromName: "",
-            },
+          },
+          watch: {
+              'iframeSrc': function () {
+                
+              }
+          },
             computed:{
                 lastName: function () {
                     var str = this.ui.UName;
@@ -110,7 +115,6 @@
                     } 
                     
                 }
-
             },
             methods: {
                 getActiveUInfo: function () {
@@ -121,20 +125,31 @@
                     })
                 },
                 test: function (name) {
+                    if (name == "logout") {
+                        window.location.href = "/Home/Logout";
+                    }
                     this.lastIframeSrc.name =this.activeFromName;
                     this.lastIframeSrc.src = this.iframeSrc;
-
                     this.iframeSrc = this.menuList[name];
                     this.activeFromName = name;
                 },
                 goLastPage: function () {
-                    this.iframeSrc = this.lastIframeSrc.src 
-                }
+                    let newname = this.lastIframeSrc.name
+                    /*this.lastIframeSrc.name*/  let lastsrc= this.activeFromName;
+                   /* this.lastIframeSrc.src*/ let lastname = this.iframeSrc;
+                    this.iframeSrc = this.lastIframeSrc.src;
+                    this.lastIframeSrc.name = lastsrc;
+                    this.lastIframeSrc.src = lastname;
+                    this.activeFromName = newname;
+                   
+                    
+                },
             },
             created: function () {
                 this.getActiveUInfo();
                 
-            }
+          },
+         
         })
 </script>
 

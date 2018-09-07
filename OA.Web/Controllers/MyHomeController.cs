@@ -50,7 +50,7 @@ namespace OA.Web.Controllers
 
 
         [HttpPost]
-        public ActionResult UpdateReadState(int MsgId)
+        public ActionResult ChangeReadState(int MsgId)
         {
             int id = GetActiveUserInfo().ID;
             UserMessage uM=userMessageService.LoadEntities(u => u.UserId == id&&u.AnnounId==MsgId).FirstOrDefault();
@@ -65,6 +65,7 @@ namespace OA.Web.Controllers
            
         }
 
+        [HttpPost]
         public ActionResult GetNotePaperList(int condition)
         {
             //condition
@@ -102,11 +103,60 @@ namespace OA.Web.Controllers
             }
             else if (condition == 2)
             {
-                lmd = n => n.UserId == id && n.SubTime < startDate && n.IsComplete == 1;
+                lmd = n => n.UserId == id && /*n.SubTime < startDate &&*/ n.IsComplete == 1;
             }
              query = notepaperService.LoadEntities(lmd);
 
             return Content(Common.SerializeHelper.SerializeToString(new { state = 0, msg = "获取成功", rst = query, progress = progress }));
+        }
+
+        [HttpGet]
+        public ActionResult ChangeNotepaperState(int npId)
+        {
+            Model.UserInfo u= GetActiveUserInfo();
+
+            Model.Notepaper notepaper = notepaperService.LoadEntities(n => n.Id == npId&&u.ID==n.UserId).FirstOrDefault();
+
+            notepaper.IsComplete = 1;
+            if (notepaperService.EditEntity(notepaper))
+            {
+                return Content(SerializeHelper.SerializeToString(new { state = 0, msg = "已完成 “" + notepaper.Context + "”" }));
+            }
+            return Content(SerializeHelper.SerializeToString(new { state = 1, msg = "服务器出错" }));
+        }
+
+        [HttpGet]
+        public ActionResult DeleteNotepaperById(int npId)
+        {
+            Model.UserInfo userInfo = GetActiveUserInfo();
+
+           Notepaper np= notepaperService.LoadEntities(n => n.Id == npId && n.UserId == userInfo.ID).FirstOrDefault();
+            if (notepaperService.DeleteEntity(np))
+            {
+                return Content(SerializeHelper.SerializeToString(new { state = 0, msg = "已删除该条消息" }));
+            }
+            return Content(SerializeHelper.SerializeToString(new { state = 1, msg = "删除失败" }));
+        }
+
+
+        [HttpPost]
+        public ActionResult AddNotepaper(string text)
+        {
+            Model.UserInfo u= GetActiveUserInfo();
+
+            Model.Notepaper notepaper = new Notepaper() {
+                Context = text,
+                IsComplete = 0,
+                UserId = u.ID,
+                SubTime = DateTime.Now,
+            };
+            int newId = notepaperService.AddEntityAndGetNewNotepaperId(notepaper);
+            if (0< newId)
+            {
+                return Content(SerializeHelper.SerializeToString(new { state = 0, msg = "已添加",NewNotepaper=notepaperService.LoadEntities(n=>n.Id==newId).FirstOrDefault() }));
+            }
+            return Content(SerializeHelper.SerializeToString(new { state = 1, msg = "添加失败" }));
+
         }
     }
 }

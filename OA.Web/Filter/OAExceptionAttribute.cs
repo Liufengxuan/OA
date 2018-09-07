@@ -9,7 +9,7 @@ namespace OA.Web.Filter
 {
     public class OAExceptionAttribute:HandleErrorAttribute
     {
-        public static Queue<Exception> ExceptionQueue = new Queue<Exception>();
+        //public static Queue<Exception> ExceptionQueue = new Queue<Exception>();
 
        
         public override void OnException(ExceptionContext filterContext)
