@@ -13,77 +13,78 @@
     @Scripts.Render("~/Scripts/vue.js")
     @Scripts.Render("~/Scripts/IView/iview.js")
     @Scripts.Render("~/Scripts/vue-resource.js")
+    @Scripts.Render("~/static/common/test.js")
+
     <style scoped>
         .expand-row {
             margin-bottom: 16px;
         }
-        
     </style>
 </head>
 <body>
     <template id="initiateTplt">
-       
+
         <div style="">
 
-            <Affix  style="width:100px;position:absolute;margin-top:10%;" :offset-top="100">
+            <Affix style="width:100px;position:absolute;margin-top:10%;" :offset-top="100">
                 <Button-Group vertical size="large">
-                    <i-Button style="margin-left:2px;border-bottom:solid black" type="success" shape="circle" >填写申请</i-Button>
+                    <i-Button style="margin-left:2px;border-bottom:solid black" type="success" shape="circle">填写申请</i-Button>
                     <p>         </p>
-                    <i-Button style="margin-left:2px" type="info" shape="circle" >考勤说明</i-Button>              
+                    <i-Button style="margin-left:2px" type="info" shape="circle">考勤说明</i-Button>
                 </Button-Group>
             </Affix>
-   
-                <Card :dis-hover="true" v-for="(item, index) in dateList" :key="index" style="margin: 3% 23%  3% 10% ">
 
-                    <div style="padding: 10px">
-                        <row style="border-bottom:solid #000000">
-                            <i-col span="6"><h3 style="color:#1a0404"><{{item.ApplyType.Name}}>  申请</h3> </i-col>
-                            <i-col span="10" offset="8">
-                                <span style="font-size:11px">
-                                    {{item.SubTime|getLocalTime}} 提交
-                                    &nbsp;<a v-if="item.State==2" href="javascript:void(0)" v-on:click="annul(item.Id)">撤销</a>
-                                    &nbsp;&nbsp;<a v-if="item.State>1">修改</a>
-                                    &nbsp;&nbsp;<a v-if="item.State==3">再次提交</a>
-                                </span>
+            <Card :dis-hover="true" v-for="(item, index) in dateList" :key="index" style="margin: 3% 23%  3% 10% ">
+
+                <div style="padding: 10px">
+                    <row style="border-bottom:solid #000000">
+                        <i-col span="6"><h3 style="color:#1a0404"><{{item.ApplyType.Name}}>  申请</h3> </i-col>
+                        <i-col span="10" offset="8">
+                            <span style="font-size:11px">
+                                {{item.SubTime|getLocalTime}} 提交
+                                &nbsp;<a v-if="item.State==2" href="javascript:void(0)" v-on:click="annul(item.Id)">撤销</a>
+                                &nbsp;&nbsp;<a v-if="item.State>1">修改</a>
+                                &nbsp;&nbsp;<a v-if="item.State==3">再次提交</a>
+                            </span>
+                        </i-col>
+                    </row>
+
+                    <br />
+                    <div v-if="item.Number>0">
+                        <row>
+                            <i-col span="24">
+                                <span style="font-size:17px;">请假时长: </span>
+                                <span style="color:crimson">{{item.BeginDate|getLocalTime}}</span>
+                                至 <span style="color:crimson">{{item.EndDate|getLocalTime}}</span>
                             </i-col>
-                        </row>
-
-                        <br />
-                        <div v-if="item.Number>0">
-                            <row>
-                                <i-col span="24">
-                                    <span style="font-size:17px;">请假时长: </span>
-                                    <span style="color:crimson">{{item.BeginDate|getLocalTime}}</span>
-                                    至 <span style="color:crimson">{{item.EndDate|getLocalTime}}</span>
-                                </i-col>
-                            </row><br />
-                        </div>
-                        <div v-if="item.Money>0">
-                            <row>
-                                <i-col span="6">
-                                    <span style="font-size:17px;">金额: </span>
-                                    ￥<span style="color:crimson">{{item.Money}}</span>
-                                </i-col>
-                            </row><br />
-                        </div>
-                        <span style="font-size:17px;">理由: </span>
-                        <p style="margin-left:5%;word-break:break-word;">{{item.Remark1}}</p>
+                        </row><br />
                     </div>
+                    <div v-if="item.Money>0">
+                        <row>
+                            <i-col span="6">
+                                <span style="font-size:17px;">金额: </span>
+                                ￥<span style="color:crimson">{{item.Money}}</span>
+                            </i-col>
+                        </row><br />
+                    </div>
+                    <span style="font-size:17px;">理由: </span>
+                    <p style="margin-left:5%;word-break:break-word;">{{item.Remark1}}</p>
+                </div>
 
-                    <Steps style="margin-right:2%;margin-top:2%;width:99%" size="small" :current="item.State<2?2:1">
-                        <Step title="提交申请" content="已提交申请"></Step>
-                        <Step title="审批" :status="item.State|Step2States" :content="item.State|Step2Content(item)"></Step>
-                        <Step :status="item.State|Step3States" title="审批结果" :content="item.State|Step3Content(index,item.UserInfo1.UName,item.Remark2)"></Step>
-                    </Steps>
-                </Card>
+                <Steps style="margin-right:2%;margin-top:2%;width:99%" size="small" :current="item.State<2?2:1">
+                    <Step title="提交申请" content="已提交申请"></Step>
+                    <Step title="审批" :status="item.State|Step2States" :content="item.State|Step2Content(item)"></Step>
+                    <Step :status="item.State|Step3States" title="审批结果" :content="item.State|Step3Content(index,item.UserInfo1.UName,item.Remark2)"></Step>
+                </Steps>
+            </Card>
         </div>
 
     </template>
 
 
-    
+
     <template id="receiveTplt">
-        <i-Table  disabled-hover :border="true" :columns="columns" :data="list"></i-Table>
+        <i-Table disabled-hover :border="true" :columns="columns" :data="list"></i-Table>
     </template>
 
 
@@ -91,11 +92,11 @@
     <div style="margin:2% 2% 3% 2%;height:530px" id="app">
         <tabs style="width:100%;" :animated="true">
             <tab-pane style="background: #f8f8f9" :label="initiateMsg">
-              
+
                 <initiate style="width:100%;height:550px;overflow-y:auto"> </initiate>
             </tab-pane>
             &nbsp;
-            
+
             <tab-pane style="background: #f8f8f9" :label="receiveMsg">
                 <receive style="margin:2% 2%"></receive>
             </tab-pane>
@@ -103,428 +104,14 @@
 
     </div>
 </body>
-<script >
-    Vue.component('initiate', {
-        template: '#initiateTplt',
-        
-        data() {
-            return {
-                dateList: [],
-                isLeave: true,
-            }
-        },//---------------------------------------------------------------------
-        methods: {
-            getInitiateList() {
-                this.$http.post("/Apply/GetInitiateList").then(resp => {
-                    if (resp.body.state == 0) {
-                        this.dateList = resp.body.list;
-                        this.$Message.success(resp.body.msg);
-                    } else {
-                        this.$Message.error(resp.body.msg);
-                    }
 
-                }, function () {
-                    this.$Message.success("请求失败");
-                })
-
-            },
-            annul(Id) {
-                alert(Id)
-
-            }
-        },///---------------------------------------------------------------------
-        filters: {
-            Step3States(state){
-                if (state == 2) {
-                    return 'wait'
-                } else if (state == 0) {
-
-                    return 'error'
-                } else if (state == 1) {
-
-                    return 'finish'
-                }
-
-            },
-            Step2States(state) {
-                if (state == 2) {
-                    return 'process'
-                } else if (state == 3) {
-                    return 'error'
-                } else if (state < 2) {
-                    return 'finish'
-
-                }
-
-            },
-            Step3Content(state,index,name,remark) {
-                if (state > 1) {
-                    return '······'
-                } else if (state == 0) {
-
-                    return '您的申请已被【' + name + '】退回！备注消息:' + remark
-                } else if (state == 1) {
-
-                    return '【' + name + '】已同意您的申请！ 备注消息:' + remark
-                }
-
-            },
-            Step2Content(state, applyObj) {
-                if (state == 2) {
-                    return '等待【' + applyObj.UserInfo1.UName + '】的审批'
-                } else if (state < 2) {
-                    return '【' + applyObj.UserInfo1.UName + '】已经审批'
-                } else if (state == 3) {
-                    return '您已经撤销了此申请'
-                }
-            },
-            getLocalTime(nS) {
-                return new Date(nS).toLocaleString().replace(/:\d{1,2}$/, ' ');
-            }
-
-        },///---------------------------------------------------------------------
-        created() {
-            this.getInitiateList();
-
-        },///---------------------------------------------------------------------
-        
-    });
-
-   
-    Vue.component('receive', {
-        template: "#receiveTplt",
-        data() {
-            return {
-                columns: [
-                    {
-                        title: '姓名',
-                        key: 'UserInfo.UName',
-                        width:90,
-                        render: (h, params) => {
-                            return h('div', [
-                                h('Icon', {
-                                    props: {
-                                        type: 'person'
-                                    }
-                                }),
-                                h('strong', "  "+params.row.UserInfo.UName)
-                            ]);
-                        }
-                    },
-                    {
-                        title: '类型',
-                        key: 'UserInfo.UName',
-                        width: 70,
-                        render: (h, params) => {
-                            let color;
-                            if (params.row.ApplyType.parentId == 1) {
-                                color = "#0094ff";
-                            } else if (params.row.ApplyType.parentId == 2) {
-                                color = "coral";
-                            }
-                            return h('div', [
-                                h('span', {
-                                    attrs: {
-                                        style: `color:${color}`
-                                    }
-
-                                }, params.row.ApplyType.Name)
-                            ])
-
-                        }
-                    },
-                    {
-                        title:"期限 | 金额",
-                        key: 'address',
-                        width: 320,
-                        render: (h, para) => {
-                            let row = para.row;           
-                            if (row.Number > 0) {
-                                return h('div', [
-                                    h('Icon', {
-                                        props: {
-                                            type: 'ios-time-outline',
-                                            size: 17
-                                        }
-                                    }),
-                                    h('span', {
-                                        attrs: {
-                                            style: `font-size:11px;text-align:center`
-
-                                        }
-
-                                    }, " " + this.getLocalTime(para.row.BeginDate) + " — " + this.getLocalTime(para.row.EndDate))
-
-                                ])
-                            } else if (row.Money > 0) {
-                                return h('div', [
-                                    h('span', {
-                                        attrs: {
-                                            style: `font-size:17px;text-align:center`
-                                        }
-
-                                    }, "￥  " ),
-                                    h('span', {
-                                        attrs: {
-                                            style: `font-size:11px;text-align:center`
-                                        }
-
-                                    },para.row.Money),
-                                ])
-                            }
-
-                        }
-                    },
-                    {
-                        title: "理由",
-                        key: 'Remark1',  
-                        width: 350,
-                        tooltip: true,
-                        render: (h, para) => {
-                            if (para.row.Money > 0) {
-                                return h('div', [
-                                    h('span', para.row.Remark1),
-                                    h('a', {
-                                        attrs: {
-                                            href:`#`
-                                        }
-
-                                    }, "         查看附件")
-                                ])
-                            } else {
-                                return h('span', para.row.Remark1)
-
-                            }
-                           
-                        }
-                    },
-                    {
-                        title: "提交时间",
-                        key: 'SubTime',
-                        width: 170,
-                        render: (h, para) => {
-                            return h('span', this.getLocalTime(para.row.SubTime));
-
-                        }
-
-                    },
-                    {
-                        title: '操作',
-                        key: 'action',
-                        
-                        align: 'center',
-                        render: (h, params) => {
-
-                            if (params.row.State == 1) {
-                                return h('span', {
-                                    attrs: {
-                                        style: `font-size:10px;color:blue`
-                                    }
-
-                                }, "已 同 意")
-
-                            } else if (params.row.State == 0) {
-                                return h('span', {
-                                    attrs: {
-                                        style: `font-size:10px;color:red`
-                                    }
-
-                                }, "已 退 回")
-                            } else {
-                                return h('div', [
-                                    h('Button', {
-                                        props: {
-
-                                            type: 'primary',
-                                            size: 'small'
-                                        },
-                                        style: {
-                                            marginRight: '5px'
-                                        },
-                                        on: {
-                                            click: () => {
-                                                this.handle(params.index, true)
-                                            }
-                                        }
-                                    }, '同意'),
-                                    h('Button', {
-                                        props: {
-
-                                            type: 'error',
-                                            size: 'small'
-                                        },
-                                        on: {
-                                            click: () => {
-                                                this.handle(params.index, false)
-                                            }
-                                        }
-                                    }, '退回')
-                                ]);
-                            }
-                        }
-                    }
-                ],
-                list: [],
-                Remark:"",
-            }
-        },//---------------------------------------------------------------------
-        methods: {
-            handleApply(ApplyObj, isAgree, Remark, ) {
-                const apply = ApplyObj;
-                let pars = {
-                    Id: apply.Id,
-                    State: isAgree ? 1 : 0,
-                    ApproverId: apply.ApproverId,
-                    Remark2: Remark
-                };              
-                this.$http.post("/Apply/HandleApply", pars).then(resp => {
-                    if (resp.body.state == 0) {
-                        this.$Message.success(resp.body.msg);
-                        apply.State = pars.State;
-                        apply.Remark2 = pars.Remark2;
-                    } else {
-                        this.$Message.error(resp.body.msg);
-                    }
-
-                }, function () {
-                    this.$Message.error("请求未发送成功");
-
-                    })
-                this.Remark = "";
-            },
-            getDateList() {
-                this.$http.post("/Apply/GetReceiveList").then(resp => {
-                    if (resp.body.state == 0) {
-                        this.list = resp.body.list;
-                        this.$Message.success(resp.body.msg);
-                    } else {
-
-                        this.$Message.error(resp.body.msg);
-                    }
-                    
-
-                }, function () {
-                    this.$Message.error("请求未发送成功");
-                    })
-            },
-            handle(index,isAgree) {
-                let date = this.list[index];
-                let color = isAgree ? "blue" : "#ff6a00";
-                let handleType = isAgree ? "同意 " : "退回 ";
-                let btnText = isAgree ? " 批准 " : " 退回 ";
-                var self = this;
-                this.$Modal.confirm({
-                    okText: btnText,
-                    draggable: true,
-                    render: (h) => {
-                        return h('div', {
-                            attrs: {
-                                style: `border-top:8px solid ${color};height:100%`,
-                            }
-
-                        },[
-                                h('div', {
-                                    attrs: {
-                                      
-                                        style: `margin:1% 1% 1% 1%`
-                                    }
-                            }, [
-                            h('br'),
-                            h('h3', {
-                                attrs:{
-                                    style: `color:${color}`,
-                                }
-                            }, handleType + date.UserInfo.UName + " 的 " + date.ApplyType.Name + " 申请"),
-                            h('br'),
-                            h('Input', {
-                                props: {                               
-                                    value: self.Remark,
-                                    type: `textarea`,
-                                    rows: 3,           
-                                    placeholder:"备注信息(选填)"
-                                },
-                                on: {
-                                    input: (val) => {
-                                        self.Remark = val;
-                                    }
-                                }
-                               
-                               
-
-                            })
-                            ])
-                        ])
-                    },
-                    onOk: () => {
-                        this.handleApply(date, isAgree, this.Remark)
-                    }
-                })
-            },
-            getLocalTime(nS) {
-                return new Date(nS).toLocaleString().replace(/:\d{1,2}$/, ' ');
-            },
-          
-        },//---------------------------------------------------------------------
-        created() {
-            this.getDateList();
-
-        }//---------------------------------------------------------------------
-    })
+@Scripts.Render("~/static/Apply/initiate.js")
 
 
-    var _Main = new Vue({
-        el: "#app",
-        data: {
-            initiateMsgCount: 0,
-            receiveMsgCount:0,
-            initiateMsg: (h) => {
-                return h('div', [
-                    h('span', '  我的申请  '),
-                    h('Badge', {
-                        props: {
-                            count: _Main.initiateMsgCount,
-                        }
-                    })
-                ])
-            },
-            receiveMsg: (h) => {
-                return h('div', [
-                    h('span', '   待我审批  '),
-                    h('Badge', {
-                        props: {
-                            count: _Main.receiveMsgCount
-                        }
+@Scripts.Render("~/static/Apply/receive.js")
 
-                    })
+@Scripts.Render("~/static/Apply/main.js")
 
-                ])
-            }
 
-        },
-        methods: {
-            loadMsgCount() {
-                this.$http.post("/Apply/GetTabTips").then(resp => {
-                    if (resp.body.state == 0) {
-                        _Main.initiateMsgCount = resp.body.initiateMsgCount;
-                        _Main.receiveMsgCount = resp.body.receiveMsgCount;
-                        _Main.$Message.info(resp.body.msg)
-                    } else {
-                        this.$Message.error("未获取数据")
 
-                    }
-                },function () {
-                    this.$Message.error("请求失败")
-
-                    })
-
-            },
-
-        },
-        created() {
-            this.loadMsgCount();
-
-        }
-
-    })
-</script>
 </html>

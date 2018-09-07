@@ -13,8 +13,10 @@
     <link href="~/Scripts/elemen-ui/theme-chalk/index.css" rel="stylesheet" />
     <script src="~/Scripts/elemen-ui/index.js"></script>
     <script src="~/Scripts/vue-resource.js"></script>
+    <script src="~/static/common/test.js"></script>
 
     <style>
+
         .msg-row {
             padding: 10px 0;
             /*background-color: #f9fafc;*/
@@ -31,8 +33,13 @@
         .MsgConfirm {
             width: 600px
         }
-    </style>
-    <style>
+
+
+
+
+
+
+
         .card-Notepaper {
             height: 400px;
         }
@@ -68,7 +75,7 @@
 
 </head>
 <body>
-    <div id="app" style="width:99%;height:100%;background:  #f9fafc">
+    <div id="app" v-show="pageComplete" style="width:99%;height:100%;background:  #f9fafc">
         <el-card style="height:90px;" class="box-card">
             <el-tooltip style="width:150px;" class="item" effect="light" placement="top-start">
                 <div style="width:300px" slot="content">
@@ -137,13 +144,13 @@
                         </div>
                         <el-row :gutter="14">
                             <el-col :span="8">
-                                <el-card  class="card-Notepaper-progress" shadow="always">
+                                <el-card class="card-Notepaper-progress" shadow="always">
                                     <el-progress type="circle" :percentage="notePaper.progressVal" :stroke-width="24"></el-progress>
 
-                                    <el-radio-group style="margin-top:100px" v-model="notePaper.radioLabel" :border="true"   size="mini">
-                                        <el-radio-button  label="今日"></el-radio-button>
-                                        <el-radio-button  label="待做"></el-radio-button>
-                                        <el-radio-button  label="历史"></el-radio-button>
+                                    <el-radio-group style="margin-top:100px" v-model="notePaper.radioLabel" :border="true" size="mini">
+                                        <el-radio-button label="今日"></el-radio-button>
+                                        <el-radio-button label="待做"></el-radio-button>
+                                        <el-radio-button label="历史"></el-radio-button>
                                     </el-radio-group>
 
                                 </el-card>
@@ -169,9 +176,9 @@
                                               ref="saveTagInput"
                                               size="small"
                                               v-on:keyup.enter.native="handleInputConfirm"
-                                             v-on:blur="handleInputConfirm">
+                                              v-on:blur="handleInputConfirm">
                                     </el-input>
-                                    <el-button v-else class="button-new-tag" size="small"  v-on:click="notePaper_showInput">＋ 添加 便签</el-button>
+                                    <el-button v-else class="button-new-tag" size="small" v-on:click="notePaper_showInput">＋ 添加 便签</el-button>
 
                                 </el-card>
                             </el-col>
@@ -184,12 +191,14 @@
         <el-row style="margin-top:1%;height:100%" :gutter="20">
             <el-col :span="24">
                 <el-card style="height:400px" shadow="hover" :body-style=" {padding:'2px 1px'} ">
-                   
+
                 </el-card>
             </el-col>
         </el-row>
-</div>
+    </div>
 </body>
+
+
 <script>
    var v= new Vue({
         el: '#app',
@@ -199,7 +208,8 @@
                 CountSum: 0,
                 MsgCount: [],
                 SelectValue: 0,
-                MsgList:[],
+                MsgList: [],
+
             },
            //{Name: "系统消息", Id: 1, Count: 5}
             notePaper: {
@@ -211,7 +221,8 @@
                 inputVisible: false,
                 inputValue:'',
 
-            }
+            },
+            pageComplete: false,
         },
         methods: {
             GetUnreadMsgCount() {
@@ -274,7 +285,7 @@
                             })
                     }
 
-                });             
+                });
             },
              //notepaper
             getNPList() {
@@ -311,7 +322,7 @@
                         })
                         .catch(_ => { return });
                 }
-                else { 
+                else {
                     this.$http.get("/MyHome/ChangeNotepaperState/?npId=" + form.npId).then(resp => {
                     if (resp.body.state == 0) {
                         this.$message.success(resp.body.msg);
@@ -321,14 +332,14 @@
                         this.$message.error(resp.body.msg);
                     }
                 }, function () {
-                  
+
                     this.$message.error("请求失败");
                     })
                 }
 
 
-               
-            },          
+
+            },
             notePaper_showInput() {
                 this.notePaper.inputVisible = true;
                 this.$nextTick(_ => {
@@ -364,8 +375,8 @@
 
 
 
-               
-               
+
+
 
             },
             //notepaper
@@ -387,24 +398,25 @@
            }
 
        },
-        created() {
+       created() {
+
+
+
             this.weather = JSON.parse('@Html.Raw(ViewData["weather"])');
             this.GetUnreadMsgCount();
             this.GetMsgList(this.msg.SelectValue, false);
-            this.getNPList();
-               
-             
-        //    if (self.frameElement && self.frameElement.tagName == "IFRAME") {
-        //        alert('在iframe中');
-        //    }
-        //    //方式二  
-        //    if (window.frames.length != parent.frames.length) {
-        //        alert('在iframe中');
-        //    }
-        //    //方式三  
-        //    if (self != top) {
-        //        alert('在iframe中');
-        //    }  
+           this.getNPList();
+           this.pageComplete = true;
+
+            //if (self.frameElement && self.frameElement.tagName == "IFRAME") {
+            //    alert('在iframe中');
+            //}
+            ////方式二
+            //if (window.frames.length != parent.frames.length) {
+            //    alert('在iframe中');
+            //}
+            //方式三
+
         }
     })
 </script>

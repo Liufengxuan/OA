@@ -664,10 +664,15 @@
     <Content Include="Scripts\vue.js" />
     <Content Include="Scripts\vue.min.js" />
     <Content Include="Scripts\vue2.js" />
+    <Content Include="static\Apply\initiate.js" />
+    <Content Include="static\Apply\main.js" />
+    <Content Include="static\Apply\receive.js" />
+    <Content Include="static\common\test.js" />
     <Content Include="static\Error\error.html" />
     <Content Include="static\Error\error403.html" />
     <Content Include="static\Error\error404.html" />
     <Content Include="static\Error\nopermission.html" />
+    <Content Include="static\Home\Main.js" />
     <Content Include="static\UsrMgr\formCss.css" />
     <Content Include="static\UsrMgr\iview_UserMgr.css" />
     <Content Include="static\UsrMgr\main.js" />
@@ -703,7 +708,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\Log\" />
-    <Folder Include="static\Apply\" />
     <Folder Include="Views\Message\" />
     <Folder Include="Views\UserInfo\" />
   </ItemGroup>
